@@ -114,6 +114,23 @@ main { flex: 1; width: 100%; max-width: 940px; margin: 0 auto; padding: 38px 22p
 .f-pfeil { transition: transform 0.14s; }
 .fach:hover .f-pfeil, .fach:focus-visible .f-pfeil { transform: translateX(4px); }
 
+/* ── Einmaliger Anlass ──────────────────────────────────────── */
+/* Bewusst keine Kachel: die Lehrmittel sind Dauerangebote, die Projektwoche
+   ist ein Anlass. Darum eine Textzeile unter den Kacheln — bestehende
+   Variablen, bestehende Schriftgrade, keine Signalfarbe. Das Innenmass
+   ergibt zusammen mit den zwei Zeilen mehr als 44 px Trefferflaeche. */
+.anlass {
+  display: block; margin-top: 22px; padding: 12px 4px;
+  text-decoration: none; color: var(--tinte-2);
+  border-top: 1px solid var(--linie);
+}
+.anlass:hover { color: var(--tinte); }
+.anlass:focus-visible { outline: 2px solid var(--tinte); outline-offset: 3px; }
+.a-titel { display: block; font-size: 0.95rem; font-weight: 700; color: var(--tinte); }
+.a-text { display: block; font-size: 0.9rem; }
+.a-pfeil { transition: transform 0.14s; }
+.anlass:hover .a-pfeil, .anlass:focus-visible .a-pfeil { transform: translateX(4px); }
+
 .hinweis {
   margin-top: 34px; padding: 16px 20px;
   background: var(--papier-2); border: 1px solid var(--linie); border-radius: 8px;
@@ -168,6 +185,12 @@ main { flex: 1; width: 100%; max-width: 940px; margin: 0 auto; padding: 38px 22p
 
     <!-- FAECHER:ENDE -->
   </div>
+
+  <a class="anlass" href="projektwoche/"
+     aria-label="Projektwoche IDM 2027 — vier Tage, ein eigenes Produkt im Netz">
+    <span class="a-titel">Projektwoche IDM 2027 <span class="a-pfeil" aria-hidden="true">→</span></span>
+    <span class="a-text">Vier Tage, ein eigenes Produkt im Netz</span>
+  </a>
 
   <p class="hinweis"><strong>Für wen das gemacht ist:</strong> Lernende der Berufsmaturität
     TALS, die den Stoff nicht nur nachlesen, sondern damit herumprobieren wollen — und

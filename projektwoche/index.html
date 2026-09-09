@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projektwoche IDM 2027 — begreifbar</title>
+<meta name="description" content="Projektwoche 2027 am BBZ IDM Thun, Abteilung Berufsmaturität: In vier Tagen baust du deine eigene Idee als Produkt im Netz — mit KI als Werkzeug, ohne Programmierkenntnisse.">
+<meta name="author" content="Raphael Arnold Kohler">
+<link rel="canonical" href="https://begreifbar.ch/projektwoche/">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="begreifbar">
+<meta property="og:locale" content="de_CH">
+<meta property="og:title" content="Bau dir was — deine Idee geht online">
+<meta property="og:description" content="Projektwoche 2027 am BBZ IDM Thun, Abteilung Berufsmaturität: In vier Tagen baust du deine eigene Idee als Produkt im Netz — mit KI als Werkzeug, ohne Programmierkenntnisse.">
+<meta property="og:url" content="https://begreifbar.ch/projektwoche/">
+<link rel="stylesheet" href="../schriften.css">
+
+<style>
+/* Farben, Schriften, Abstände und Fusszeile sind unverändert von der
+   Startseite übernommen — die Seite steht allein, darum liegt das CSS hier. */
+:root {
+  --papier:     #f8f6f1;
+  --papier-2:   #efeade;
+  --weiss:      #ffffff;
+  --tinte:      #1c1a17;
+  --tinte-2:    #5a5040;
+  --linie:      #d8d0c4;
+
+  --blau:       #1a4f8a;   /* Mathematik */
+  --blau-hell:  #ddeaf8;
+  --blau-rand:  #5b8fc9;
+  --bernstein:      #8a4a0e;   /* Physik */
+  --bernstein-hell: #fbecd2;
+  --bernstein-rand: #c98028;
+
+  --serif: 'Source Serif 4', Georgia, serif;
+  --sans:  'Source Sans 3', system-ui, sans-serif;
+  --mono:  'JetBrains Mono', monospace;
+  --sl: 0 4px 22px rgba(28,26,23,0.13);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--sans); background: var(--papier); color: var(--tinte);
+  line-height: 1.65; display: flex; flex-direction: column; min-height: 100vh;
+}
+a:focus-visible { outline: 2px solid var(--tinte); outline-offset: 3px; }
+
+/* ── Kopf ───────────────────────────────────────────────────── */
+.hero {
+  background: var(--weiss); border-bottom: 1px solid var(--linie);
+  padding: 40px 24px 34px; text-align: center;
+}
+.hero h1 {
+  font-family: var(--serif); font-weight: 700; line-height: 1.15;
+  font-size: clamp(1.8rem, 5vw, 3rem); text-wrap: pretty;
+}
+.hero-ort {
+  max-width: 700px; margin: 16px auto 0;
+  font-size: 1.02rem; font-weight: 700; color: var(--tinte-2);
+}
+
+/* ── Text ───────────────────────────────────────────────────── */
+/* max-width in ch: hält den Fliesstext bei rund 70 Zeichen je Zeile. */
+main { flex: 1; width: 100%; max-width: 61ch; margin: 0 auto; padding: 38px 22px 70px; }
+main p { text-wrap: pretty; }
+.satz { font-size: 1.02rem; }
+
+.eckdaten {
+  width: 100%; margin: 30px 0; border-collapse: collapse;
+  background: var(--weiss); border: 1px solid var(--linie); border-radius: 10px;
+  font-size: 0.95rem; overflow: hidden;
+}
+.eckdaten th, .eckdaten td {
+  text-align: left; vertical-align: top; padding: 12px 18px;
+  border-bottom: 1px solid var(--linie);
+}
+.eckdaten tr:last-child th, .eckdaten tr:last-child td { border-bottom: none; }
+/* width:1% + nowrap: die Kopfspalte nimmt genau ihre Inhaltsbreite —
+   auf 360 px bleibt so der Platz fuer die Angabe daneben. */
+.eckdaten th { font-weight: 700; color: var(--tinte-2); width: 1%; white-space: nowrap; }
+
+.hinweis {
+  margin-top: 30px; padding: 16px 20px;
+  background: var(--papier-2); border: 1px solid var(--linie); border-radius: 8px;
+  font-size: 0.9rem; color: var(--tinte-2);
+}
+.hinweis strong { color: var(--tinte); }
+
+.stand {
+  margin-top: 30px; padding-top: 14px; border-top: 1px solid var(--linie);
+  font-size: 0.8rem; color: var(--tinte-2);
+}
+
+.zurueck {
+  display: inline-flex; align-items: center; gap: 7px;
+  margin-top: 26px; padding: 11px 0; min-height: 44px;
+  font-family: var(--mono); font-size: 0.8rem; font-weight: 700;
+  color: var(--tinte-2); text-decoration: none;
+}
+.zurueck:hover { color: var(--tinte); }
+.z-pfeil { transition: transform 0.14s; }
+.zurueck:hover .z-pfeil, .zurueck:focus-visible .z-pfeil { transform: translateX(-4px); }
+
+/* ── Fuss ───────────────────────────────────────────────────── */
+.site-footer {
+  background: var(--tinte); color: rgba(255,255,255,0.45);
+  padding: 24px 40px; text-align: center;
+  font-size: 0.74rem; line-height: 1.8;
+}
+.site-footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+.site-footer a:hover { color: #fff; }
+.site-footer strong { color: rgba(255,255,255,0.82); }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Bau dir was — deine Idee geht online</h1>
+  <p class="hero-ort">Projektwoche 2027 · BBZ IDM Thun, Abteilung Berufsmaturität</p>
+</header>
+
+<main>
+  <p class="satz">Du hast eine Idee: eine Lernkartei, die endlich so funktioniert,
+    wie du sie brauchst. Einen Rechner für deinen Beruf. Einen Trainer für die
+    Abschlussprüfung. Ein kleines Spiel. Eine Seite, die zeigt, was du kannst.
+    In dieser Woche baust du sie — mit KI als Werkzeug, ohne Programmierkenntnisse.</p>
+
+  <table class="eckdaten">
+    <tbody>
+      <tr><th scope="row">Wann</th>
+          <td>Dienstag 30.03.2027, 09:00 bis Freitag 02.04.2027, 16:00</td></tr>
+      <tr><th scope="row">Wo</th>
+          <td>BBZ IDM Thun; ein Halbtag auswärts</td></tr>
+      <tr><th scope="row">Mitbringen</th>
+          <td>eigener Laptop</td></tr>
+      <tr><th scope="row">Vorkenntnisse</th>
+          <td>keine nötig</td></tr>
+    </tbody>
+  </table>
+
+  <p class="hinweis"><strong>Ab Oktober 2026 steht hier die ausführliche Beschreibung
+    des Kurses:</strong> die Inhalte der vier Tage, die Rahmenbedingungen — und drei
+    kleine Produkte, die du selbst ausprobieren kannst.</p>
+
+  <p class="stand">Raphael Arnold Kohler · Kontakt via Teams · Stand 9. September 2026</p>
+
+  <a class="zurueck" href="../"><span class="z-pfeil" aria-hidden="true">←</span> begreifbar.ch</a>
+</main>
+
+<footer class="site-footer">
+  <p><strong>begreifbar.ch</strong> — Lernmaterial für die Berufsmaturität Technik, Architektur, Life Sciences</p>
+  <p>© 2026 Raphael Arnold Kohler · <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.de" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+  <p><a href="https://mathe.begreifbar.ch/feedback.html">Kontakt &amp; Feedback</a> · <a href="https://mathe.begreifbar.ch/rechtliches.html">Rechtliches &amp; Datenschutz</a></p>
+  <p>Keine Cookies · Kein Tracking</p>
+</footer>
+
+</body>
+</html>
