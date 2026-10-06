@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>begreifbar — Mathematik und Physik für die Berufsmaturität</title>
-<meta name="description" content="Zwei kostenlose, interaktive Lehrmittel für die Berufsmaturität TALS nach RLP-BM 2030: Mathematik und Physik, mit Animationen, Aufgaben und Formelsammlung.">
+<meta name="description" content="Zwei kostenlose Lehrmittel für die Berufsmaturität TALS nach RLP-BM 2030: Mathematik und Physik, je geführt im Leitprogramm oder frei mit Animationen, Aufgaben und Formelsammlung.">
 <meta name="author" content="Raphael Arnold Kohler">
 <link rel="canonical" href="https://begreifbar.ch/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -12,14 +12,18 @@
 <meta property="og:site_name" content="begreifbar">
 <meta property="og:locale" content="de_CH">
 <meta property="og:title" content="begreifbar — Mathematik und Physik für die Berufsmaturität">
-<meta property="og:description" content="Zwei kostenlose, interaktive Lehrmittel für die Berufsmaturität TALS nach RLP-BM 2030: Mathematik und Physik, mit Animationen, Aufgaben und Formelsammlung.">
+<meta property="og:description" content="Zwei kostenlose Lehrmittel für die Berufsmaturität TALS nach RLP-BM 2030: Mathematik und Physik, je geführt im Leitprogramm oder frei mit Animationen, Aufgaben und Formelsammlung.">
 <meta property="og:url" content="https://begreifbar.ch/">
 <link rel="stylesheet" href="schriften.css">
 
 <style>
 /* Farben, Schriften und Abstände sind mit den beiden Lehrmitteln identisch —
    Blau ist Mathematik, Bernstein ist Physik. Die Seite steht allein, darum
-   liegt das CSS hier und nicht in einer style.css. */
+   liegt das CSS hier und nicht in einer style.css.
+
+   Alle Bänder (Kopf, Inhalt, Fuss) teilen dieselbe Breite und denselben Rand.
+   Kopf zweispaltig, Kacheln zweispaltig, Fuss einzeilig — so passt die Seite
+   auf einem Laptop-Bildschirm ohne Scrollen. */
 :root {
   --papier:     #f8f6f1;
   --papier-2:   #efeade;
@@ -39,6 +43,9 @@
   --sans:  'Source Sans 3', system-ui, sans-serif;
   --mono:  'JetBrains Mono', monospace;
   --sl: 0 4px 22px rgba(28,26,23,0.13);
+
+  --breite: 1240px;   /* eine Breite für alle Bänder */
+  --rand: max(16px, calc((100% - var(--breite)) / 2));
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -50,45 +57,45 @@ body {
 /* ── Kopf ───────────────────────────────────────────────────── */
 .hero {
   background: var(--weiss); border-bottom: 1px solid var(--linie);
-  padding: 40px 24px 34px; text-align: center;
+  padding: 26px var(--rand) 24px;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 6px 48px; align-items: end;
 }
 .hero-ew {
+  grid-column: 1 / -1; justify-self: start;
   display: inline-flex; align-items: center; gap: 8px;
   font-family: var(--mono); font-size: 0.68rem; letter-spacing: 1px;
-  color: var(--tinte-2); margin-bottom: 14px;
+  color: var(--tinte-2);
 }
 .hero-ew strong { font-weight: 700; color: var(--blau); }
 .hero-ew::before, .hero-ew::after {
   content: ''; display: block; width: 22px; height: 1.5px; background: var(--blau-rand);
 }
 .hero h1 {
-  font-family: var(--serif); font-weight: 700; line-height: 1.15;
-  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-family: var(--serif); font-weight: 700; line-height: 1.1;
+  font-size: clamp(1.8rem, 4vw, 2.7rem); text-wrap: balance;
 }
 .hero h1 .m { color: var(--blau); }
 .hero h1 .p { color: var(--bernstein); }
 .hero-satz {
-  max-width: 700px; margin: 16px auto 0; text-wrap: pretty;
-  font-size: 1.02rem; color: var(--tinte-2);
+  display: grid; gap: 6px; text-wrap: pretty;
+  font-size: 1rem; line-height: 1.55; color: var(--tinte-2);
 }
+.hero-satz p:first-child { color: var(--tinte); font-weight: 600; }
+@media (max-width: 760px) { .hero { grid-template-columns: 1fr; } }
 
 /* ── Kacheln ────────────────────────────────────────────────── */
-main { flex: 1; width: 100%; max-width: 940px; margin: 0 auto; padding: 38px 22px 70px; }
+main { flex: 1; padding: 20px var(--rand) 28px; }
 /* auto-fit statt fester Spalten: die Seite trägt zwei Fächer genauso wie fünf.
-   320px als Minimum heisst — eine Spalte unter ~700px, wie vorher der Umbruch. */
-.faecher { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+   340px als Minimum heisst — eine Spalte unter ~720px. */
+.faecher { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; }
 
+/* Die Kachel selbst ist kein Link mehr: sie trägt zwei gleichwertige Wege
+   ins Fach, geführt (Leitprogramm) und frei (Themenseite). */
 .fach {
-  display: block; text-decoration: none; color: inherit;
-  background: var(--weiss); border: 1.5px solid var(--linie); border-left-width: 5px;
-  border-left-color: var(--fach); border-radius: 10px; padding: 26px 26px 22px;
-  transition: transform 0.14s, box-shadow 0.14s, border-color 0.14s;
+  display: flex; flex-direction: column; min-width: 0;
+  background: var(--weiss); border: 1.5px solid var(--linie); border-left: 5px solid var(--fach);
+  border-radius: 10px; padding: 18px 20px 16px;
 }
-.fach:hover, .fach:focus-visible {
-  transform: translateY(-3px); box-shadow: var(--sl);
-  border-color: var(--fach-rand); border-left-color: var(--fach);
-}
-.fach:focus-visible { outline: 2px solid var(--tinte); outline-offset: 3px; }
 
 /* Je Fach genau eine Zeile mit drei Variablen. Neue Fächer kommen hier dazu —
    scripts/neue-subdomain.py schreibt sie zwischen die Marken. */
@@ -98,58 +105,96 @@ main { flex: 1; width: 100%; max-width: 940px; margin: 0 auto; padding: 38px 22p
 /* FACHFARBEN:ENDE */
 
 .f-marke {
-  display: inline-block; font-family: var(--mono); font-size: 0.62rem; font-weight: 700;
+  align-self: flex-start; font-family: var(--mono); font-size: 0.62rem; font-weight: 700;
   letter-spacing: 2px; text-transform: uppercase; padding: 3px 9px; border-radius: 4px;
-  margin-bottom: 12px;
+  margin-bottom: 8px; background: var(--fach-hell); color: var(--fach);
 }
-.fach .f-marke { background: var(--fach-hell); color: var(--fach); }
-
 .f-titel { font-family: var(--serif); font-size: 1.7rem; font-weight: 700; line-height: 1.2; color: var(--fach); }
-.f-text { margin-top: 10px; font-size: 0.95rem; color: var(--tinte-2); }
-.f-adresse {
-  display: flex; align-items: center; gap: 7px;
-  margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--linie);
-  font-family: var(--mono); font-size: 0.8rem; font-weight: 700; color: var(--fach);
-}
-.f-pfeil { transition: transform 0.14s; }
-.fach:hover .f-pfeil, .fach:focus-visible .f-pfeil { transform: translateX(4px); }
+.f-text { margin-top: 4px; font-size: 0.92rem; line-height: 1.5; color: var(--tinte-2); }
 
-/* ── Einmaliger Anlass ──────────────────────────────────────── */
-/* Bewusst keine Kachel: die Lehrmittel sind Dauerangebote, die Projektwoche
-   ist ein Anlass. Darum eine Textzeile unter den Kacheln — bestehende
-   Variablen, bestehende Schriftgrade, keine Signalfarbe. Das Innenmass
-   ergibt zusammen mit den zwei Zeilen mehr als 44 px Trefferflaeche. */
-.anlass {
-  display: block; margin-top: 22px; padding: 12px 4px;
-  text-decoration: none; color: var(--tinte-2);
-  border-top: 1px solid var(--linie);
+.wege { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin-top: 12px; flex: 1; }
+.weg {
+  display: flex; flex-direction: column; gap: 4px; min-width: 0;
+  text-decoration: none; color: inherit; border-radius: 8px; padding: 12px 14px 10px;
+  border: 1.5px solid var(--fach-rand);
+  transition: transform 0.14s, box-shadow 0.14s;
 }
+.weg:hover, .weg:focus-visible { transform: translateY(-2px); box-shadow: var(--sl); }
+.weg:focus-visible { outline: 2px solid var(--tinte); outline-offset: 3px; }
+.weg-gefuehrt { background: var(--fach-hell); border-color: var(--fach-hell); }
+.weg-frei { background: var(--weiss); }
+.w-kopf { display: flex; align-items: center; gap: 8px; }
+.w-kopf svg { width: 22px; height: 22px; color: var(--fach); flex: none; }
+.w-art { font-family: var(--mono); font-size: 0.6rem; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--fach); }
+.w-name { font-weight: 700; font-size: 1.02rem; line-height: 1.3; color: var(--tinte); }
+.w-pfeil { display: inline-block; color: var(--fach); transition: transform 0.14s; }
+.weg:hover .w-pfeil, .weg:focus-visible .w-pfeil { transform: translateX(4px); }
+
+.f-adresse {
+  margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--linie);
+  font-family: var(--mono); font-size: 0.74rem; color: var(--tinte-2);
+}
+
+/* ── Unten: Anlass und Hinweis in einer Zeile ───────────────── */
+.unten {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 16px 32px; align-items: start;
+  margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--linie);
+}
+@media (max-width: 760px) { .unten { grid-template-columns: 1fr; } }
+
+/* Bewusst keine Kachel: die Lehrmittel sind Dauerangebote, die Projektwoche
+   ist ein Anlass. Darum eine Textzeile — bestehende Variablen, bestehende
+   Schriftgrade, keine Signalfarbe. Das Innenmass ergibt zusammen mit den
+   zwei Zeilen mehr als 44 px Trefferflaeche. */
+.anlass { display: block; padding: 2px 0; text-decoration: none; color: var(--tinte-2); }
 .anlass:hover { color: var(--tinte); }
 .anlass:focus-visible { outline: 2px solid var(--tinte); outline-offset: 3px; }
 .a-titel { display: block; font-size: 0.95rem; font-weight: 700; color: var(--tinte); }
 .a-text { display: block; font-size: 0.9rem; }
-.a-pfeil { transition: transform 0.14s; }
+.a-pfeil { display: inline-block; transition: transform 0.14s; }
 .anlass:hover .a-pfeil, .anlass:focus-visible .a-pfeil { transform: translateX(4px); }
 
-.hinweis {
-  margin-top: 34px; padding: 16px 20px;
-  background: var(--papier-2); border: 1px solid var(--linie); border-radius: 8px;
-  font-size: 0.9rem; color: var(--tinte-2);
-}
+.hinweis { font-size: 0.86rem; line-height: 1.5; color: var(--tinte-2); }
 .hinweis strong { color: var(--tinte); }
 
 /* ── Fuss ───────────────────────────────────────────────────── */
 .site-footer {
   background: var(--tinte); color: rgba(255,255,255,0.45);
-  padding: 24px 40px; text-align: center;
-  font-size: 0.74rem; line-height: 1.8;
+  padding: 12px var(--rand);
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 24px;
+  font-size: 0.74rem; line-height: 1.6;
 }
 .site-footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
 .site-footer a:hover { color: #fff; }
 .site-footer strong { color: rgba(255,255,255,0.82); }
+
+@media (prefers-reduced-motion: reduce) {
+  .weg, .w-pfeil, .a-pfeil { transition: none; }
+  .weg:hover, .weg:focus-visible { transform: none; }
+}
 </style>
 </head>
 <body>
+
+<!-- Zwei Piktogramme, je einmal definiert -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <!-- geführt: eine Spur mit Stationen, die der Reihe nach kommen -->
+  <symbol id="ic-gefuehrt" viewBox="0 0 40 40">
+    <path d="M6 32 C 14 32, 12 20, 20 20 S 26 8, 34 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="6" cy="32" r="3.2" fill="currentColor"/>
+    <circle cx="20" cy="20" r="3.2" fill="currentColor"/>
+    <circle cx="34" cy="8" r="3.2" fill="currentColor"/>
+  </symbol>
+  <!-- frei: Stationen ohne vorgegebene Reihenfolge -->
+  <symbol id="ic-frei" viewBox="0 0 40 40">
+    <circle cx="9" cy="10" r="3.2" fill="currentColor"/>
+    <circle cx="30" cy="9" r="3.2" fill="currentColor"/>
+    <circle cx="20" cy="22" r="3.2" fill="currentColor"/>
+    <circle cx="8" cy="31" r="3.2" fill="currentColor"/>
+    <circle cx="32" cy="31" r="3.2" fill="currentColor"/>
+    <path d="M9 10 L20 22 L30 9 M20 22 L8 31 M20 22 L32 31 M9 10 L8 31" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 3" opacity="0.7"/>
+  </symbol>
+</svg>
 
 <header class="hero">
   <!-- Text in EIN span: .hero-ew ist ein Flex-Container mit gap — einzelne <strong>
@@ -158,44 +203,69 @@ main { flex: 1; width: 100%; max-width: 940px; margin: 0 auto; padding: 38px 22p
     <strong>A</strong>rchitektur, <strong>L</strong>ife <strong>S</strong>ciences —
     <strong>TALS</strong></span></div>
   <h1><span class="m">Mathematik</span> und <span class="p">Physik</span> begreifbar</h1>
-  <p class="hero-satz">Zwei kostenlose Lehrmittel für die Berufsmaturität nach RLP-BM 2030 —
-    mit Animationen zum Ausprobieren, Aufgaben mit Lösungsweg und Formelsammlung.
-    Ohne Anmeldung, ohne Cookies.</p>
+  <div class="hero-satz">
+    <p>Zwei kostenlose Lehrmittel für die Berufsmaturität nach RLP-BM 2030 und
+      je zwei Wege durch denselben Stoff.</p>
+    <p>Beide Wege behandeln dieselben Themen mit derselben Schreibweise. Du kannst jederzeit
+      wechseln: Jede Themenseite verweist auf ihren Schritt im Leitprogramm und umgekehrt.</p>
+  </div>
 </header>
 
 <main>
   <div class="faecher">
     <!-- FAECHER:ANFANG — neue Kacheln haengt scripts/neue-subdomain.py vor FAECHER:ENDE ein -->
 
-    <a class="fach f-mathe" href="https://mathe.begreifbar.ch/">
+    <article class="fach f-mathe" aria-labelledby="t-mathe">
       <span class="f-marke">Grundlagen- und Schwerpunktfach</span>
-      <div class="f-titel">Mathematik</div>
+      <h2 class="f-titel" id="t-mathe">Mathematik</h2>
       <p class="f-text">Arithmetik und Algebra, Gleichungen, Funktionen, Datenanalyse
         und Geometrie — von der Termstruktur bis zur Vektorgeometrie.</p>
-      <div class="f-adresse">mathe.begreifbar.ch <span class="f-pfeil" aria-hidden="true">→</span></div>
-    </a>
+      <div class="wege">
+        <a class="weg weg-gefuehrt" href="https://mathe.begreifbar.ch/leitprogramm/">
+          <span class="w-kopf"><svg aria-hidden="true"><use href="#ic-gefuehrt"/></svg><span class="w-art">Geführt</span></span>
+          <span class="w-name">Leitprogramm <span class="w-pfeil" aria-hidden="true">→</span></span>
+        </a>
+        <a class="weg weg-frei" href="https://mathe.begreifbar.ch/">
+          <span class="w-kopf"><svg aria-hidden="true"><use href="#ic-frei"/></svg><span class="w-art">Frei</span></span>
+          <span class="w-name">Themenseite <span class="w-pfeil" aria-hidden="true">→</span></span>
+        </a>
+      </div>
+      <div class="f-adresse">mathe.begreifbar.ch</div>
+    </article>
 
-    <a class="fach f-physik" href="https://physik.begreifbar.ch/">
+    <article class="fach f-physik" aria-labelledby="t-physik">
       <span class="f-marke">Schwerpunktfach</span>
-      <div class="f-titel">Physik</div>
+      <h2 class="f-titel" id="t-physik">Physik</h2>
       <p class="f-text">Mechanik, Thermodynamik, Wellen und Elektrizität — dieselbe
         Machart, dieselben Werkzeuge, dasselbe Vorgehen beim Lösen.</p>
-      <div class="f-adresse">physik.begreifbar.ch <span class="f-pfeil" aria-hidden="true">→</span></div>
-    </a>
+      <div class="wege">
+        <a class="weg weg-gefuehrt" href="https://physik.begreifbar.ch/leitprogramm/">
+          <span class="w-kopf"><svg aria-hidden="true"><use href="#ic-gefuehrt"/></svg><span class="w-art">Geführt</span></span>
+          <span class="w-name">Leitprogramm <span class="w-pfeil" aria-hidden="true">→</span></span>
+        </a>
+        <a class="weg weg-frei" href="https://physik.begreifbar.ch/">
+          <span class="w-kopf"><svg aria-hidden="true"><use href="#ic-frei"/></svg><span class="w-art">Frei</span></span>
+          <span class="w-name">Themenseite <span class="w-pfeil" aria-hidden="true">→</span></span>
+        </a>
+      </div>
+      <div class="f-adresse">physik.begreifbar.ch</div>
+    </article>
 
     <!-- FAECHER:ENDE -->
   </div>
 
-  <a class="anlass" href="projektwoche/"
-     aria-label="Projektwoche IDM 2027 — vier Tage, ein eigenes Produkt im Netz">
-    <span class="a-titel">Projektwoche IDM 2027 <span class="a-pfeil" aria-hidden="true">→</span></span>
-    <span class="a-text">Vier Tage, ein eigenes Produkt im Netz</span>
-  </a>
+  <div class="unten">
+    <a class="anlass" href="projektwoche/"
+       aria-label="Projektwoche IDM 2027 — vier Tage, ein eigenes Produkt im Netz">
+      <span class="a-titel">Projektwoche IDM 2027 <span class="a-pfeil" aria-hidden="true">→</span></span>
+      <span class="a-text">Vier Tage, ein eigenes Produkt im Netz</span>
+    </a>
 
-  <p class="hinweis"><strong>Für wen das gemacht ist:</strong> Lernende der Berufsmaturität
-    TALS, die den Stoff nicht nur nachlesen, sondern damit herumprobieren wollen — und
-    Lehrpersonen, die einzelne Seiten im Unterricht einsetzen. Alles ist frei nutzbar
-    unter CC BY-NC 4.0.</p>
+    <p class="hinweis"><strong>Für wen das gemacht ist:</strong> Lernende der Berufsmaturität
+      TALS, die den Stoff Schritt für Schritt aufbauen oder damit herumprobieren wollen — und
+      Lehrpersonen, die Leitprogramme oder einzelne Seiten im Unterricht einsetzen. Alles ist
+      frei nutzbar unter CC BY-NC 4.0.</p>
+  </div>
 </main>
 
 <footer class="site-footer">
