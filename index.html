@@ -90,7 +90,7 @@ main { flex: 1; padding: 20px var(--rand) 28px; }
 .faecher { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; }
 
 /* Die Kachel selbst ist kein Link mehr: sie trägt zwei gleichwertige Wege
-   ins Fach, geführt (Leitprogramm) und frei (Themenseite). */
+   ins Fach, frei (Themenseite) und geführt (Leitprogramm). */
 .fach {
   display: flex; flex-direction: column; min-width: 0;
   background: var(--weiss); border: 1.5px solid var(--linie); border-left: 5px solid var(--fach);
@@ -221,13 +221,13 @@ main { flex: 1; padding: 20px var(--rand) 28px; }
       <p class="f-text">Arithmetik und Algebra, Gleichungen, Funktionen, Datenanalyse
         und Geometrie — von der Termstruktur bis zur Vektorgeometrie.</p>
       <div class="wege">
-        <a class="weg weg-gefuehrt" href="https://mathe.begreifbar.ch/leitprogramme.html">
-          <span class="w-kopf"><svg aria-hidden="true"><use href="#ic-gefuehrt"/></svg><span class="w-art">Geführt</span></span>
-          <span class="w-name">Leitprogramm <span class="w-pfeil" aria-hidden="true">→</span></span>
-        </a>
         <a class="weg weg-frei" href="https://mathe.begreifbar.ch/">
           <span class="w-kopf"><svg aria-hidden="true"><use href="#ic-frei"/></svg><span class="w-art">Frei</span></span>
           <span class="w-name">Themenseite <span class="w-pfeil" aria-hidden="true">→</span></span>
+        </a>
+        <a class="weg weg-gefuehrt" href="https://mathe.begreifbar.ch/leitprogramme.html">
+          <span class="w-kopf"><svg aria-hidden="true"><use href="#ic-gefuehrt"/></svg><span class="w-art">Geführt</span></span>
+          <span class="w-name">Leitprogramm <span class="w-pfeil" aria-hidden="true">→</span></span>
         </a>
       </div>
       <div class="f-adresse">mathe.begreifbar.ch</div>
@@ -239,13 +239,13 @@ main { flex: 1; padding: 20px var(--rand) 28px; }
       <p class="f-text">Mechanik, Thermodynamik, Wellen und Elektrizität — dieselbe
         Machart, dieselben Werkzeuge, dasselbe Vorgehen beim Lösen.</p>
       <div class="wege">
-        <a class="weg weg-gefuehrt" href="https://physik.begreifbar.ch/leitprogramme.html">
-          <span class="w-kopf"><svg aria-hidden="true"><use href="#ic-gefuehrt"/></svg><span class="w-art">Geführt</span></span>
-          <span class="w-name">Leitprogramm <span class="w-pfeil" aria-hidden="true">→</span></span>
-        </a>
         <a class="weg weg-frei" href="https://physik.begreifbar.ch/">
           <span class="w-kopf"><svg aria-hidden="true"><use href="#ic-frei"/></svg><span class="w-art">Frei</span></span>
           <span class="w-name">Themenseite <span class="w-pfeil" aria-hidden="true">→</span></span>
+        </a>
+        <a class="weg weg-gefuehrt" href="https://physik.begreifbar.ch/leitprogramme.html">
+          <span class="w-kopf"><svg aria-hidden="true"><use href="#ic-gefuehrt"/></svg><span class="w-art">Geführt</span></span>
+          <span class="w-name">Leitprogramm <span class="w-pfeil" aria-hidden="true">→</span></span>
         </a>
       </div>
       <div class="f-adresse">physik.begreifbar.ch</div>
