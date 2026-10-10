@@ -64,6 +64,22 @@ a:focus-visible { outline: 2px solid var(--tinte); outline-offset: 3px; }
 /* ── Text ───────────────────────────────────────────────────── */
 /* max-width in ch: hält den Fliesstext bei rund 70 Zeichen je Zeile. */
 main { flex: 1; width: 100%; max-width: 61ch; margin: 0 auto; padding: 38px 22px 70px; }
+
+/* Zwei Spalten ab 900 px: links Text und Eckdaten, rechts Beispiele und Wegweiser.
+   Jede Spalte bleibt unter rund 70 Zeichen. Schmaler: eine Spalte, Beispiele direkt
+   nach den Eckdaten (display: contents + order). */
+.spalten { display: flex; flex-direction: column; }
+.sp-links, .sp-rechts { display: contents; }
+.o-satz { order: 1; } .o-eck { order: 2; } .o-bsp { order: 3; }
+.o-mgl { order: 4; } .o-mehr { order: 5; } .o-nach { order: 6; }
+@media (min-width: 900px) {
+  main { max-width: 1100px; padding-top: 44px; }
+  .spalten { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 0 56px; align-items: start; }
+  .sp-links, .sp-rechts { display: block; }
+  .sp-rechts > div:first-child h2 { margin-top: 0; }
+  .sp-rechts .beispiele, .sp-rechts .wegweiser { grid-template-columns: 1fr; }
+  .eckdaten { margin-bottom: 0; }
+}
 main p { text-wrap: pretty; }
 .satz { font-size: 1.02rem; }
 
@@ -138,11 +154,15 @@ h2 {
 </header>
 
 <main>
+  <div class="spalten">
+  <div class="sp-links">
+    <div class="o-satz">
   <p class="satz">Du hast eine Idee: eine Lernkartei, die endlich so funktioniert,
     wie du sie brauchst. Einen Rechner für deinen Beruf. Einen Trainer für die
     Abschlussprüfung. Ein kleines Spiel. Eine Seite, die zeigt, was du kannst.
     In dieser Woche baust du sie — mit KI als Werkzeug, ohne Programmierkenntnisse.</p>
-
+    </div>
+    <div class="o-eck">
   <table class="eckdaten">
     <tbody>
       <tr><th scope="row">Wann</th>
@@ -159,7 +179,27 @@ h2 {
           <td>keine nötig, offen für KI</td></tr>
     </tbody>
   </table>
-
+    </div>
+    <div class="o-mgl">
+  <h2>Was möglich ist</h2>
+  <p class="leise" style="margin-top:10px">Alles, was im Browser läuft, auf dem Laptop und auf
+    dem Handy. <b>Nicht</b> möglich sind Benutzerkonten und Login, eine Datenbank auf einem
+    Server, ein Shop oder Personendaten von Dritten. Der Grund ist rechtlich, nicht technisch.
+    Andere Ideen besprechen wir am Kick-off.</p>
+    </div>
+    <div class="o-nach">
+  <h2>Nach der Anmeldung</h2>
+  <ul class="nachher">
+    <li><b>Kick-off im Januar 2027:</b> die Woche kompakt, Fragen zu deiner Idee, gemeinsames
+      Einrichten.</li>
+    <li><b>Vorbereitungsauftrag:</b> Claude- und GitHub-Konto einrichten, deine Arbeitsweise
+      wählen, deine Projektidee auf einer halben Seite formulieren.</li>
+    <li><b>Support via Teams,</b> bis zum ersten Tag der Projektwoche.</li>
+  </ul>
+    </div>
+  </div>
+  <div class="sp-rechts">
+    <div class="o-bsp">
   <h2>Drei Beispiele, jetzt ausprobieren</h2>
   <p class="leise">Jedes ist in rund zwei Stunden entstanden: als Grössenvergleich, nicht als
     Vorlage. Deine Idee sieht anders aus.</p>
@@ -171,13 +211,8 @@ h2 {
     <li><a href="beispiele/spiel.html"><b>Kleines Spiel</b><span>Paarsuche: Begriff und
       Erklärung, mit Zügen und Zeit.</span><span class="los">Ausprobieren →</span></a></li>
   </ul>
-
-  <h2>Was möglich ist</h2>
-  <p class="leise" style="margin-top:10px">Alles, was im Browser läuft, auf dem Laptop und auf
-    dem Handy. <b>Nicht</b> möglich sind Benutzerkonten und Login, eine Datenbank auf einem
-    Server, ein Shop oder Personendaten von Dritten. Der Grund ist rechtlich, nicht technisch.
-    Andere Ideen besprechen wir am Kick-off.</p>
-
+    </div>
+    <div class="o-mehr">
   <h2>Mehr zur Woche</h2>
   <ul class="wegweiser">
     <li><a href="themen/"><b>Zwölf Kursthemen</b><span>Was du an welchem Tag lernst, vom
@@ -185,15 +220,9 @@ h2 {
     <li><a href="werkstatt/"><b>Werkstatt</b><span>Wie begreifbar.ch entstanden ist, und wie du
       selbst so etwas baust, Schritt für Schritt.</span></a></li>
   </ul>
-
-  <h2>Nach der Anmeldung</h2>
-  <ul class="nachher">
-    <li><b>Kick-off im Januar 2027:</b> die Woche kompakt, Fragen zu deiner Idee, gemeinsames
-      Einrichten.</li>
-    <li><b>Vorbereitungsauftrag:</b> Claude- und GitHub-Konto einrichten, deine Arbeitsweise
-      wählen, deine Projektidee auf einer halben Seite formulieren.</li>
-    <li><b>Support via Teams,</b> bis zum ersten Tag der Projektwoche.</li>
-  </ul>
+    </div>
+  </div>
+  </div>
 
   <p class="stand">Raphael Arnold Kohler · Kontakt via Teams · Stand 10. Oktober 2026</p>
 
