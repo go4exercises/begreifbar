@@ -3,6 +3,7 @@
 //   h2                      → Abschnitt
 //   .tag-kopf h3            → Untergruppe (Kurstage)
 //   details mit Nummer      → Eintrag (.snr / .tnr / .anr); ein Klick öffnet ihn
+// data-kurz="…" an h2 oder details setzt einen kürzeren Text für die Leiste.
 // Schmaler als 1100 px bleibt die Seite unverändert. Kein Speicher, keine fremden Dateien.
 (function () {
   'use strict';
@@ -18,15 +19,15 @@
     '  .leiste-rahmen { display: grid; grid-template-columns: minmax(0, 74ch) 250px; gap: 0 48px; justify-content: center; }',
     '  .leiste-rahmen > main { margin: 0; max-width: none; }',
     '  .leiste { display: block; position: sticky; top: 0; align-self: start; max-height: 100vh; overflow-y: auto;',
-    '    padding: 34px 4px 30px 0; font-size: 0.84rem; line-height: 1.35; }',
+    '    padding: 24px 4px 14px 0; font-size: 0.84rem; line-height: 1.35; }',
     '}',
     '.leiste-titel { font-family: var(--mono); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; color: var(--tinte-2); margin-bottom: 8px; }',
     '.leiste ol { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--linie); }',
-    '.leiste a { display: block; padding: 4px 0 4px 12px; margin-left: -2px; border-left: 2px solid transparent;',
+    '.leiste a { display: block; padding: 3px 0 3px 12px; margin-left: -2px; border-left: 2px solid transparent;',
     '  color: var(--tinte-2); text-decoration: none; }',
     '.leiste a:hover { color: var(--tinte); }',
     '.leiste a.aktiv { color: var(--tinte); border-left-color: var(--tinte); font-weight: 700; }',
-    '.leiste .l-h2 { margin-top: 10px; color: var(--tinte); font-weight: 700; }',
+    '.leiste .l-h2 { margin-top: 8px; color: var(--tinte); font-weight: 700; }',
     '.leiste li:first-child .l-h2 { margin-top: 0; }',
     '.leiste .l-h3 { margin-top: 6px; font-size: 0.8rem; font-weight: 700; color: var(--tinte-2); }',
     '.leiste .l-nr { display: inline-block; min-width: 2.1em; font-family: var(--mono); font-size: 0.72rem; font-weight: 700; }',
@@ -43,12 +44,12 @@
       if (!nr) return;
       var titel = el.querySelector(':scope > summary .stitel, :scope > summary .ttitel, :scope > summary .atitel');
       if (!el.id) el.id = (nr.closest('.anr') ? 'aufgabe-' : (nr.classList.contains('tnr') ? 'thema-' : '')) + nr.textContent.trim().toLowerCase();
-      ziele.push({ el: el, art: 'eintrag', nr: nr.textContent.trim(), text: titel ? titel.textContent.trim() : '' });
+      ziele.push({ el: el, art: 'eintrag', nr: nr.textContent.trim(), text: el.dataset.kurz || (titel ? titel.textContent.trim() : '') });
     } else if (el.tagName === 'H2') {
       var kopie = el.cloneNode(true);
       kopie.querySelectorAll('.ebene').forEach(function (e) { e.remove(); });
       if (!el.id) el.id = 'abschnitt-' + i;
-      ziele.push({ el: el, art: 'h2', text: kopie.textContent.trim() });
+      ziele.push({ el: el, art: 'h2', text: el.dataset.kurz || kopie.textContent.trim() });
     } else {
       if (!el.id) el.id = 'tag-' + i;
       ziele.push({ el: el, art: 'h3', text: el.textContent.trim() });
