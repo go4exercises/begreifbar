@@ -104,15 +104,21 @@ die Fachfarben zwischen `<!-- FACHFARBEN:ANFANG -->` und `<!-- FACHFARBEN:ENDE -
 das Skript schreibt genau dorthin. Von Hand geht es genauso: eine Kachel kopieren,
 Klasse `f-<fach>` vergeben und eine Farbzeile ergänzen.
 
+**Sek1-Mathe ist die Ausnahme:** Die Kachel steht bewusst *ausserhalb* der
+`FAECHER`-Marken als schmale, ruhige Spalte links (`.reihe` → `.fach-klein`). Sie
+ist ein einziger Link ohne Wahl zwischen Themenseite und Leitprogramm, weil das
+Angebot kleiner ist und die BM-Fächer im Vordergrund stehen sollen.
+
 Das Raster ist auf `repeat(auto-fit, minmax(340px, 1fr))` gestellt und trägt zwei
 Fächer so gut wie fünf. **Was nicht mitwächst, ist die Prosa:** Überschrift,
-Seitentitel und Beschreibung nennen Mathematik und Physik namentlich und sprechen
-von «zwei Lehrmitteln». Ab dem dritten Fach gehört das nachgezogen — das Skript
-listet beim Einfügen die betroffenen Zeilen auf.
+Seitentitel, Beschreibung, Kopfzeile, Zielgruppe und Fuss nennen die Fächer und
+Stufen namentlich (seit Sek1-Mathe: «Sekundarstufe I und Berufsmaturität», keine
+Anzahl mehr). Kommt ein Fach oder eine Stufe dazu, gehört das nachgezogen — das
+Skript listet beim Einfügen die betroffenen Zeilen auf.
 
 ## Pflege
 
-Die Seite nennt beide Fächer, aber keine Kapitel — sie muss also nicht
+Die Seite nennt die Fächer, aber keine Kapitel — sie muss also nicht
 mitwachsen, wenn in Mathe oder Physik Teilgebiete dazukommen. Zu ändern ist sie
 nur, wenn ein Fach dazukommt, eine Adresse wechselt oder die Fachbeschreibung
 nicht mehr stimmt.

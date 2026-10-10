@@ -3,26 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>begreifbar — Mathematik und Physik für die Berufsmaturität</title>
-<meta name="description" content="Zwei kostenlose Lehrmittel für die Berufsmaturität TALS nach RLP-BM 2030: Mathematik und Physik, je geführt im Leitprogramm oder frei mit Animationen, Aufgaben und Formelsammlung.">
+<title>begreifbar — Mathematik und Physik für Sekundarstufe I und Berufsmaturität</title>
+<meta name="description" content="Kostenlose Lehrmittel für Mathematik und Physik in der Berufsmaturität TALS nach RLP-BM 2030, je geführt im Leitprogramm oder frei mit Animationen, Aufgaben und Formelsammlung — dazu Mathematik für die Sekundarstufe I.">
 <meta name="author" content="Raphael Arnold Kohler">
 <link rel="canonical" href="https://begreifbar.ch/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="begreifbar">
 <meta property="og:locale" content="de_CH">
-<meta property="og:title" content="begreifbar — Mathematik und Physik für die Berufsmaturität">
-<meta property="og:description" content="Zwei kostenlose Lehrmittel für die Berufsmaturität TALS nach RLP-BM 2030: Mathematik und Physik, je geführt im Leitprogramm oder frei mit Animationen, Aufgaben und Formelsammlung.">
+<meta property="og:title" content="begreifbar — Mathematik und Physik für Sekundarstufe I und Berufsmaturität">
+<meta property="og:description" content="Kostenlose Lehrmittel für Mathematik und Physik in der Berufsmaturität TALS nach RLP-BM 2030, je geführt im Leitprogramm oder frei mit Animationen, Aufgaben und Formelsammlung — dazu Mathematik für die Sekundarstufe I.">
 <meta property="og:url" content="https://begreifbar.ch/">
 <link rel="stylesheet" href="schriften.css">
 
 <style>
-/* Farben, Schriften und Abstände sind mit den beiden Lehrmitteln identisch —
-   Blau ist Mathematik, Bernstein ist Physik. Die Seite steht allein, darum
+/* Farben, Schriften und Abstände sind mit den Lehrmitteln identisch —
+   Blau ist Mathematik, Bernstein ist Physik, Petrol ist Sek-I-Mathematik. Die Seite steht allein, darum
    liegt das CSS hier und nicht in einer style.css.
 
    Alle Bänder (Kopf, Inhalt, Fuss) teilen dieselbe Breite und denselben Rand.
-   Kopf zweispaltig, Kacheln zweispaltig, Fuss einzeilig — so passt die Seite
+   Kopf zweispaltig, Kacheln zweispaltig mit schmaler Sek-I-Spalte links, Fuss einzeilig — so passt die Seite
    auf einem Laptop-Bildschirm ohne Scrollen. */
 :root {
   --papier:     #f8f6f1;
@@ -38,6 +38,9 @@
   --bernstein:      #8a4a0e;   /* Physik */
   --bernstein-hell: #fbecd2;
   --bernstein-rand: #c98028;
+  --petrol:      #0f6b6b;   /* Mathematik Sekundarstufe I */
+  --petrol-hell: #dcefee;
+  --petrol-rand: #4fa3a0;
 
   --serif: 'Source Serif 4', Georgia, serif;
   --sans:  'Source Sans 3', system-ui, sans-serif;
@@ -87,6 +90,10 @@ body {
 main { flex: 1; padding: 20px var(--rand) 28px; }
 /* auto-fit statt fester Spalten: die Seite trägt zwei Fächer genauso wie fünf.
    340px als Minimum heisst — eine Spalte unter ~720px. */
+/* Links eine schmale Spalte für Sek I, rechts das Raster der BM-Fächer.
+   Unter 960px stapeln: Sek I als flache Zeile oben. */
+.reihe { display: grid; grid-template-columns: minmax(200px, 1fr) minmax(0, 4fr); gap: 20px; align-items: start; }
+@media (max-width: 960px) { .reihe { grid-template-columns: 1fr; } }
 .faecher { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; }
 
 /* Die Kachel selbst ist kein Link mehr: sie trägt zwei gleichwertige Wege
@@ -102,6 +109,7 @@ main { flex: 1; padding: 20px var(--rand) 28px; }
 /* FACHFARBEN:ANFANG */
 .f-mathe  { --fach: var(--blau);      --fach-hell: var(--blau-hell);      --fach-rand: var(--blau-rand); }
 .f-physik { --fach: var(--bernstein); --fach-hell: var(--bernstein-hell); --fach-rand: var(--bernstein-rand); }
+.f-sek1-mathe { --fach: var(--petrol); --fach-hell: var(--petrol-hell); --fach-rand: var(--petrol-rand); }
 /* FACHFARBEN:ENDE */
 
 .f-marke {
@@ -129,6 +137,20 @@ main { flex: 1; padding: 20px var(--rand) 28px; }
 .w-name { font-weight: 700; font-size: 1.02rem; line-height: 1.3; color: var(--tinte); }
 .w-pfeil { display: inline-block; color: var(--fach); transition: transform 0.14s; }
 .weg:hover .w-pfeil, .weg:focus-visible .w-pfeil { transform: translateX(4px); }
+
+/* Sek I: dieselbe Kachel, kleiner und leiser — Papier statt Weiss, dünnerer
+   Farbrand, kleinerer Titel. Die ganze Kachel ist ein Link. */
+.fach-klein {
+  background: transparent; border-width: 1px; border-left-width: 3px; padding: 14px 16px 12px;
+  text-decoration: none; color: inherit; transition: background 0.14s, border-color 0.14s;
+}
+.fach-klein:hover, .fach-klein:focus-visible { background: var(--weiss); border-color: var(--fach-rand); }
+.fach-klein:focus-visible { outline: 2px solid var(--tinte); outline-offset: 3px; }
+.fach-klein .f-marke { font-size: 0.56rem; letter-spacing: 1.6px; margin-bottom: 6px; }
+.fach-klein .f-titel { font-size: 1.2rem; }
+.fach-klein .f-text { font-size: 0.84rem; }
+.fach-klein .f-adresse { font-size: 0.68rem; margin-top: 8px; }
+.fach-klein:hover .w-pfeil, .fach-klein:focus-visible .w-pfeil { transform: translateX(4px); }
 
 .f-adresse {
   margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--linie);
@@ -169,7 +191,7 @@ main { flex: 1; padding: 20px var(--rand) 28px; }
 .site-footer strong { color: rgba(255,255,255,0.82); }
 
 @media (prefers-reduced-motion: reduce) {
-  .weg, .w-pfeil, .a-pfeil { transition: none; }
+  .weg, .w-pfeil, .a-pfeil, .fach-klein { transition: none; }
   .weg:hover, .weg:focus-visible { transform: none; }
 }
 </style>
@@ -199,19 +221,30 @@ main { flex: 1; padding: 20px var(--rand) 28px; }
 <header class="hero">
   <!-- Text in EIN span: .hero-ew ist ein Flex-Container mit gap — einzelne <strong>
        würden sonst zu eigenen Flex-Items mit Lücken davor und danach. -->
-  <div class="hero-ew"><span>Berufsmaturität <strong>T</strong>echnik,
+  <div class="hero-ew"><span>Sekundarstufe I · Berufsmaturität <strong>T</strong>echnik,
     <strong>A</strong>rchitektur, <strong>L</strong>ife <strong>S</strong>ciences —
     <strong>TALS</strong></span></div>
   <h1><span class="m">Mathematik</span> und <span class="p">Physik</span> begreifbar</h1>
   <div class="hero-satz">
-    <p>Zwei kostenlose Lehrmittel für die Berufsmaturität nach RLP-BM 2030 und
-      je zwei Wege durch denselben Stoff.</p>
+    <p>Kostenlose Lehrmittel für die Berufsmaturität nach RLP-BM 2030 und
+      je zwei Wege durch denselben Stoff — dazu Mathematik für die Sekundarstufe I.</p>
     <p>Beide Wege behandeln dieselben Themen mit derselben Schreibweise. Du kannst jederzeit
       wechseln: Jede Themenseite verweist auf ihren Schritt im Leitprogramm und umgekehrt.</p>
   </div>
 </header>
 
 <main>
+  <div class="reihe">
+    <!-- Sek I steht bewusst ausserhalb von FAECHER: eine schmale, ruhige Spalte
+         links, ein einziger Link statt zweier Wege. -->
+    <a class="fach fach-klein f-sek1-mathe" href="https://sek1-mathe.begreifbar.ch/">
+      <span class="f-marke">Sekundarstufe I</span>
+      <span class="f-titel">Mathematik <span class="w-pfeil" aria-hidden="true">→</span></span>
+      <span class="f-text">Zahlen, Gleichungen, Flächen und Körper — die Grundlagen
+        vor der Berufsmaturität.</span>
+      <span class="f-adresse">sek1-mathe.begreifbar.ch</span>
+    </a>
+
   <div class="faecher">
     <!-- FAECHER:ANFANG — neue Kacheln haengt scripts/neue-subdomain.py vor FAECHER:ENDE ein -->
 
@@ -253,6 +286,7 @@ main { flex: 1; padding: 20px var(--rand) 28px; }
 
     <!-- FAECHER:ENDE -->
   </div>
+  </div>
 
   <div class="unten">
     <a class="anlass" href="projektwoche/"
@@ -261,15 +295,15 @@ main { flex: 1; padding: 20px var(--rand) 28px; }
       <span class="a-text">Vier Tage, ein eigenes Produkt im Netz</span>
     </a>
 
-    <p class="hinweis"><strong>Für wen das gemacht ist:</strong> Lernende der Berufsmaturität
-      TALS, die den Stoff Schritt für Schritt aufbauen oder damit herumprobieren wollen — und
+    <p class="hinweis"><strong>Für wen das gemacht ist:</strong> Lernende der Sekundarstufe I
+      und der Berufsmaturität TALS, die den Stoff Schritt für Schritt aufbauen oder damit herumprobieren wollen — und
       Lehrpersonen, die Leitprogramme oder einzelne Seiten im Unterricht einsetzen. Alles ist
       frei nutzbar unter CC BY-NC 4.0.</p>
   </div>
 </main>
 
 <footer class="site-footer">
-  <p><strong>begreifbar.ch</strong> — Lernmaterial für die Berufsmaturität Technik, Architektur, Life Sciences</p>
+  <p><strong>begreifbar.ch</strong> — Lernmaterial für die Sekundarstufe I und die Berufsmaturität Technik, Architektur, Life Sciences</p>
   <p>© 2026 Raphael Arnold Kohler · <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.de" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
   <p><a href="https://mathe.begreifbar.ch/feedback.html">Kontakt &amp; Feedback</a> · <a href="https://mathe.begreifbar.ch/rechtliches.html">Rechtliches &amp; Datenschutz</a></p>
   <p>Keine Cookies · Kein Tracking</p>
