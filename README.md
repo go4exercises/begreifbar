@@ -16,7 +16,7 @@ und keine Drittanbieter.
 | `CNAME` | `begreifbar.ch` — eine Zeile, LF, kein BOM |
 | `favicon.svg` | Platzhalter-Zeichen: zwei Balken in Mathe-Blau und Physik-Bernstein |
 | `projektwoche/` | Projektwoche IDM 2027: Ausschreibung mit Eckdaten und Wegweiser |
-| `projektwoche/beispiele/` | drei Beispielprodukte (Lernkartei, Rechner, Spiel), aus `Beispielseite-Projektwoche-2027` übernommen; nur Rücklink und Handy-Raster im Spiel angepasst |
+| `projektwoche/beispiele/` | drei Beispielprodukte (Lernkartei, Rechner, Spiel), aus `Beispielseite-Projektwoche-2027` übernommen; angepasst: Rücklink; im Spiel Handy-Raster, Emoji je Paar (Lernmodus, ausschaltbar für den Prüfmodus) und reine Worterklärungen |
 | `projektwoche/themen/` | die zwölf Kursthemen der Ausschreibung, nach Tagen geordnet und gewichtet |
 | `projektwoche/werkstatt/` | Entstehung von begreifbar und Einsteiger-Anleitung (Weg A Claude-App, Weg B Ubuntu + Claude Code), mit `einrichten.sh` und `CLAUDE-vorlage.md` |
 | `projektwoche/leiste.js` | mitlaufende Sprungleiste ab 1100 px für werkstatt/, themen/, kickoff/ — baut sich aus h2, Tagesköpfen und nummerierten `details` |
