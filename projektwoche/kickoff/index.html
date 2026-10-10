@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kick-off — Projektwoche 2027</title>
+<meta name="description" content="Kick-off der Projektwoche 2027 «Bau dir was»: die Woche auf einen Blick, die Rahmenbedingungen und dein Vorbereitungsauftrag — Claude-Konto, GitHub-Repo, Arbeitsweise wählen, Projektidee formulieren.">
+<meta name="author" content="Raphael Arnold Kohler">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://begreifbar.ch/projektwoche/kickoff/">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="begreifbar">
+<meta property="og:locale" content="de_CH">
+<meta property="og:title" content="Kick-off — Projektwoche 2027">
+<meta property="og:description" content="Die Woche auf einen Blick, die Rahmenbedingungen und dein Vorbereitungsauftrag.">
+<meta property="og:url" content="https://begreifbar.ch/projektwoche/kickoff/">
+<link rel="stylesheet" href="../../schriften.css">
+
+<style>
+/* Farben, Schriften und Fusszeile wie projektwoche/themen/; die Seite steht allein. */
+:root {
+  --papier:     #f8f6f1;
+  --papier-2:   #efeade;
+  --weiss:      #ffffff;
+  --tinte:      #1c1a17;
+  --tinte-2:    #5a5040;
+  --linie:      #d8d0c4;
+
+  --blau:       #1a4f8a;
+  --blau-hell:  #ddeaf8;
+  --bernstein:      #8a4a0e;
+  --bernstein-hell: #fbecd2;
+  --bernstein-rand: #c98028;
+  --petrol:      #0f6b6b;
+  --petrol-hell: #dcefee;
+  --violett:     #5b3d8a;
+  --violett-hell:#ece5f6;
+
+  --code-grund: #1f1d1a;
+  --code-tinte: #f1ece2;
+
+  --serif: 'Source Serif 4', Georgia, serif;
+  --sans:  'Source Sans 3', system-ui, sans-serif;
+  --mono:  'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--sans); background: var(--papier); color: var(--tinte);
+  line-height: 1.65; display: flex; flex-direction: column; min-height: 100vh;
+}
+a { color: var(--blau); }
+a:focus-visible, summary:focus-visible, button:focus-visible { outline: 2px solid var(--tinte); outline-offset: 3px; }
+
+/* ── Kopf ───────────────────────────────────────────────────── */
+.hero { background: var(--weiss); border-bottom: 1px solid var(--linie); padding: 40px 22px 30px; text-align: center; }
+.hero-ueber { font-family: var(--mono); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; color: var(--tinte-2); }
+.hero-ueber a { color: inherit; }
+.hero h1 { margin-top: 8px; font-family: var(--serif); font-weight: 700; line-height: 1.15; font-size: clamp(1.8rem, 5vw, 2.8rem); text-wrap: balance; }
+.hero-satz { max-width: 640px; margin: 14px auto 0; font-size: 1.05rem; color: var(--tinte-2); text-wrap: pretty; }
+
+.sprung { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 760px; margin: 22px auto 0; list-style: none; }
+.sprung a {
+  display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px;
+  background: var(--papier); border: 1px solid var(--linie); border-radius: 999px;
+  color: var(--tinte); font-size: 0.92rem; font-weight: 700; text-decoration: none;
+}
+.sprung a:hover { border-color: var(--tinte-2); }
+
+/* ── Text ───────────────────────────────────────────────────── */
+main { flex: 1; width: 100%; max-width: 74ch; margin: 0 auto; padding: 34px 18px 70px; }
+main p, main li { text-wrap: pretty; }
+section { margin-top: 52px; }
+section:first-child { margin-top: 0; }
+h2 { font-family: var(--serif); font-size: clamp(1.4rem, 3.4vw, 1.75rem); line-height: 1.2; scroll-margin-top: 16px; }
+h2 .ebene { display: block; margin-bottom: 4px; font-family: var(--mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; color: var(--tinte-2); text-transform: uppercase; }
+h3 { font-size: 1.08rem; margin: 22px 0 4px; }
+.lead { margin-top: 10px; color: var(--tinte-2); }
+main p + p, main p + ul, main p + ol, main ul + p, main ol + p { margin-top: 10px; }
+main ul, main ol { padding-left: 1.3em; }
+main li + li { margin-top: 4px; }
+code { font-family: var(--mono); font-size: 0.86em; background: var(--papier-2); border-radius: 4px; padding: 1px 5px; }
+.offen { background: var(--bernstein-hell); color: var(--bernstein); border-radius: 4px; padding: 0 5px; font-weight: 700; }
+
+/* Woche auf einen Blick */
+.woche { list-style: none; padding: 0 !important; margin-top: 18px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.woche li { margin: 0 !important; padding: 12px; background: var(--weiss); border: 1px solid var(--linie); border-top: 4px solid var(--petrol); border-radius: 8px; font-size: 0.9rem; line-height: 1.4; }
+.woche li:last-child { border-top-color: var(--bernstein-rand); }
+.woche .t { display: block; font-family: var(--mono); font-size: 0.72rem; font-weight: 700; color: var(--tinte-2); }
+.woche b { display: block; font-size: 0.98rem; margin: 2px 0 4px; }
+@media (max-width: 640px) { .woche { grid-template-columns: 1fr 1fr; } }
+
+.ziele { margin-top: 16px; padding: 14px 18px; background: var(--weiss); border: 1px solid var(--linie); border-radius: 10px; }
+.ziele b { display: block; margin-bottom: 4px; }
+
+/* Rahmen */
+.rahmen { width: 100%; margin-top: 18px; border-collapse: collapse; background: var(--weiss); border: 1px solid var(--linie); border-radius: 10px; overflow: hidden; font-size: 0.95rem; }
+.rahmen th, .rahmen td { text-align: left; vertical-align: top; padding: 10px 16px; border-bottom: 1px solid var(--linie); }
+.rahmen tr:last-child th, .rahmen tr:last-child td { border-bottom: none; }
+.rahmen th { font-weight: 700; color: var(--tinte-2); width: 1%; white-space: nowrap; }
+@media (max-width: 480px) { .rahmen th, .rahmen td { display: block; width: auto; } .rahmen th { padding-bottom: 0; border-bottom: none; } }
+
+.zwei { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+@media (max-width: 560px) { .zwei { grid-template-columns: 1fr; } }
+.zwei > div { padding: 14px 16px; background: var(--weiss); border: 1px solid var(--linie); border-radius: 10px; font-size: 0.93rem; }
+.zwei > div > b { display: block; margin-bottom: 4px; }
+.zwei .ja  { border-left: 4px solid var(--petrol); }
+.zwei .nein { border-left: 4px solid var(--bernstein-rand); }
+
+/* Auftrag: Checkliste mit aufklappbaren Aufgaben */
+.abgabe { margin-top: 16px; padding: 14px 18px; background: var(--petrol-hell); border: 1px solid #b9dcda; border-radius: 10px; }
+.abgabe b:first-child { display: block; }
+.werkzeugleiste { display: flex; justify-content: flex-end; margin-top: 16px; }
+.knopf { font: inherit; font-size: 0.86rem; font-weight: 700; min-height: 40px; padding: 0 14px; border: 1px solid var(--linie); border-radius: 8px; background: var(--weiss); color: var(--tinte-2); cursor: pointer; }
+.knopf:hover { color: var(--tinte); border-color: var(--tinte-2); }
+
+details.aufgabe { margin-top: 10px; background: var(--weiss); border: 1px solid var(--linie); border-radius: 10px; }
+details.aufgabe > summary { list-style: none; cursor: pointer; padding: 12px 44px 12px 14px; position: relative; display: flex; gap: 12px; align-items: center; min-height: 54px; }
+details.aufgabe > summary::-webkit-details-marker { display: none; }
+details.aufgabe > summary::after { content: "+"; position: absolute; right: 16px; top: 50%; transform: translateY(-52%); font-family: var(--mono); font-size: 1.2rem; color: var(--tinte-2); }
+details.aufgabe[open] > summary::after { content: "−"; }
+details.aufgabe[open] > summary { border-bottom: 1px solid var(--linie); }
+.anr { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-family: var(--mono); font-size: 0.82rem; font-weight: 700; color: #fff; background: var(--petrol); }
+.akopf { display: flex; flex-direction: column; line-height: 1.3; }
+.atitel { font-weight: 700; font-size: 1.02rem; }
+.asatz { font-size: 0.88rem; color: var(--tinte-2); }
+.adauer { margin-left: auto; flex: none; font-size: 0.8rem; color: var(--tinte-2); white-space: nowrap; }
+@media (max-width: 480px) { .adauer { display: none; } }
+.ainhalt { padding: 6px 16px 16px; }
+.ainhalt > p:first-child { margin-top: 8px; }
+.ainhalt ol, .ainhalt ul { margin-top: 8px; }
+.fertig { margin-top: 12px; padding: 8px 12px; border-left: 3px solid var(--petrol); background: var(--papier); font-size: 0.92rem; }
+.fertig::before { content: "✓ Erledigt, wenn: "; font-weight: 700; color: var(--petrol); }
+.kasten { margin-top: 14px; padding: 12px 16px; background: var(--papier-2); border: 1px solid var(--linie); border-radius: 10px; font-size: 0.93rem; }
+.kasten > b:first-child { display: block; margin-bottom: 2px; }
+.kasten.warn { background: var(--weiss); border-left: 4px solid var(--bernstein-rand); }
+
+/* Drei Arbeitsweisen */
+.wege { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+@media (max-width: 700px) { .wege { grid-template-columns: 1fr; } }
+.weg { display: flex; flex-direction: column; padding: 14px 14px 12px; border: 1px solid var(--linie); border-top: 5px solid var(--petrol); border-radius: 10px; background: var(--weiss); font-size: 0.9rem; }
+.weg.w2 { border-top-color: var(--violett); }
+.weg.w3 { border-top-color: var(--blau); }
+.weg .marke { font-family: var(--mono); font-size: 0.7rem; font-weight: 700; color: var(--petrol); }
+.weg.w2 .marke { color: var(--violett); }
+.weg.w3 .marke { color: var(--blau); }
+.weg h4 { font-family: var(--serif); font-size: 1.1rem; margin: 2px 0 6px; line-height: 1.25; }
+.weg ul { margin-top: 6px !important; }
+.weg .fuer { margin-top: auto; padding-top: 10px; font-size: 0.86rem; color: var(--tinte-2); }
+.weg .fuer b { color: var(--tinte); }
+
+.vergleich { width: 100%; margin-top: 14px; border-collapse: collapse; font-size: 0.88rem; background: var(--weiss); }
+.vergleich th, .vergleich td { text-align: left; vertical-align: top; padding: 7px 9px; border: 1px solid var(--linie); }
+.vergleich thead th { background: var(--papier-2); }
+.tabelle-rahmen { overflow-x: auto; }
+
+.fragen { margin-top: 14px; counter-reset: f; list-style: none; padding: 0 !important; }
+.fragen li { position: relative; padding: 10px 14px 10px 46px; margin: 8px 0 0 !important; background: var(--papier); border: 1px solid var(--linie); border-radius: 8px; font-size: 0.93rem; }
+.fragen li::before { counter-increment: f; content: counter(f); position: absolute; left: 12px; top: 10px; width: 24px; height: 24px; border-radius: 50%; background: var(--tinte-2); color: #fff; font-family: var(--mono); font-size: 0.75rem; font-weight: 700; display: grid; place-items: center; }
+
+/* Vorlagen mit Kopierknopf */
+.befehl { position: relative; margin-top: 10px; }
+.befehl pre { overflow-x: auto; padding: 40px 14px 12px; background: var(--code-grund); color: var(--code-tinte); border-radius: 8px; font-family: var(--mono); font-size: 0.82rem; line-height: 1.55; }
+.befehl.text pre { white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--sans); font-size: 0.92rem; }
+.befehl .kopie { position: absolute; top: 6px; right: 6px; min-height: 32px; padding: 0 10px; font: inherit; font-size: 0.75rem; font-weight: 700; cursor: pointer; border: 1px solid #4a463f; border-radius: 6px; background: #2c2925; color: var(--code-tinte); }
+.befehl .kopie:hover { background: #3a3631; }
+.befehl + p, .befehl + .kasten { margin-top: 12px; }
+.wo { display: block; margin-top: 12px; font-size: 0.8rem; font-weight: 700; color: var(--tinte-2); }
+.wo + .befehl { margin-top: 4px; }
+
+.stand { margin-top: 44px; padding-top: 14px; border-top: 1px solid var(--linie); font-size: 0.8rem; color: var(--tinte-2); }
+.zurueck { display: inline-flex; align-items: center; gap: 7px; margin-top: 20px; padding: 11px 0; min-height: 44px; font-family: var(--mono); font-size: 0.8rem; font-weight: 700; color: var(--tinte-2); text-decoration: none; }
+.zurueck:hover { color: var(--tinte); }
+
+/* ── Fuss ───────────────────────────────────────────────────── */
+.site-footer { background: var(--tinte); color: rgba(255,255,255,0.45); padding: 24px 22px; text-align: center; font-size: 0.74rem; line-height: 1.8; }
+.site-footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+.site-footer a:hover { color: #fff; }
+.site-footer strong { color: rgba(255,255,255,0.82); }
+
+@media print {
+  body { background: #fff; }
+  .sprung, .werkzeugleiste, .kopie, .zurueck, .site-footer { display: none !important; }
+  details.aufgabe { break-inside: avoid; border-color: #999; }
+  details.aufgabe > summary::after { content: ""; }
+  .befehl pre { background: #f2f2f2; color: #000; border: 1px solid #999; white-space: pre-wrap; padding-top: 12px; }
+  a { color: #000; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <p class="hero-ueber"><a href="../">Projektwoche</a> · Kick-off</p>
+  <h1>Bau dir was — der Kick-off</h1>
+  <p class="hero-satz">Schön, dass du dabei bist. Hier steht alles auf einer Seite: was dich
+    in der Woche erwartet, was gilt, und was du bis zur Projektwoche vorbereitest.</p>
+  <ul class="sprung">
+    <li><a href="#woche">Die Woche</a></li>
+    <li><a href="#rahmen">Rahmenbedingungen</a></li>
+    <li><a href="#auftrag">Dein Auftrag</a></li>
+    <li><a href="#hilfe">Hilfe</a></li>
+  </ul>
+</header>
+
+<main>
+
+<!-- ═══════════ Die Woche ═══════════ -->
+<section aria-labelledby="woche">
+  <h2 id="woche"><span class="ebene">In fünf Minuten</span>Die Woche auf einen Blick</h2>
+  <p class="lead">Vier Tage, eine eigene Idee, ein fertiges Produkt im Netz: gebaut mit KI als
+    Werkzeug, ohne Programmierkenntnisse. Am Freitag hat dein Produkt eine Adresse, die du
+    weitergeben kannst, und es bleibt dir.</p>
+
+  <ol class="woche">
+    <li><span class="t">DI 30.03.</span><b>Erste Fassung im Netz</b>Idee eingrenzen, erster Auftrag an die KI, testen, online stellen.</li>
+    <li><span class="t">MI 31.03.</span><b>Verlässlich machen</b>Nachprüfen, Fehler finden, Regeln aufschreiben, Daten behalten.</li>
+    <li><span class="t">DO 01.04.</span><b>Gut machen</b>Gestaltung, Quellen, Blindtest mit anderen, Schlusscheck.</li>
+    <li><span class="t">FR 02.04.</span><b>Vernissage</b>Am Vormittag zeigst du dein Produkt. Am Nachmittag: Auswertung.</li>
+  </ol>
+  <p style="margin-top:12px;font-size:0.93rem;color:var(--tinte-2)">Dazu kommt ein Halbtag
+    auswärts: ein Betriebsbesuch in der Region. Was an welchem Tag dazukommt, steht ausführlich in den
+    <a href="../themen/">zwölf Kursthemen</a>.</p>
+
+  <div class="ziele">
+    <b>Am Ende der Woche kannst du …</b>
+    <ul>
+      <li>deine Idee so genau beschreiben, dass daraus eine funktionierende Anwendung entsteht,</li>
+      <li>Ergebnisse einer KI prüfen, Fehler erkennen und gezielt nachbessern,</li>
+      <li>dein Produkt veröffentlichen und einem Publikum vorstellen.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════ Rahmen ═══════════ -->
+<section aria-labelledby="rahmen">
+  <h2 id="rahmen"><span class="ebene">Was gilt</span>Rahmenbedingungen</h2>
+  <table class="rahmen">
+    <tbody>
+      <tr><th scope="row">Wann</th><td>Dienstag 30.03.2027, 09:00 bis Freitag 02.04.2027, 16:00</td></tr>
+      <tr><th scope="row">Vernissage</th><td>Freitagvormittag, BBZ IDM Thun</td></tr>
+      <tr><th scope="row">Wo</th><td>BBZ IDM Thun; ein Halbtag auswärts (Betriebsbesuch in der Region)</td></tr>
+      <tr><th scope="row">Mitbringen</th><td>eigener Laptop mit Ladegerät, dein Handy zum Testen</td></tr>
+      <tr><th scope="row">Kosten</th><td>rund CHF 25 für einen Monat Zugang zum KI-Werkzeug (Claude Pro), dazu das ÖV-Billett für den Betriebsbesuch</td></tr>
+      <tr><th scope="row">Arbeitsform</th><td>allein oder zu zweit</td></tr>
+      <tr><th scope="row">Dokumentation</th><td>ein kurzes Tagesjournal: was du gebaut hast, was schiefging, was du gelernt hast</td></tr>
+      <tr><th scope="row">Ergebnis</th><td>dein Produkt online, mit Adresse, und die Präsentation an der Vernissage</td></tr>
+      <tr><th scope="row">Kontakt</th><td>Raphael Arnold Kohler, via Teams</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Was dein Produkt sein darf</h3>
+  <div class="zwei">
+    <div class="ja"><b>Möglich</b>
+      Alles, was im Browser läuft, auf dem Laptop und auf dem Handy: ein Rechner für deinen
+      Beruf, ein Prüfungstrainer, eine Lernkartei, ein kleines Spiel, eine Simulation, eine
+      Seite, die zeigt, was du kannst.</div>
+    <div class="nein"><b>Nicht möglich</b>
+      Benutzerkonten und Login · Datenbank auf einem Server · Bezahlfunktion, Shop ·
+      Personendaten von Dritten. Der Grund ist rechtlich, nicht technisch. Wer eine «App fürs
+      Handy» will, bekommt eine Webseite, die auf dem Handy gut läuft: sofort teilbar, ohne Store.</div>
+  </div>
+  <p style="margin-top:10px;font-size:0.93rem;color:var(--tinte-2)">Unsicher, ob deine Idee
+    passt? Genau dafür ist der Kick-off da. Frag, wir finden eine Fassung, die geht.</p>
+</section>
+
+<!-- ═══════════ Auftrag ═══════════ -->
+<section aria-labelledby="auftrag">
+  <h2 id="auftrag"><span class="ebene">Bis zur Projektwoche</span>Dein Vorbereitungsauftrag</h2>
+  <p class="lead">Vier Aufgaben. Die ersten zwei beginnen wir gemeinsam am Kick-off. Wer
+    vorbereitet kommt, baut am Dienstag um 09:15 schon am eigenen Produkt.</p>
+
+  <div class="abgabe">
+    <b>Abgabe bis <span class="offen">⟪Datum⟫</span> via Teams, drei Dinge:</b>
+    <ol>
+      <li>die Adresse deiner Testseite (Aufgabe 2),</li>
+      <li>deine gewählte Arbeitsweise (Aufgabe 3),</li>
+      <li>dein Ideenblatt (Aufgabe 4).</li>
+    </ol>
+    Fragen jederzeit im Teams-Kanal. Du bekommst eine Rückmeldung zu deiner Idee vor der Woche.
+  </div>
+
+  <div class="werkzeugleiste"><button class="knopf" type="button" id="alle">Alle aufklappen</button></div>
+
+  <!-- Aufgabe 1 -->
+  <details class="aufgabe">
+    <summary><span class="anr">1</span><span class="akopf"><span class="atitel">Claude-Konto einrichten</span><span class="asatz">gratis beginnen, Pro erst kurz vor der Woche</span></span><span class="adauer">10 min</span></summary>
+    <div class="ainhalt">
+      <ol>
+        <li>Auf <a href="https://claude.ai">claude.ai</a> ein Konto anlegen. Nimm eine
+          <b>private E-Mail-Adresse</b>: Dein Produkt bleibt dir auch nach der Schule.</li>
+        <li>Die <b>Claude-Desktop-App</b> installieren: <a href="https://claude.ai/download">claude.ai/download</a>
+          (Windows oder Mac) und dich anmelden.</li>
+        <li>Ausprobieren, mit dem Gratis-Konto: Bitte Claude um eine kleine Seite.</li>
+      </ol>
+      <span class="wo">Erster Versuch, zum Kopieren</span>
+      <div class="befehl text"><pre>Erstelle eine persönliche Visitenkarte als einzelne HTML-Datei: mein Vorname, mein Beruf, drei Dinge, die ich gerne mache. Schlicht, gut lesbar auf dem Handy, keine Dateien von fremden Servern.</pre></div>
+      <ol start="4">
+        <li><b>Claude Pro</b> (rund CHF 25 pro Monat) erst ab
+          <span class="offen">⟪Datum, ca. eine Woche vor der Projektwoche⟫</span> abschliessen. Der Monat
+          deckt dann die Vorbereitung und die ganze Woche. Arbeitsweise B und C (Aufgabe 3)
+          brauchen Pro.</li>
+        <li>Erinnerung in den Kalender: <b>nach der Woche kündigen</b>, falls du nicht weitermachen willst.</li>
+      </ol>
+      <div class="kasten warn"><b>Alter</b>
+        Claude setzt nach den Nutzungsbedingungen von Anthropic 18 Jahre voraus. Bist du
+        jünger, melde dich vor dem Kick-off bei mir. Wir klären das gemeinsam.</div>
+      <p class="fertig">Du bist in der Desktop-App angemeldet und hast deine Visitenkarte als <code>.html</code>-Datei gespeichert.</p>
+    </div>
+  </details>
+
+  <!-- Aufgabe 2 -->
+  <details class="aufgabe">
+    <summary><span class="anr">2</span><span class="akopf"><span class="atitel">GitHub-Konto und erstes Repo</span><span class="asatz">deine Visitenkarte geht online</span></span><span class="adauer">20 min</span></summary>
+    <div class="ainhalt">
+      <p>GitHub bewahrt dein Projekt auf und stellt es gratis ins Netz. Diese Aufgabe probt die
+        ganze Kette einmal mit der Visitenkarte, damit am Dienstag nichts mehr hakt.</p>
+      <ol>
+        <li>Auf <a href="https://github.com/signup">github.com/signup</a> ein Konto anlegen,
+          wieder mit der privaten E-Mail-Adresse. <b>Der Benutzername wird Teil deiner
+          Adresse</b> (<code>⟪name⟫.github.io</code>): kurz, ernst gemeint, ohne Jahrgang.</li>
+        <li>Zwei-Faktor-Anmeldung einrichten, wenn GitHub danach fragt: eine
+          Authenticator-App auf dem Handy bereithalten. Die Wiederherstellungscodes sicher ablegen.</li>
+        <li>Oben rechts <b>+</b> → <b>New repository</b>. Name: <code>visitenkarte</code>,
+          <b>Public</b>, <b>Create repository</b>.</li>
+        <li>Deine Datei in <code>index.html</code> umbenennen. Dann auf <b>uploading an existing
+          file</b> klicken, die Datei hineinziehen, <b>Commit changes</b>.</li>
+        <li><b>Settings</b> → <b>Pages</b> → Branch <code>main</code>, Ordner <code>/ (root)</code> → <b>Save</b>.</li>
+        <li>Nach ein bis zwei Minuten: <code>https://⟪name⟫.github.io/visitenkarte/</code>
+          auf dem Handy öffnen.</li>
+      </ol>
+      <div class="kasten"><b>Öffentlich heisst öffentlich</b>
+        Alles im Repo kann jede und jeder lesen, auch frühere Fassungen. Auf die Visitenkarte
+        gehören Vorname und Beruf, keine Adresse, keine Telefonnummer.</div>
+      <p class="fertig">Deine Visitenkarte öffnet sich auf dem Handy unter deiner eigenen Adresse.</p>
+      <p style="margin-top:10px;font-size:0.9rem">Ausführlicher:
+        <a href="../werkstatt/#a">Werkstatt, Schritt A5</a>.</p>
+    </div>
+  </details>
+
+  <!-- Aufgabe 3 -->
+  <details class="aufgabe">
+    <summary><span class="anr">3</span><span class="akopf"><span class="atitel">Arbeitsweise wählen</span><span class="asatz">Cowork, Claude Code in der App oder Ubuntu</span></span><span class="adauer">15 min</span></summary>
+    <div class="ainhalt">
+      <p>In allen drei Arbeitsweisen arbeitet Claude direkt in einem Ordner auf deinem Laptop.
+        Sie unterscheiden sich darin, wie viel Technik du siehst und selbst in der Hand hast.
+        Alle drei führen zum selben Ziel. Wechseln ist auch während der Woche möglich.</p>
+
+      <div class="wege">
+        <div class="weg w1">
+          <span class="marke">A · EINFACH</span>
+          <h4>Cowork in der Desktop-App</h4>
+          Du gibst Claude einen Ordner frei, Claude legt die Dateien dort an und ändert sie.
+          <ul>
+            <li>kein Terminal, kein Git</li>
+            <li>online stellen per Upload auf GitHub</li>
+            <li>Einrichten: nichts Zusätzliches</li>
+          </ul>
+          <p class="fuer"><b>Für dich, wenn</b> du dich ganz aufs Produkt konzentrieren willst.</p>
+        </div>
+        <div class="weg w2">
+          <span class="marke">B · MITTEL</span>
+          <h4>Claude Code in der Desktop-App</h4>
+          Derselbe Claude Code wie im Terminal, aber mit Fenstern und Knöpfen. Claude kann für dich
+          committen und pushen.
+          <ul>
+            <li>Git mit Geschichte und Rückgängig</li>
+            <li>online stellen mit <code>git push</code></li>
+            <li>Einrichten: Git installieren</li>
+          </ul>
+          <p class="fuer"><b>Für dich, wenn</b> du sehen willst, wie Profis arbeiten, aber ohne Terminal.</p>
+        </div>
+        <div class="weg w3">
+          <span class="marke">C · WERKSTATT</span>
+          <h4>Ubuntu und Claude Code im Terminal</h4>
+          So entsteht begreifbar.ch. Ein Linux unter Windows, Claude Code im Terminal, alle
+          Werkzeuge zur Hand.
+          <ul>
+            <li>volle Kontrolle, eigene Skripte</li>
+            <li>Git und GitHub über Befehle</li>
+            <li>Einrichten: 30 bis 60 Minuten</li>
+          </ul>
+          <p class="fuer"><b>Für dich, wenn</b> dich Technik reizt und du Geduld mit Fehlermeldungen hast.</p>
+        </div>
+      </div>
+
+      <div class="tabelle-rahmen">
+      <table class="vergleich">
+        <thead><tr><th></th><th>A · Cowork</th><th>B · Code in der App</th><th>C · Ubuntu</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Terminal</th><td>nein</td><td>nein</td><td>ja</td></tr>
+          <tr><th scope="row">Git</th><td>nur über die GitHub-Website</td><td>ja, Claude hilft</td><td>ja, selbst</td></tr>
+          <tr><th scope="row">Projektregeln</th><td>Anweisungen in der App</td><td><code>CLAUDE.md</code></td><td><code>CLAUDE.md</code></td></tr>
+          <tr><th scope="row">Abo</th><td>Pro</td><td>Pro</td><td>Pro</td></tr>
+          <tr><th scope="row">Laptop</th><td>Windows, Mac</td><td>Windows, Mac</td><td>Windows (WSL), Mac</td></tr>
+          <tr><th scope="row">Einrichten</th><td>keine Zusatzschritte</td><td>Git installieren</td><td><a href="../werkstatt/#b">Werkstatt B1–B5</a></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>Vier Fragen helfen beim Entscheiden</h3>
+      <ol class="fragen">
+        <li><b>Hast du schon einmal Befehle in ein Terminal getippt?</b> Nein, und du willst es
+          auch nicht: A oder B.</li>
+        <li><b>Willst du jede Fassung zurückholen können?</b> Ja: B oder C. Bei A geht das nur
+          über die Geschichte auf GitHub.</li>
+        <li><b>Wie viel Zeit hast du vor der Woche zum Einrichten?</b> Kaum: A. Eine Stunde: B.
+          Einen Nachmittag: C.</li>
+        <li><b>Arbeitest du zu zweit?</b> Dann wählt ihr dieselbe Arbeitsweise, und Git (B oder C)
+          lohnt sich besonders.</li>
+      </ol>
+      <p style="margin-top:12px">Unsicher? Nimm <b>A</b>. Am Kick-off zeige ich alle drei kurz. Die
+        Funktionen der App ändern sich schnell: Massgebend ist, was sie dir anzeigt.</p>
+      <p class="fertig">Du hast dich für A, B oder C entschieden und die Einrichtung dafür ausprobiert, mit Pro ab <span class="offen">⟪Datum⟫</span>.</p>
+    </div>
+  </details>
+
+  <!-- Aufgabe 4 -->
+  <details class="aufgabe">
+    <summary><span class="anr">4</span><span class="akopf"><span class="atitel">Projektidee formulieren</span><span class="asatz">ein Ideenblatt, eine halbe Seite</span></span><span class="adauer">30–60 min</span></summary>
+    <div class="ainhalt">
+      <p>Eine gute Idee ist klein genug für vier Tage und gross genug, dass sie jemandem nützt.
+        Kopiere das Ideenblatt in ein Dokument und fülle es aus:</p>
+      <span class="wo">Ideenblatt</span>
+      <div class="befehl"><pre>IDEENBLATT · Projektwoche 2027
+
+Titel:
+Allein / zu zweit:  (mit wem?)
+Arbeitsweise:       A / B / C
+
+Die Idee in einem Satz:
+Für wen?
+Was hat diese Person davon?
+
+MVP – die kleinste Fassung, die schon nützt:
+Backlog – was dazukommt, wenn Zeit bleibt:
+  1.
+  2.
+  3.
+Wann ist es gut? (woran merkst du am Freitag, dass es funktioniert)
+Woher kommen die Inhalte? (eigene, Quellen, Bilder)
+
+Rahmen-Check:
+  [ ] läuft im Browser, auf Laptop und Handy
+  [ ] kein Login, keine Benutzerkonten
+  [ ] keine Datenbank auf einem Server
+  [ ] kein Shop, keine Bezahlfunktion
+  [ ] keine Personendaten von Dritten</pre></div>
+
+      <h3>Beispiele</h3>
+      <ul>
+        <li><b>Lernkartei</b>, die schwierige Karten öfter zeigt. MVP: zwanzig Karten zu einem
+          Fach, «gewusst / nicht gewusst». Backlog: eigene Karten, Fortschritt speichern.</li>
+        <li><b>Rechner für deinen Beruf</b>, z. B. Stoffverbrauch und Zuschnitt. MVP: eine
+          Rechnung mit drei Eingaben. Backlog: Skizze, Varianten, Ausdruck.</li>
+        <li><b>Spiel</b>: Paarsuche Begriff und Erklärung. MVP: acht Paare, ein Thema. Backlog:
+          mehrere Themen, Zeitmessung.</li>
+      </ul>
+
+      <h3>Die Idee mit Claude schärfen</h3>
+      <p>Lass dich befragen, statt dir etwas vorschlagen zu lassen. Die Idee bleibt deine:</p>
+      <div class="befehl text"><pre>Ich plane für eine Projektwoche ein kleines Produkt, das im Browser läuft, auf Laptop und Handy, ohne Login, Datenbank, Shop oder Personendaten von Dritten. Ich habe vier Tage und kann nicht programmieren; programmieren wirst du. Meine Idee: ⟪deine Idee in einem Satz⟫.
+
+Stell mir nacheinander Fragen, immer nur eine, bis die Idee klar ist. Schlag mir danach ein MVP vor, das an einem Vormittag zu bauen ist, und ein Backlog. Sag mir ehrlich, wenn die Idee zu gross ist oder gegen die Rahmenbedingungen verstösst.</pre></div>
+      <p class="fertig">Dein Ideenblatt ist ausgefüllt, der Rahmen-Check hat fünf Häkchen, und das MVP passt in einen Satz.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════ Hilfe ═══════════ -->
+<section aria-labelledby="hilfe">
+  <h2 id="hilfe"><span class="ebene">Wenn es hakt</span>Hilfe</h2>
+  <ul>
+    <li><b>Teams-Kanal der Projektwoche:</b> Frage mit Bildschirmfoto und der Fehlermeldung im
+      Wortlaut. So kann ich dir am schnellsten helfen.</li>
+    <li><b>Werkstatt:</b> <a href="../werkstatt/">alle Schritte ausführlich</a>, mit Befehlen
+      zum Kopieren und «Wenn etwas schiefgeht».</li>
+    <li><b>Kursthemen:</b> <a href="../themen/">was an welchem Tag drankommt</a>.</li>
+    <li><b>Nicht geschafft?</b> Kein Problem. Komm trotzdem: Am Dienstagmorgen holen wir es
+      gemeinsam nach. Sag mir nur vorher Bescheid.</li>
+  </ul>
+
+  <p class="stand">Raphael Arnold Kohler · Kontakt via Teams · Stand 10. Oktober 2026 · Entwurf für den Kick-off im Januar 2027</p>
+  <a class="zurueck" href="../"><span aria-hidden="true">←</span> Projektwoche</a>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <p><strong>begreifbar.ch</strong> — Lernmaterial für die Sekundarstufe I und die Berufsmaturität Technik, Architektur, Life Sciences</p>
+  <p>© 2026 Raphael Arnold Kohler · <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.de" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+  <p><a href="https://mathe.begreifbar.ch/feedback.html">Kontakt &amp; Feedback</a> · <a href="https://mathe.begreifbar.ch/rechtliches.html">Rechtliches &amp; Datenschutz</a></p>
+  <p>Keine Cookies · Kein Tracking</p>
+</footer>
+
+<script>
+// Kopierknopf an jeder Vorlage
+document.querySelectorAll('.befehl').forEach(function (b) {
+  var knopf = document.createElement('button');
+  knopf.type = 'button'; knopf.className = 'kopie'; knopf.textContent = 'Kopieren';
+  knopf.setAttribute('aria-label', 'Vorlage kopieren');
+  knopf.addEventListener('click', function () {
+    var text = b.querySelector('pre').textContent.replace(/[ \t]+$/gm, '');
+    var fertig = function () { knopf.textContent = 'Kopiert ✓'; setTimeout(function () { knopf.textContent = 'Kopieren'; }, 1600); };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(fertig, function () {});
+  });
+  b.appendChild(knopf);
+});
+// «Alle aufklappen»
+var alle = document.getElementById('alle');
+alle.addEventListener('click', function () {
+  var ds = document.querySelectorAll('details.aufgabe');
+  var auf = Array.prototype.some.call(ds, function (d) { return !d.open; });
+  ds.forEach(function (d) { d.open = auf; });
+  alle.textContent = auf ? 'Alle zuklappen' : 'Alle aufklappen';
+});
+// Drucken: alles aufklappen, danach Zustand zurück
+var vorher = [];
+window.addEventListener('beforeprint', function () {
+  vorher = Array.prototype.map.call(document.querySelectorAll('details'), function (d) { var o = d.open; d.open = true; return o; });
+});
+window.addEventListener('afterprint', function () {
+  document.querySelectorAll('details').forEach(function (d, i) { d.open = vorher[i]; });
+});
+</script>
+</body>
+</html>

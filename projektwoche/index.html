@@ -81,12 +81,6 @@ main p { text-wrap: pretty; }
    auf 360 px bleibt so der Platz fuer die Angabe daneben. */
 .eckdaten th { font-weight: 700; color: var(--tinte-2); width: 1%; white-space: nowrap; }
 
-.hinweis {
-  margin-top: 30px; padding: 16px 20px;
-  background: var(--papier-2); border: 1px solid var(--linie); border-radius: 8px;
-  font-size: 0.9rem; color: var(--tinte-2);
-}
-.hinweis strong { color: var(--tinte); }
 
 .stand {
   margin-top: 30px; padding-top: 14px; border-top: 1px solid var(--linie);
@@ -112,6 +106,28 @@ main p { text-wrap: pretty; }
 .site-footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
 .site-footer a:hover { color: #fff; }
 .site-footer strong { color: rgba(255,255,255,0.82); }
+
+/* ── Abschnitte, Beispiele, Wegweiser ───────────────────────── */
+h2 {
+  margin-top: 44px; font-family: var(--serif); font-size: 1.45rem; line-height: 1.2;
+}
+.leise { margin-top: 6px; font-size: 0.95rem; color: var(--tinte-2); }
+.beispiele { list-style: none; margin-top: 16px; display: grid; gap: 12px;
+  grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 560px) { .beispiele { grid-template-columns: 1fr; } }
+.beispiele a, .wegweiser a {
+  display: flex; flex-direction: column; height: 100%; padding: 14px 16px;
+  background: var(--weiss); border: 1px solid var(--linie); border-radius: 10px;
+  color: var(--tinte); text-decoration: none;
+}
+.beispiele a:hover, .wegweiser a:hover { border-color: var(--tinte-2); }
+.beispiele b, .wegweiser b { font-size: 1.02rem; }
+.beispiele span, .wegweiser span { margin-top: 4px; font-size: 0.9rem; color: var(--tinte-2); line-height: 1.45; }
+.beispiele .los { margin-top: auto; padding-top: 10px; font-family: var(--mono); font-size: 0.78rem; font-weight: 700; color: var(--blau); }
+.wegweiser { list-style: none; margin-top: 16px; display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 560px) { .wegweiser { grid-template-columns: 1fr; } }
+.nachher { margin-top: 12px; padding-left: 1.3em; }
+.nachher li + li { margin-top: 4px; }
 </style>
 </head>
 <body>
@@ -130,21 +146,56 @@ main p { text-wrap: pretty; }
   <table class="eckdaten">
     <tbody>
       <tr><th scope="row">Wann</th>
-          <td>Dienstag 30.03.2027, 09:00 bis Freitag 02.04.2027, 16:00</td></tr>
+          <td>Dienstag 30.03.2027, 09:00 bis Freitag 02.04.2027, 16:00; Vernissage am Freitagvormittag</td></tr>
       <tr><th scope="row">Wo</th>
-          <td>BBZ IDM Thun; ein Halbtag auswärts</td></tr>
+          <td>BBZ IDM Thun; ein Halbtag auswärts (Betriebsbesuch in der Region)</td></tr>
+      <tr><th scope="row">Arbeitsform</th>
+          <td>allein oder zu zweit</td></tr>
       <tr><th scope="row">Mitbringen</th>
           <td>eigener Laptop</td></tr>
+      <tr><th scope="row">Kosten</th>
+          <td>rund CHF 25 für einen Monat Zugang zum KI-Werkzeug, dazu das ÖV-Billett</td></tr>
       <tr><th scope="row">Vorkenntnisse</th>
-          <td>keine nötig</td></tr>
+          <td>keine nötig, offen für KI</td></tr>
     </tbody>
   </table>
 
-  <p class="hinweis"><strong>Ab Oktober 2026 steht hier die ausführliche Beschreibung
-    des Kurses:</strong> die Inhalte der vier Tage, die Rahmenbedingungen — und drei
-    kleine Produkte, die du selbst ausprobieren kannst.</p>
+  <h2>Drei Beispiele, jetzt ausprobieren</h2>
+  <p class="leise">Jedes ist in rund zwei Stunden entstanden: als Grössenvergleich, nicht als
+    Vorlage. Deine Idee sieht anders aus.</p>
+  <ul class="beispiele">
+    <li><a href="beispiele/lernkartei.html"><b>Lernkartei</b><span>Gewusst: seltener.
+      Nicht gewusst: gleich wieder. Für Prüfungsstoff, Vokabeln, Fachbegriffe.</span><span class="los">Ausprobieren →</span></a></li>
+    <li><a href="beispiele/rechner.html"><b>Rechner für den Beruf</b><span>Stoffverbrauch und
+      Zuschnitt, mit Nahtzugabe, Rapport und Verschnitt.</span><span class="los">Ausprobieren →</span></a></li>
+    <li><a href="beispiele/spiel.html"><b>Kleines Spiel</b><span>Paarsuche: Begriff und
+      Erklärung, mit Zügen und Zeit.</span><span class="los">Ausprobieren →</span></a></li>
+  </ul>
 
-  <p class="stand">Raphael Arnold Kohler · Kontakt via Teams · Stand 9. September 2026</p>
+  <h2>Was möglich ist</h2>
+  <p class="leise" style="margin-top:10px">Alles, was im Browser läuft, auf dem Laptop und auf
+    dem Handy. <b>Nicht</b> möglich sind Benutzerkonten und Login, eine Datenbank auf einem
+    Server, ein Shop oder Personendaten von Dritten. Der Grund ist rechtlich, nicht technisch.
+    Andere Ideen besprechen wir am Kick-off.</p>
+
+  <h2>Mehr zur Woche</h2>
+  <ul class="wegweiser">
+    <li><a href="themen/"><b>Zwölf Kursthemen</b><span>Was du an welchem Tag lernst, vom
+      ersten Auftrag an die KI bis zum Schlusscheck.</span></a></li>
+    <li><a href="werkstatt/"><b>Werkstatt</b><span>Wie begreifbar.ch entstanden ist, und wie du
+      selbst so etwas baust, Schritt für Schritt.</span></a></li>
+  </ul>
+
+  <h2>Nach der Anmeldung</h2>
+  <ul class="nachher">
+    <li><b>Kick-off im Januar 2027:</b> die Woche kompakt, Fragen zu deiner Idee, gemeinsames
+      Einrichten.</li>
+    <li><b>Vorbereitungsauftrag:</b> Claude- und GitHub-Konto einrichten, deine Arbeitsweise
+      wählen, deine Projektidee auf einer halben Seite formulieren.</li>
+    <li><b>Support via Teams,</b> bis zum ersten Tag der Projektwoche.</li>
+  </ul>
+
+  <p class="stand">Raphael Arnold Kohler · Kontakt via Teams · Stand 10. Oktober 2026</p>
 
   <a class="zurueck" href="../"><span class="z-pfeil" aria-hidden="true">←</span> begreifbar.ch</a>
 </main>

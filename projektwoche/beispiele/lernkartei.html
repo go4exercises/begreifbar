@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lernkartei mit Wiederholung — Beispiel Projektwoche 2027</title>
+<style>
+  :root{
+    --ink:#16181d; --muted:#5d636e; --line:#dcdfe4; --bg:#f6f7f9; --card:#fff;
+    --accent:#1f4fd8; --ok:#137a4a; --warn:#a4520c;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    padding:24px 16px 64px}
+  main{max-width:640px;margin:0 auto}
+  a{color:var(--accent)}
+  .back{font-size:14px;text-decoration:none}
+  h1{font-size:22px;margin:14px 0 4px}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 20px}
+  .boxes{display:flex;gap:8px;margin-bottom:16px}
+  .box{flex:1;background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:10px;text-align:center}
+  .box b{display:block;font-size:20px}
+  .box span{font-size:12px;color:var(--muted)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:28px 22px;min-height:190px;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;
+    box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .term{font-size:24px;font-weight:600}
+  .answer{margin-top:14px;font-size:18px;color:var(--ok)}
+  .hint{margin-top:10px;font-size:13px;color:var(--muted)}
+  .row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+  button{font:inherit;padding:11px 16px;border-radius:9px;border:1px solid var(--line);
+    background:var(--card);cursor:pointer}
+  button:hover{border-color:#b9bec7}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff;flex:1}
+  button.good{background:#e8f4ec;border-color:#bcdcc8;color:var(--ok);flex:1}
+  button.bad{background:#fdeee2;border-color:#f0cfae;color:var(--warn);flex:1}
+  .done{text-align:center;padding:30px 10px}
+  .meta{margin-top:26px;border-top:1px solid var(--line);padding-top:14px;
+    font-size:13px;color:var(--muted)}
+  .meta code{background:#eceef1;padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="../">&larr; zurück zur Projektwoche</a>
+  <h1>Lernkartei mit Wiederholung</h1>
+  <p class="sub">Drei Fächer nach dem Leitner-Prinzip: gewusst = weiter nach hinten, nicht
+  gewusst = zurück in Fach&nbsp;1. Fach&nbsp;1 kommt jede Runde, Fach&nbsp;2 jede zweite,
+  Fach&nbsp;3 jede vierte.</p>
+
+  <div class="boxes">
+    <div class="box"><b id="b1">0</b><span>Fach 1 · täglich</span></div>
+    <div class="box"><b id="b2">0</b><span>Fach 2 · jede 2. Runde</span></div>
+    <div class="box"><b id="b3">0</b><span>Fach 3 · jede 4. Runde</span></div>
+  </div>
+
+  <div class="card" id="card"></div>
+  <div class="row" id="controls"></div>
+
+  <p class="meta">Beispielprodukt der Projektwoche <em>«Bau dir was — deine Idee geht
+  online»</em>. Eine einzige <code>.html</code>-Datei, kein Server, keine Datenbank.
+  Die Karten stehen im Quelltext — Rechtsklick &rarr; <em>Seitenquelltext anzeigen</em>.</p>
+</main>
+
+<script>
+"use strict";
+var CARDS = [
+  ["Prompt", "Auftrag an die KI: Ziel, Randbedingungen, Beispiel"],
+  ["Commit", "gespeicherter Zwischenstand, zu dem man zurückkehren kann"],
+  ["Repository", "Projektordner mit vollständiger Änderungsgeschichte"],
+  ["MVP", "kleinste Fassung, die die Kernfunktion wirklich erfüllt"],
+  ["Halluzination", "erfundene Angabe, die plausibel klingt und falsch ist"],
+  ["Konsole", "Fehlerfenster des Browsers (F12 / Rechtsklick → Untersuchen)"],
+  ["Deploy", "Veröffentlichen, damit die Seite eine öffentliche Adresse hat"],
+  ["Backlog", "Liste der Zusatzwünsche, die noch warten"]
+];
+
+var deck = CARDS.map(function (c, i) { return { id: i, term: c[0], def: c[1], box: 1 }; });
+var round = 1, queue = [], current = null, revealed = false;
+
+var cardEl = document.getElementById("card");
+var ctrlEl = document.getElementById("controls");
+
+function counts() {
+  [1, 2, 3].forEach(function (b) {
+    document.getElementById("b" + b).textContent =
+      deck.filter(function (c) { return c.box === b; }).length;
+  });
+}
+
+function buildQueue() {
+  queue = deck.filter(function (c) {
+    if (c.box === 1) return true;
+    if (c.box === 2) return round % 2 === 0;
+    return round % 4 === 0;
+  });
+  // Reihenfolge mischen
+  for (var i = queue.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = queue[i]; queue[i] = queue[j]; queue[j] = t;
+  }
+}
+
+function render() {
+  counts();
+  if (!current) {
+    if (deck.every(function (c) { return c.box === 3; })) {
+      cardEl.innerHTML = '<div class="done"><div class="term">Alle Karten in Fach 3.</div>' +
+        '<div class="hint">Runde ' + round + ' — das war der Stapel.</div></div>';
+      ctrlEl.innerHTML = "";
+      var again = document.createElement("button");
+      again.className = "primary";
+      again.textContent = "Von vorn beginnen";
+      again.onclick = reset;
+      ctrlEl.appendChild(again);
+      return;
+    }
+    cardEl.innerHTML = '<div class="done"><div class="term">Runde ' + round + ' geschafft.</div>' +
+      '<div class="hint">Weiter mit Runde ' + (round + 1) + '.</div></div>';
+    ctrlEl.innerHTML = "";
+    var next = document.createElement("button");
+    next.className = "primary";
+    next.textContent = "Nächste Runde";
+    next.onclick = function () { round++; startRound(); };
+    ctrlEl.appendChild(next);
+    return;
+  }
+
+  cardEl.innerHTML = '<div class="term">' + current.term + "</div>" +
+    (revealed ? '<div class="answer">' + current.def + "</div>" : "") +
+    '<div class="hint">Fach ' + current.box + " · noch " + (queue.length + 1) +
+    " Karte(n) in dieser Runde</div>";
+
+  ctrlEl.innerHTML = "";
+  if (!revealed) {
+    var show = document.createElement("button");
+    show.className = "primary";
+    show.textContent = "Antwort zeigen";
+    show.onclick = function () { revealed = true; render(); };
+    ctrlEl.appendChild(show);
+  } else {
+    var yes = document.createElement("button");
+    yes.className = "good";
+    yes.textContent = "gewusst";
+    yes.onclick = function () { grade(true); };
+    var no = document.createElement("button");
+    no.className = "bad";
+    no.textContent = "nicht gewusst";
+    no.onclick = function () { grade(false); };
+    ctrlEl.appendChild(yes);
+    ctrlEl.appendChild(no);
+  }
+}
+
+function grade(ok) {
+  current.box = ok ? Math.min(3, current.box + 1) : 1;
+  nextCard();
+}
+
+function nextCard() {
+  revealed = false;
+  current = queue.shift() || null;
+  render();
+}
+
+function startRound() {
+  buildQueue();
+  if (queue.length === 0) { round++; startRound(); return; }
+  nextCard();
+}
+
+function reset() {
+  deck.forEach(function (c) { c.box = 1; });
+  round = 1;
+  startRound();
+}
+
+reset();
+</script>
+</body>
+</html>

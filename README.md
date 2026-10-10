@@ -15,7 +15,11 @@ und keine Drittanbieter.
 | `schriften.css` + `schriften/` | die drei Schriften, lokal ausgeliefert — eigene Kopie, weil dieses Repo nicht auf die Wurzel des Mathe-Repos zugreifen kann |
 | `CNAME` | `begreifbar.ch` — eine Zeile, LF, kein BOM |
 | `favicon.svg` | Platzhalter-Zeichen: zwei Balken in Mathe-Blau und Physik-Bernstein |
-| `projektwoche/` | Einstieg Projektwoche IDM 2027 |
+| `projektwoche/` | Projektwoche IDM 2027: Ausschreibung mit Eckdaten und Wegweiser |
+| `projektwoche/beispiele/` | drei Beispielprodukte (Lernkartei, Rechner, Spiel), aus `Beispielseite-Projektwoche-2027` übernommen; nur Rücklink und Handy-Raster im Spiel angepasst |
+| `projektwoche/themen/` | die zwölf Kursthemen der Ausschreibung, nach Tagen geordnet und gewichtet |
+| `projektwoche/werkstatt/` | Entstehung von begreifbar und Einsteiger-Anleitung (Weg A Claude-App, Weg B Ubuntu + Claude Code), mit `einrichten.sh` und `CLAUDE-vorlage.md` |
+| `projektwoche/kickoff/` | Entwurf für den Kick-off im Januar 2027 — **bewusst nirgends verlinkt** und `noindex`, bis Daten, Altersfrage und Abo geklärt sind; Platzhalter ⟪…⟫ |
 | `.nojekyll` | schaltet die Jekyll-Verarbeitung ab, wie im Mathe-Repo |
 
 ## Ändern

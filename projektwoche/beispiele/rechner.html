@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stoffverbrauch berechnen — Beispiel Projektwoche 2027</title>
+<style>
+  :root{--ink:#16181d;--muted:#5d636e;--line:#dcdfe4;--bg:#f6f7f9;--card:#fff;--accent:#1f4fd8}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    padding:24px 16px 64px}
+  main{max-width:640px;margin:0 auto}
+  a{color:var(--accent)} .back{font-size:14px;text-decoration:none}
+  h1{font-size:22px;margin:14px 0 4px}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 20px}
+  form,.out{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:18px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width:520px){.grid{grid-template-columns:1fr}}
+  label{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
+  input{width:100%;font:inherit;padding:9px 10px;border:1px solid var(--line);
+    border-radius:8px;background:#fff}
+  fieldset{border:0;padding:0;margin:0 0 4px}
+  .out{margin-top:16px}
+  .big{font-size:30px;font-weight:650;letter-spacing:-.5px}
+  .unit{font-size:16px;font-weight:400;color:var(--muted)}
+  table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}
+  td{padding:6px 0;border-top:1px solid var(--line)}
+  td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+  .warn{margin-top:12px;padding:10px 12px;border-radius:8px;background:#fdeee2;
+    border:1px solid #f0cfae;font-size:14px}
+  .meta{margin-top:26px;border-top:1px solid var(--line);padding-top:14px;
+    font-size:13px;color:var(--muted)}
+  .meta code{background:#eceef1;padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="../">&larr; zurück zur Projektwoche</a>
+  <h1>Stoffverbrauch und Zuschnitt</h1>
+  <p class="sub">Wie viel Laufmeter braucht ein Auftrag? Der Rechner legt die Teile
+  nebeneinander in die Stoffbreite, berücksichtigt Nahtzugabe und Musterrapport und
+  zeigt den Verschnitt.</p>
+
+  <form id="f" autocomplete="off">
+    <fieldset class="grid">
+      <div><label for="sb">Stoffbreite (cm)</label><input id="sb" type="number" value="140" min="1" step="1"></div>
+      <div><label for="pr">Preis pro Laufmeter (CHF)</label><input id="pr" type="number" value="18.50" min="0" step="0.05"></div>
+      <div><label for="tb">Teilbreite (cm)</label><input id="tb" type="number" value="45" min="1" step="0.5"></div>
+      <div><label for="tl">Teillänge (cm)</label><input id="tl" type="number" value="62" min="1" step="0.5"></div>
+      <div><label for="an">Anzahl Teile</label><input id="an" type="number" value="12" min="1" step="1"></div>
+      <div><label for="nz">Nahtzugabe pro Kante (cm)</label><input id="nz" type="number" value="1.5" min="0" step="0.5"></div>
+      <div><label for="ra">Musterrapport (cm, 0 = keiner)</label><input id="ra" type="number" value="0" min="0" step="0.5"></div>
+      <div><label for="re">Reserve (%)</label><input id="re" type="number" value="5" min="0" step="1"></div>
+    </fieldset>
+  </form>
+
+  <div class="out" id="out"></div>
+
+  <p class="meta">Beispielprodukt der Projektwoche <em>«Bau dir was — deine Idee geht
+  online»</em>. Rechnet im Browser, eine <code>.html</code>-Datei, funktioniert auch
+  ohne Internet, sobald sie geladen ist. Die Prüfstelle für den Audit: eine Zeile von
+  Hand nachrechnen und mit dem Ergebnis vergleichen.</p>
+</main>
+
+<script>
+"use strict";
+var ids = ["sb","pr","tb","tl","an","nz","ra","re"];
+var out = document.getElementById("out");
+
+function num(id){ var v = parseFloat(document.getElementById(id).value); return isFinite(v) ? v : 0; }
+function m(cm){ return (Math.round(cm)/100).toFixed(2); }
+function chf(x){ return x.toFixed(2); }
+
+function calc(){
+  var sb=num("sb"), pr=num("pr"), tb=num("tb"), tl=num("tl"),
+      an=Math.round(num("an")), nz=num("nz"), ra=num("ra"), re=num("re");
+
+  var tbZ = tb + 2*nz;            // Teilbreite mit Zugabe links/rechts
+  var tlZ = tl + 2*nz;            // Teillänge mit Zugabe oben/unten
+  if (ra > 0) tlZ = Math.ceil(tlZ/ra)*ra;   // auf ganzen Rapport aufrunden
+
+  if (tbZ > sb){
+    out.innerHTML = '<div class="warn"><strong>Passt nicht.</strong> Ein Teil ist mit Zugabe ' +
+      tbZ.toFixed(1) + ' cm breit, der Stoff nur ' + sb.toFixed(1) +
+      ' cm. Teil drehen, teilen oder breiteren Stoff wählen.</div>';
+    return;
+  }
+
+  var proReihe = Math.floor(sb / tbZ);          // Teile nebeneinander
+  var reihen = Math.ceil(an / proReihe);        // benötigte Reihen
+  var laenge = reihen * tlZ;                    // Stofflänge in cm
+  var mitReserve = laenge * (1 + re/100);
+  var kaufen = Math.ceil(mitReserve/10)/10;     // auf 10 cm aufrunden, in m
+
+  var flStoff = sb * laenge;
+  var flTeile = an * tbZ * tlZ;
+  var verschnitt = flStoff > 0 ? (1 - flTeile/flStoff)*100 : 0;
+  var kosten = kaufen * pr;
+
+  out.innerHTML =
+    '<div class="big">' + kaufen.toFixed(1) + ' <span class="unit">Laufmeter einkaufen</span></div>' +
+    '<table>' +
+      '<tr><td>Teil mit Zugabe</td><td>' + tbZ.toFixed(1) + ' × ' + tlZ.toFixed(1) + ' cm</td></tr>' +
+      '<tr><td>Teile nebeneinander</td><td>' + proReihe + '</td></tr>' +
+      '<tr><td>Reihen im Zuschnitt</td><td>' + reihen + '</td></tr>' +
+      '<tr><td>Stofflänge netto</td><td>' + m(laenge) + ' m</td></tr>' +
+      '<tr><td>mit ' + re + ' % Reserve</td><td>' + m(mitReserve) + ' m</td></tr>' +
+      '<tr><td>Verschnitt</td><td>' + verschnitt.toFixed(1) + ' %</td></tr>' +
+      '<tr><td>Materialkosten</td><td>CHF ' + chf(kosten) + '</td></tr>' +
+    '</table>' +
+    (ra > 0 ? '<div class="warn">Musterrapport ' + ra.toFixed(1) +
+      ' cm: die Teillänge wurde auf den nächsten ganzen Rapport aufgerundet.</div>' : '');
+}
+
+ids.forEach(function(id){
+  var el = document.getElementById(id);
+  el.addEventListener("input", calc);
+});
+document.getElementById("f").addEventListener("submit", function(e){ e.preventDefault(); });
+calc();
+</script>
+</body>
+</html>

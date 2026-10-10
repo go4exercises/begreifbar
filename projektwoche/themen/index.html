@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kursthemen — Projektwoche 2027</title>
+<meta name="description" content="Die zwölf Techniken der Projektwoche 2027 am BBZ IDM Thun: von der Idee über den ersten Auftrag an die KI bis zum geprüften Produkt im Netz. In der Reihenfolge der vier Tage, je kurz erklärt.">
+<meta name="author" content="Raphael Arnold Kohler">
+<link rel="canonical" href="https://begreifbar.ch/projektwoche/themen/">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="begreifbar">
+<meta property="og:locale" content="de_CH">
+<meta property="og:title" content="Kursthemen — Projektwoche 2027">
+<meta property="og:description" content="Zwölf Techniken, die erklärt, vorgeführt, angewandt und ausgewertet werden — in der Reihenfolge der vier Tage.">
+<meta property="og:url" content="https://begreifbar.ch/projektwoche/themen/">
+<link rel="stylesheet" href="../../schriften.css">
+
+<style>
+/* Farben, Schriften und Fusszeile wie projektwoche/werkstatt/; die Seite steht allein. */
+:root {
+  --papier:     #f8f6f1;
+  --papier-2:   #efeade;
+  --weiss:      #ffffff;
+  --tinte:      #1c1a17;
+  --tinte-2:    #5a5040;
+  --linie:      #d8d0c4;
+
+  --blau:       #1a4f8a;
+  --bernstein:      #8a4a0e;
+  --bernstein-hell: #fbecd2;
+  --petrol:      #0f6b6b;
+  --petrol-hell: #dcefee;
+
+  --serif: 'Source Serif 4', Georgia, serif;
+  --sans:  'Source Sans 3', system-ui, sans-serif;
+  --mono:  'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--sans); background: var(--papier); color: var(--tinte);
+  line-height: 1.65; display: flex; flex-direction: column; min-height: 100vh;
+}
+a { color: var(--blau); }
+a:focus-visible, summary:focus-visible, button:focus-visible { outline: 2px solid var(--tinte); outline-offset: 3px; }
+
+/* ── Kopf ───────────────────────────────────────────────────── */
+.hero {
+  background: var(--weiss); border-bottom: 1px solid var(--linie);
+  padding: 40px 22px 30px; text-align: center;
+}
+.hero-ueber { font-family: var(--mono); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; color: var(--tinte-2); }
+.hero-ueber a { color: inherit; }
+.hero h1 {
+  margin-top: 8px; font-family: var(--serif); font-weight: 700; line-height: 1.15;
+  font-size: clamp(1.8rem, 5vw, 2.8rem); text-wrap: balance;
+}
+.hero-satz { max-width: 640px; margin: 14px auto 0; font-size: 1.05rem; color: var(--tinte-2); text-wrap: pretty; }
+.aussicht {
+  display: inline-block; margin-top: 16px; padding: 3px 12px; border-radius: 999px;
+  background: var(--bernstein-hell); color: var(--bernstein); font-size: 0.82rem; font-weight: 700;
+}
+
+/* ── Text ───────────────────────────────────────────────────── */
+main { flex: 1; width: 100%; max-width: 74ch; margin: 0 auto; padding: 34px 18px 70px; }
+main p, main li { text-wrap: pretty; }
+section { margin-top: 48px; }
+section:first-child { margin-top: 0; }
+h2 { font-family: var(--serif); font-size: clamp(1.4rem, 3.4vw, 1.75rem); line-height: 1.2; scroll-margin-top: 16px; }
+h2 .ebene {
+  display: block; margin-bottom: 4px;
+  font-family: var(--mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em;
+  color: var(--tinte-2); text-transform: uppercase;
+}
+.lead { margin-top: 10px; color: var(--tinte-2); }
+main p + p { margin-top: 10px; }
+main ul { padding-left: 1.3em; }
+
+/* Vier Schritte je Technik */
+.vier { list-style: none; padding: 0 !important; margin-top: 16px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.vier li { padding: 10px 12px; background: var(--weiss); border: 1px solid var(--linie); border-radius: 8px; font-size: 0.88rem; line-height: 1.4; }
+.vier b { display: block; font-size: 0.95rem; }
+@media (max-width: 600px) { .vier { grid-template-columns: 1fr 1fr; } }
+
+/* Legende Gewicht */
+.legende { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; font-size: 0.88rem; color: var(--tinte-2); }
+.gw {
+  display: inline-block; font-family: var(--mono); font-size: 0.7rem; font-weight: 700;
+  padding: 1px 7px; border-radius: 4px; white-space: nowrap; vertical-align: 1px;
+}
+.gw-kern    { background: var(--petrol); color: #fff; }
+.gw-wichtig { background: var(--petrol-hell); color: var(--petrol); }
+.gw-kurz    { background: var(--papier-2); color: var(--tinte-2); border: 1px solid var(--linie); }
+
+/* Tage */
+.tag { margin-top: 34px; }
+.tag-kopf { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.tag-kopf h3 { font-family: var(--serif); font-size: 1.25rem; }
+.tag-kopf .wann { font-family: var(--mono); font-size: 0.78rem; font-weight: 700; color: var(--tinte-2); }
+.tag-ziel { margin-top: 2px; font-size: 0.95rem; color: var(--tinte-2); }
+
+.werkzeugleiste { display: flex; justify-content: flex-end; margin-top: 20px; }
+.knopf {
+  font: inherit; font-size: 0.86rem; font-weight: 700; min-height: 40px; padding: 0 14px;
+  border: 1px solid var(--linie); border-radius: 8px; background: var(--weiss); color: var(--tinte-2); cursor: pointer;
+}
+.knopf:hover { color: var(--tinte); border-color: var(--tinte-2); }
+
+details.thema { margin-top: 10px; background: var(--weiss); border: 1px solid var(--linie); border-radius: 10px; }
+details.thema > summary {
+  list-style: none; cursor: pointer; padding: 12px 44px 12px 14px; position: relative;
+  display: flex; gap: 12px; align-items: center; min-height: 52px;
+}
+details.thema > summary::-webkit-details-marker { display: none; }
+details.thema > summary::after {
+  content: "+"; position: absolute; right: 16px; top: 50%; transform: translateY(-52%);
+  font-family: var(--mono); font-size: 1.2rem; color: var(--tinte-2);
+}
+details.thema[open] > summary::after { content: "−"; }
+details.thema[open] > summary { border-bottom: 1px solid var(--linie); }
+.tnr {
+  flex: none; width: 30px; height: 30px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--mono); font-size: 0.8rem; font-weight: 700; color: #fff; background: var(--tinte-2);
+}
+.tkopf { display: flex; flex-direction: column; line-height: 1.3; }
+.ttitel { font-weight: 700; font-size: 1.02rem; }
+.tsatz { font-size: 0.88rem; color: var(--tinte-2); }
+summary .gw { margin-left: auto; flex: none; }
+@media (max-width: 480px) { summary .gw { display: none; } }
+
+.tinhalt { padding: 4px 16px 16px; }
+.tinhalt dl { display: grid; grid-template-columns: max-content 1fr; gap: 8px 16px; margin-top: 10px; }
+.tinhalt dt { font-weight: 700; font-size: 0.86rem; color: var(--tinte-2); padding-top: 2px; }
+.tinhalt dd { font-size: 0.97rem; }
+@media (max-width: 520px) { .tinhalt dl { grid-template-columns: 1fr; gap: 0; } .tinhalt dd { margin-bottom: 10px; } }
+.tinhalt .bsp {
+  display: block; margin-top: 4px; padding: 8px 12px; border-left: 3px solid var(--petrol);
+  background: var(--papier); font-size: 0.92rem;
+}
+.tinhalt .mehr { margin-top: 12px; font-size: 0.88rem; }
+code {
+  font-family: var(--mono); font-size: 0.86em;
+  background: var(--papier-2); border-radius: 4px; padding: 1px 5px;
+}
+kbd {
+  font-family: var(--mono); font-size: 0.82em; padding: 1px 6px;
+  border: 1px solid var(--linie); border-bottom-width: 2px; border-radius: 4px; background: var(--weiss);
+}
+
+.abschluss {
+  margin-top: 12px; padding: 12px 16px; border: 1px dashed var(--linie); border-radius: 10px;
+  font-size: 0.95rem; color: var(--tinte-2);
+}
+
+.kasten { margin-top: 22px; padding: 16px 20px; background: var(--papier-2); border: 1px solid var(--linie); border-radius: 10px; }
+.kasten > b:first-child { display: block; margin-bottom: 4px; }
+
+.stand { margin-top: 44px; padding-top: 14px; border-top: 1px solid var(--linie); font-size: 0.8rem; color: var(--tinte-2); }
+.zurueck {
+  display: inline-flex; align-items: center; gap: 7px;
+  margin-top: 20px; padding: 11px 0; min-height: 44px;
+  font-family: var(--mono); font-size: 0.8rem; font-weight: 700;
+  color: var(--tinte-2); text-decoration: none;
+}
+.zurueck:hover { color: var(--tinte); }
+
+/* ── Fuss ───────────────────────────────────────────────────── */
+.site-footer {
+  background: var(--tinte); color: rgba(255,255,255,0.45);
+  padding: 24px 22px; text-align: center; font-size: 0.74rem; line-height: 1.8;
+}
+.site-footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+.site-footer a:hover { color: #fff; }
+.site-footer strong { color: rgba(255,255,255,0.82); }
+
+@media print {
+  body { background: #fff; }
+  .werkzeugleiste, .zurueck, .site-footer { display: none !important; }
+  details.thema { break-inside: avoid; border-color: #999; }
+  details.thema > summary::after { content: ""; }
+  summary .gw { display: inline-block !important; }
+  a { color: #000; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <p class="hero-ueber"><a href="../">Projektwoche</a> · Kursthemen</p>
+  <h1>Zwölf Techniken für vier Tage</h1>
+  <p class="hero-satz">Was du in der Projektwoche lernst, damit aus deiner Idee ein Produkt
+    im Netz wird. Jede Technik kommt dann, wenn du sie brauchst.</p>
+  <p class="aussicht">In Aussicht · Stand Oktober 2026 · kann sich bis März noch ändern</p>
+</header>
+
+<main>
+
+<section aria-labelledby="wie">
+  <h2 id="wie"><span class="ebene">So arbeiten wir</span>Jede Technik in vier Schritten</h2>
+  <ol class="vier">
+    <li><b>Erklärt</b>Worum es geht und warum, in wenigen Minuten.</li>
+    <li><b>Vorgeführt</b>Live am Beamer, mit echten Fehlern.</li>
+    <li><b>Angewandt</b>Sofort an deinem eigenen Produkt.</li>
+    <li><b>Ausgewertet</b>Kurz prüfen: Hat es gewirkt? Was nimmst du mit?</li>
+  </ol>
+  <div class="legende">
+    <span><span class="gw gw-kern">KERN</span> trägt die ganze Woche</span>
+    <span><span class="gw gw-wichtig">WICHTIG</span> macht das Produkt gut</span>
+    <span><span class="gw gw-kurz">KURZ</span> wenig Zeit, aber Pflicht</span>
+  </div>
+</section>
+
+<section aria-labelledby="ablauf">
+  <h2 id="ablauf"><span class="ebene">Die vier Tage</span>Die Techniken in der Reihenfolge der Woche</h2>
+  <div class="werkzeugleiste"><button class="knopf" type="button" id="alle">Alle aufklappen</button></div>
+
+  <!-- ── Tag 1 ── -->
+  <div class="tag">
+    <div class="tag-kopf"><h3>Tag 1 · Von der Idee zur ersten Fassung im Netz</h3><span class="wann">DIENSTAG</span></div>
+    <p class="tag-ziel">Am Abend läuft eine kleine, echte Fassung deines Produkts, und sie hat eine Adresse.</p>
+
+    <details class="thema">
+      <summary><span class="tnr">1</span><span class="tkopf"><span class="ttitel">Scoping / MVP</span><span class="tsatz">Kernfunktion zuerst, Rest ins Backlog</span></span><span class="gw gw-kern">KERN</span></summary>
+      <div class="tinhalt"><dl>
+        <dt>Darum geht es</dt>
+        <dd>Ein MVP (minimum viable product) ist die kleinste Fassung, die schon nützt. Alles
+          andere kommt auf eine Liste für später, das Backlog. Wer alles auf einmal will, hat am
+          Freitag viel Halbfertiges.</dd>
+        <dt>Vorgeführt</dt>
+        <dd>Aus «eine Lern-App für alle Fächer mit Login, Statistik und Rangliste» wird
+          <span class="bsp">MVP: zehn Karteikarten Englisch, umdrehen, «gewusst / nicht gewusst».<br>
+          Backlog: weitere Fächer, Statistik, eigene Karten, Rangliste.</span></dd>
+        <dt>Angewandt</dt>
+        <dd>Deine Idee in einem Satz, dein MVP in einem Satz, dein Backlog als Liste.</dd>
+        <dt>Ausgewertet</dt>
+        <dd>Lässt sich das MVP an einem Vormittag bauen? Wenn nicht, ist es noch zu gross.</dd>
+      </dl></div>
+    </details>
+
+    <details class="thema">
+      <summary><span class="tnr">2</span><span class="tkopf"><span class="ttitel">Prompt &amp; Kontext</span><span class="tsatz">Ziel, Randbedingungen, Beispiel</span></span><span class="gw gw-kern">KERN</span></summary>
+      <div class="tinhalt"><dl>
+        <dt>Darum geht es</dt>
+        <dd>Die KI weiss nur, was du ihr sagst. Ein guter Auftrag hat drei Teile: das
+          <b>Ziel</b> (was und für wen), die <b>Randbedingungen</b> (Handy, eine Datei, Sprache)
+          und ein <b>Beispiel</b> (so soll eine Aufgabe aussehen).</dd>
+        <dt>Vorgeführt</dt>
+        <dd>Derselbe Wunsch zweimal:
+          <span class="bsp">schwach: «Mach einen Vokabeltrainer.»<br>
+          stark: «Vokabeltrainer Englisch für BM1 (Ziel). Eine HTML-Datei, läuft auf dem Handy,
+          Schweizer Rechtschreibung (Randbedingungen). Eine Karte sieht so aus: vorne
+          <i>to suggest</i>, hinten <i>vorschlagen</i> (Beispiel).»</span></dd>
+        <dt>Angewandt</dt>
+        <dd>Dein erster Auftrag für dein MVP, mit allen drei Teilen.</dd>
+        <dt>Ausgewertet</dt>
+        <dd>Musste die KI raten? Jede Rückfrage oder jeder Fehlgriff zeigt, welcher Teil fehlte.</dd>
+      </dl>
+      <p class="mehr">Vorlagen zum Kopieren: <a href="../werkstatt/#a">Werkstatt, Schritt A2</a>.</p></div>
+    </details>
+
+    <details class="thema">
+      <summary><span class="tnr">3</span><span class="tkopf"><span class="ttitel">Build-Test-Fix-Loop</span><span class="tsatz">eine Änderung, sofort testen</span></span><span class="gw gw-kern">KERN</span></summary>
+      <div class="tinhalt"><dl>
+        <dt>Darum geht es</dt>
+        <dd>Der Grundrhythmus der Woche: <b>bauen</b> (ein Auftrag), <b>testen</b> (selbst
+          ausprobieren), <b>reparieren</b> (eine Sache benennen). Dann von vorn. Eine Änderung
+          pro Runde: So weisst du immer, was etwas kaputt gemacht hat.</dd>
+        <dt>Vorgeführt</dt>
+        <dd>Drei Wünsche in einer Nachricht, und danach geht etwas nicht mehr. Welcher war es?
+          Dieselben drei nacheinander, und der Fehler zeigt sich sofort.</dd>
+        <dt>Angewandt</dt>
+        <dd>Dein MVP in Runden fertigbauen, jede Runde höchstens ein paar Minuten.</dd>
+        <dt>Ausgewertet</dt>
+        <dd>Wie viele Runden hast du gebraucht? Wo hast du mehr als eine Sache auf einmal verlangt?</dd>
+      </dl>
+      <p class="mehr">Gute und schwache Rückmeldungen: <a href="../werkstatt/#a">Werkstatt, Schritt A3</a>.</p></div>
+    </details>
+
+    <details class="thema">
+      <summary><span class="tnr">4</span><span class="tkopf"><span class="ttitel">Git &amp; Deploy</span><span class="tsatz">commit, revert, push, GitHub Pages</span></span><span class="gw gw-kern">KERN</span></summary>
+      <div class="tinhalt"><dl>
+        <dt>Darum geht es</dt>
+        <dd>Git merkt sich jede Fassung: Ein <b>Commit</b> ist ein Speicherpunkt, ein
+          <b>Revert</b> nimmt einen zurück, ein <b>Push</b> lädt alles auf GitHub. GitHub Pages
+          macht daraus eine Website. Schon am ersten Tag online zu sein heisst: Ab jetzt
+          verbesserst du etwas Echtes, und jede Fassung ist gesichert.</dd>
+        <dt>Vorgeführt</dt>
+        <dd>Ein Repo anlegen, die Datei hochladen, Pages einschalten, nach zwei Minuten auf dem
+          Handy öffnen. Danach absichtlich etwas kaputt machen und den letzten guten Stand
+          zurückholen.</dd>
+        <dt>Angewandt</dt>
+        <dd>Dein MVP geht online. Ab jetzt nach jeder gelungenen Runde ein Commit.</dd>
+        <dt>Ausgewertet</dt>
+        <dd>Öffnet jemand anderes deine Adresse auf seinem Handy? Findest du die Fassung von heute Mittag wieder?</dd>
+      </dl>
+      <p class="mehr">Schritt für Schritt: <a href="../werkstatt/#a">Werkstatt A5</a> (ohne Terminal)
+        und <a href="../werkstatt/#b">B4–B6</a> (mit Terminal).</p></div>
+    </details>
+  </div>
+
+  <!-- ── Tag 2 ── -->
+  <div class="tag">
+    <div class="tag-kopf"><h3>Tag 2 · Verlässlich machen</h3><span class="wann">MITTWOCH</span></div>
+    <p class="tag-ziel">Das Produkt wächst, und es stimmt: Inhalte geprüft, Fehler verstanden, nichts geht verloren.</p>
+
+    <details class="thema">
+      <summary><span class="tnr">5</span><span class="tkopf"><span class="ttitel">Verifikation</span><span class="tsatz">nachrechnen, Halluzinationen erkennen</span></span><span class="gw gw-kern">KERN</span></summary>
+      <div class="tinhalt"><dl>
+        <dt>Darum geht es</dt>
+        <dd>Eine KI schreibt Falsches genauso überzeugend wie Richtiges. Erfundene Fakten,
+          Quellen oder Zahlen heissen <b>Halluzinationen</b>. Was auf deiner Seite steht,
+          verantwortest du, nicht die KI.</dd>
+        <dt>Vorgeführt</dt>
+        <dd>Ein Trainer, der bei «72 km/h in m/s» die Antwort 25 als richtig zählt. Richtig
+          ist 20. Prüfen mit Taschenrechner, mit einer zweiten Quelle, oder indem man die KI
+          ein Prüfprogramm schreiben lässt, das alle Aufgaben nachrechnet.</dd>
+        <dt>Angewandt</dt>
+        <dd>Fünf Inhalte deines Produkts selbst nachprüfen: Zahlen, Fakten, Lösungen.</dd>
+        <dt>Ausgewertet</dt>
+        <dd>Wie viele waren falsch? Woran hättest du es früher merken können?</dd>
+      </dl></div>
+    </details>
+
+    <details class="thema">
+      <summary><span class="tnr">6</span><span class="tkopf"><span class="ttitel">Debugging</span><span class="tsatz">Browser-Konsole, Fehlermeldung im Wortlaut</span></span><span class="gw gw-wichtig">WICHTIG</span></summary>
+      <div class="tinhalt"><dl>
+        <dt>Darum geht es</dt>
+        <dd>Eine Webseite besteht aus drei Sprachen: <b>HTML</b> (Inhalt), <b>CSS</b> (Aussehen),
+          <b>JavaScript</b> (Verhalten). Tut ein Knopf nichts, steht der Grund meist rot in der
+          <b>Konsole</b> des Browsers. Diese Meldung, wörtlich kopiert, ist der beste Auftrag
+          an die KI.</dd>
+        <dt>Vorgeführt</dt>
+        <dd><kbd>F12</kbd> → Reiter <b>Konsole</b>. Statt «geht nicht» schreibst du:
+          <span class="bsp">«Beim Klick auf ‹Prüfen› passiert nichts. Konsole:
+          <code>TypeError: antwort is undefined</code>, Zeile 84.»</span></dd>
+        <dt>Angewandt</dt>
+        <dd>Einen echten Fehler in deinem Produkt so melden und beheben lassen.</dd>
+        <dt>Ausgewertet</dt>
+        <dd>Wie viele Runden brauchte die Reparatur mit Fehlermeldung, wie viele ohne?</dd>
+      </dl></div>
+    </details>
+
+    <details class="thema">
+      <summary><span class="tnr">7</span><span class="tkopf"><span class="ttitel">Projektregeln</span><span class="tsatz">CLAUDE.md, Styleguide, Konventionen</span></span><span class="gw gw-wichtig">WICHTIG</span></summary>
+      <div class="tinhalt"><dl>
+        <dt>Darum geht es</dt>
+        <dd>Was du der KI zum zweiten Mal sagst, gehört aufgeschrieben: in eine Regeldatei
+          (<code>CLAUDE.md</code> oder die Projektanweisung der App), die sie jedes Mal liest.
+          Der Styleguide legt das Aussehen fest, Konventionen die Namen («Dateien klein, ohne
+          Umlaute»).</dd>
+        <dt>Vorgeführt</dt>
+        <dd>Neuer Chat ohne Regeln: Die KI baut wieder blaue Knöpfe und «ß». Mit fünf Zeilen
+          Regeln: von Anfang an richtig. Die Hausordnung von begreifbar als Beispiel, wie so
+          etwas über Monate wächst.</dd>
+        <dt>Angewandt</dt>
+        <dd>Deine eigene Regeldatei mit den Abmachungen, die du gestern wiederholen musstest.</dd>
+        <dt>Ausgewertet</dt>
+        <dd>Musst du heute weniger wiederholen als gestern?</dd>
+      </dl>
+      <p class="mehr">Vorlage: <a href="../werkstatt/CLAUDE-vorlage.md">CLAUDE-vorlage.md</a>, erklärt in <a href="../werkstatt/#b">Werkstatt B7</a>.</p></div>
+    </details>
+
+    <details class="thema">
+      <summary><span class="tnr">8</span><span class="tkopf"><span class="ttitel">Daten behalten</span><span class="tsatz">im Browser speichern oder exportieren</span></span><span class="gw gw-wichtig">WICHTIG</span></summary>
+      <div class="tinhalt"><dl>
+        <dt>Darum geht es</dt>
+        <dd>Ohne Speicher vergisst eine Seite beim Neuladen alles: Punkte, Fortschritt,
+          Eingaben. Der Browser kann sich Dinge merken (<b>localStorage</b>), aber nur auf
+          diesem Gerät und nur, bis jemand die Browserdaten löscht. Für Sicherheit sorgt ein
+          <b>Export</b> als Datei, die man später wieder einliest.</dd>
+        <dt>Vorgeführt</dt>
+        <dd>Fortschritt im Trainer, Seite neu laden: weg. Mit Speichern: noch da. Im privaten
+          Fenster: wieder weg. Darum ein Knopf «Stand herunterladen» und «Stand laden».</dd>
+        <dt>Angewandt</dt>
+        <dd>Entscheide, was dein Produkt sich merken muss, und baue es ein. Braucht es nichts:
+          begründen.</dd>
+        <dt>Ausgewertet</dt>
+        <dd>Neu laden, Browser schliessen, anderes Gerät: Was überlebt was?</dd>
+      </dl></div>
+    </details>
+  </div>
+
+  <!-- ── Tag 3 ── -->
+  <div class="tag">
+    <div class="tag-kopf"><h3>Tag 3 · Gut machen, prüfen lassen, fertig machen</h3><span class="wann">DONNERSTAG</span></div>
+    <p class="tag-ziel">Am Abend ist das Produkt aus einem Guss, deklariert, von anderen getestet, nachgebessert und durch den Schlusscheck. Der letzte Push vor der Vernissage.</p>
+
+    <details class="thema">
+      <summary><span class="tnr">9</span><span class="tkopf"><span class="ttitel">Gestaltung</span><span class="tsatz">Farbe, Abstände und Textbreite konsistent</span></span><span class="gw gw-wichtig">WICHTIG</span></summary>
+      <div class="tinhalt"><dl>
+        <dt>Darum geht es</dt>
+        <dd>Gute Gestaltung fällt nicht auf, sie wirkt ruhig. Drei Regeln tragen weit: wenige
+          Farben mit fester Bedeutung, immer dieselben Abstände, Textzeilen von höchstens rund
+          70 Zeichen. Festgelegt einmal in der CSS-Datei, nicht auf jeder Seite neu.</dd>
+        <dt>Vorgeführt</dt>
+        <dd>Eine Seite mit sieben Farben und zufälligen Abständen neben derselben Seite mit
+          zwei Farben und einem Abstandsraster. Danach dieselbe Seite auf dem Handy.</dd>
+        <dt>Angewandt</dt>
+        <dd>Deine Farben, Schrift und Abstände festlegen, in die Regeldatei schreiben und die
+          KI alles danach ausrichten lassen.</dd>
+        <dt>Ausgewertet</dt>
+        <dd>Zwei Seiten oder Ansichten nebeneinander: Wirken sie wie aus einem Produkt?</dd>
+      </dl></div>
+    </details>
+
+    <details class="thema">
+      <summary><span class="tnr">10</span><span class="tkopf"><span class="ttitel">Lizenz &amp; Deklaration</span><span class="tsatz">Bildrechte, Quellen, KI-Anteil</span></span><span class="gw gw-kurz">KURZ</span></summary>
+      <div class="tinhalt"><dl>
+        <dt>Darum geht es</dt>
+        <dd>Was online steht, sehen alle. Bilder und Texte anderer brauchst du nur mit
+          Erlaubnis, etwa unter einer freien Lizenz wie Creative Commons, und mit Angabe der
+          Quelle. Und du sagst offen, was die KI gemacht hat und was du.</dd>
+        <dt>Vorgeführt</dt>
+        <dd>Ein Bild aus der Bildersuche gegenüber einem mit CC-Lizenz und Namensnennung. Eine
+          Deklaration im Fuss der Seite:
+          <span class="bsp">«Idee, Inhalte und Prüfung: ⟪Name⟫. Programmiert mit Claude (KI).
+          Bilder: eigene Fotos und ⟪Quelle, Lizenz⟫.»</span></dd>
+        <dt>Angewandt</dt>
+        <dd>Jedes fremde Element deines Produkts prüfen, Quellen nachtragen, Deklaration schreiben.</dd>
+        <dt>Ausgewertet</dt>
+        <dd>Könntest du für jedes Bild und jeden Text sagen, woher er kommt?</dd>
+      </dl></div>
+    </details>
+
+    <details class="thema">
+      <summary><span class="tnr">11</span><span class="tkopf"><span class="ttitel">Peer-Review</span><span class="tsatz">Blindtest, du erklärst nichts</span></span><span class="gw gw-wichtig">WICHTIG</span></summary>
+      <div class="tinhalt"><dl>
+        <dt>Darum geht es</dt>
+        <dd>Du kennst dein Produkt zu gut, um seine Schwächen zu sehen. Im <b>Blindtest</b>
+          bedient es jemand, der es nicht kennt. Du schaust zu, schreibst mit und
+          <b>sagst nichts</b>. Jede Stelle, an der die Person zögert, ist ein Befund.</dd>
+        <dt>Vorgeführt</dt>
+        <dd>Eine Person aus der Klasse testet ein Produkt am Beamer; alle sehen, wo sie
+          stockt. Danach drei Fragen: Was war klar? Wo hast du gezögert? Was hast du vermisst?</dd>
+        <dt>Angewandt</dt>
+        <dd>Zwei Blindtests mit zwei verschiedenen Personen; Befunde ins Backlog, sortiert
+          nach Wichtigkeit.</dd>
+        <dt>Ausgewertet</dt>
+        <dd>Welche Befunde hätten dich überrascht? Welche drei behebst du noch heute?</dd>
+      </dl></div>
+    </details>
+    <details class="thema">
+      <summary><span class="tnr">12</span><span class="tkopf"><span class="ttitel">Audit</span><span class="tsatz">Schlusscheck: Konsole, Links, Mobile, Sprache</span></span><span class="gw gw-wichtig">WICHTIG</span></summary>
+      <div class="tinhalt"><dl>
+        <dt>Darum geht es</dt>
+        <dd>Vor der Veröffentlichung eine feste Liste abarbeiten, immer gleich, wie der Check
+          vor dem Start eines Flugzeugs. Was auf der Liste steht, wird nicht vergessen.</dd>
+        <dt>Vorgeführt</dt>
+        <dd>Die vier Prüfungen an einem Produkt, live:
+          <span class="bsp"><b>Konsole</b> ohne rote Meldung · <b>Links</b> führen alle
+          irgendwohin · <b>Mobile</b>: 360 px breit, nichts ragt hinaus, Knöpfe treffbar ·
+          <b>Sprache</b>: Rechtschreibung, Titel der Seite, kein Platzhaltertext.</span>
+          Dazu kann die KI ein Prüfskript schreiben, das einen Teil davon automatisch erledigt.</dd>
+        <dt>Angewandt</dt>
+        <dd>Dein Produkt durch die Liste, Fehler beheben, letzter Commit und Push vor der Vernissage.</dd>
+        <dt>Ausgewertet</dt>
+        <dd>Alle vier Punkte bestanden? Auf einem fremden Handy nochmals öffnen.</dd>
+      </dl></div>
+    </details>
+  </div>
+
+  <!-- ── Tag 4 ── -->
+  <div class="tag">
+    <div class="tag-kopf"><h3>Tag 4 · Zeigen und auswerten</h3><span class="wann">FREITAG</span></div>
+    <p class="tag-ziel">Am Vormittag die Vernissage, am Nachmittag der Blick zurück und nach vorn.</p>
+    <p class="abschluss"><b>Vernissage am Vormittag:</b> Dein Produkt läuft, Besucherinnen und
+      Besucher probieren es auf dem eigenen Handy aus. Du zeigst es in zwei Minuten und sagst
+      in einer, was du gelernt hast.<br><br>
+      <b>Nachmittag:</b> Tagesjournal abschliessen, die Woche auswerten, das Backlog für «nach
+      der Projektwoche» ordnen. Das Produkt bleibt dir, mit Adresse.</p>
+  </div>
+</section>
+
+<section aria-labelledby="warum">
+  <h2 id="warum"><span class="ebene">Für Lehrpersonen</span>Warum diese Reihenfolge</h2>
+  <ul>
+    <li><b>Zuerst online, dann verbessern.</b> Scoping, Prompt, Loop und Deploy am ersten
+      Tag: Ab Dienstagabend arbeiten alle an etwas Echtem, und jede Fassung ist gesichert.</li>
+    <li><b>Jede Technik dann, wenn das Problem auftaucht.</b> Regeln am zweiten Tag, wenn man
+      sich schon wiederholt hat; Debugging, wenn die ersten Fehler da sind; der Audit am Schluss.</li>
+    <li><b>Der fremde Blick am Donnerstagmorgen.</b> Die Vernissage ist am Freitagvormittag; so bleibt
+      der Donnerstagnachmittag, um die Befunde zu beheben und den Schlusscheck zu machen.</li>
+    <li><b>Gewicht nach Folgen.</b> Ohne die fünf Kerntechniken entsteht kein funktionierendes
+      Produkt. Ohne die wichtigen wird es schlechter, ohne die kurzen ist es rechtlich oder
+      ehrlich nicht in Ordnung.</li>
+    <li><b>Jeden Tag ein Eintrag im Tagesjournal:</b> was ich gebaut habe, was schiefging, was
+      ich der KI nächstes Mal anders sage.</li>
+    <li>Wo der Halbtag auswärts (Betriebsbesuch) liegt, ist noch offen; die Reihenfolge der
+      Techniken bleibt gleich.</li>
+  </ul>
+
+  <p class="stand">Raphael Arnold Kohler · Kontakt via Teams · Stand 10. Oktober 2026 · in Aussicht</p>
+  <a class="zurueck" href="../"><span aria-hidden="true">←</span> Projektwoche</a>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <p><strong>begreifbar.ch</strong> — Lernmaterial für die Sekundarstufe I und die Berufsmaturität Technik, Architektur, Life Sciences</p>
+  <p>© 2026 Raphael Arnold Kohler · <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.de" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+  <p><a href="https://mathe.begreifbar.ch/feedback.html">Kontakt &amp; Feedback</a> · <a href="https://mathe.begreifbar.ch/rechtliches.html">Rechtliches &amp; Datenschutz</a></p>
+  <p>Keine Cookies · Kein Tracking</p>
+</footer>
+
+<script>
+// «Alle aufklappen»
+var knopf = document.getElementById('alle');
+knopf.addEventListener('click', function () {
+  var ds = document.querySelectorAll('details.thema');
+  var auf = Array.prototype.some.call(ds, function (d) { return !d.open; });
+  ds.forEach(function (d) { d.open = auf; });
+  knopf.textContent = auf ? 'Alle zuklappen' : 'Alle aufklappen';
+});
+// Drucken: alles aufklappen, danach Zustand zurück
+var vorher = [];
+window.addEventListener('beforeprint', function () {
+  vorher = Array.prototype.map.call(document.querySelectorAll('details'), function (d) { var o = d.open; d.open = true; return o; });
+});
+window.addEventListener('afterprint', function () {
+  document.querySelectorAll('details').forEach(function (d, i) { d.open = vorher[i]; });
+});
+</script>
+</body>
+</html>

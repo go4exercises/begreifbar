@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Werkstatt — so entstand begreifbar</title>
+<meta name="description" content="Wie mathe.begreifbar.ch und physik.begreifbar.ch entstanden sind — und wie du selbst eine Präsentation, Animation, Simulation, einen Trainer oder eine ganze Website mit KI baust. Für Einsteigerinnen und Einsteiger, Schritt für Schritt.">
+<meta name="author" content="Raphael Arnold Kohler">
+<link rel="canonical" href="https://begreifbar.ch/projektwoche/werkstatt/">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="begreifbar">
+<meta property="og:locale" content="de_CH">
+<meta property="og:title" content="Werkstatt — so entstand begreifbar">
+<meta property="og:description" content="Vom Chat mit ZIP-Datei zur eigenen Website: der Weg hinter begreifbar.ch und eine Anleitung zum Nachbauen, Schritt für Schritt.">
+<meta property="og:url" content="https://begreifbar.ch/projektwoche/werkstatt/">
+<link rel="stylesheet" href="../../schriften.css">
+
+<style>
+/* Farben, Schriften und Fusszeile wie projektwoche/index.html; die Seite steht allein. */
+:root {
+  --papier:     #f8f6f1;
+  --papier-2:   #efeade;
+  --weiss:      #ffffff;
+  --tinte:      #1c1a17;
+  --tinte-2:    #5a5040;
+  --linie:      #d8d0c4;
+
+  --blau:       #1a4f8a;
+  --blau-hell:  #ddeaf8;
+  --blau-rand:  #5b8fc9;
+  --bernstein:      #8a4a0e;
+  --bernstein-hell: #fbecd2;
+  --bernstein-rand: #c98028;
+  --petrol:      #0f6b6b;
+  --petrol-hell: #dcefee;
+
+  --code-grund: #1f1d1a;
+  --code-tinte: #f1ece2;
+
+  --serif: 'Source Serif 4', Georgia, serif;
+  --sans:  'Source Sans 3', system-ui, sans-serif;
+  --mono:  'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--sans); background: var(--papier); color: var(--tinte);
+  line-height: 1.65; display: flex; flex-direction: column; min-height: 100vh;
+}
+a { color: var(--blau); }
+a:focus-visible, summary:focus-visible, button:focus-visible { outline: 2px solid var(--tinte); outline-offset: 3px; }
+
+/* ── Kopf ───────────────────────────────────────────────────── */
+.hero {
+  background: var(--weiss); border-bottom: 1px solid var(--linie);
+  padding: 40px 22px 30px; text-align: center;
+}
+.hero-ueber {
+  font-family: var(--mono); font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 0.04em; color: var(--tinte-2);
+}
+.hero-ueber a { color: inherit; }
+.hero h1 {
+  margin-top: 8px;
+  font-family: var(--serif); font-weight: 700; line-height: 1.15;
+  font-size: clamp(1.8rem, 5vw, 2.8rem); text-wrap: balance;
+}
+.hero-satz { max-width: 640px; margin: 14px auto 0; font-size: 1.05rem; color: var(--tinte-2); text-wrap: pretty; }
+
+/* Drei Ebenen als Sprungleiste */
+.ebenen {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  max-width: 760px; margin: 26px auto 0; list-style: none; text-align: left;
+}
+.ebenen a {
+  display: block; height: 100%; padding: 12px 14px; min-height: 44px;
+  background: var(--papier); border: 1px solid var(--linie); border-radius: 10px;
+  color: var(--tinte); text-decoration: none;
+}
+.ebenen a:hover { border-color: var(--tinte-2); }
+.ebenen b { display: block; font-size: 0.98rem; }
+.ebenen span { display: block; font-size: 0.84rem; color: var(--tinte-2); line-height: 1.4; }
+.ebenen .nr { font-family: var(--mono); font-size: 0.72rem; font-weight: 700; color: var(--tinte-2); }
+@media (max-width: 600px) { .ebenen { grid-template-columns: 1fr; } }
+
+/* ── Text ───────────────────────────────────────────────────── */
+main { flex: 1; width: 100%; max-width: 74ch; margin: 0 auto; padding: 34px 18px 70px; }
+main p, main li { text-wrap: pretty; }
+section { margin-top: 54px; }
+section:first-child { margin-top: 0; }
+h2 {
+  font-family: var(--serif); font-size: clamp(1.45rem, 3.6vw, 1.85rem); line-height: 1.2;
+  scroll-margin-top: 16px;
+}
+h2 .ebene {
+  display: block; margin-bottom: 4px;
+  font-family: var(--mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em;
+  color: var(--tinte-2); text-transform: uppercase;
+}
+h3 { font-size: 1.12rem; margin: 28px 0 6px; scroll-margin-top: 16px; }
+main p + p, main p + ul, main ul + p, main p + ol { margin-top: 10px; }
+main ul, main ol { padding-left: 1.3em; }
+main li + li { margin-top: 4px; }
+.lead { margin-top: 10px; color: var(--tinte-2); }
+code {
+  font-family: var(--mono); font-size: 0.86em;
+  background: var(--papier-2); border-radius: 4px; padding: 1px 5px;
+}
+kbd {
+  font-family: var(--mono); font-size: 0.82em; padding: 1px 6px;
+  border: 1px solid var(--linie); border-bottom-width: 2px; border-radius: 4px; background: var(--weiss);
+}
+
+/* Zeitleiste */
+.zeit { list-style: none; padding: 0 !important; margin-top: 22px; border-left: 3px solid var(--linie); }
+.zeit li { position: relative; padding: 0 0 22px 22px; margin: 0 !important; }
+.zeit li::before {
+  content: ""; position: absolute; left: -9px; top: 6px; width: 15px; height: 15px;
+  border-radius: 50%; background: var(--weiss); border: 3px solid var(--tinte-2);
+}
+.zeit li.hier::before { background: var(--petrol); border-color: var(--petrol); }
+.zeit .wann { font-family: var(--mono); font-size: 0.78rem; font-weight: 700; color: var(--tinte-2); }
+.zeit b { display: block; font-size: 1.04rem; margin-top: 1px; }
+.zeit p { margin-top: 4px !important; font-size: 0.97rem; }
+.zeit .lehre { font-size: 0.9rem; color: var(--tinte-2); }
+.zeit .lehre::before { content: "Gelernt: "; font-weight: 700; }
+
+/* Kästen */
+.kasten {
+  margin-top: 22px; padding: 16px 20px;
+  background: var(--weiss); border: 1px solid var(--linie); border-radius: 10px;
+}
+.kasten > b:first-child { display: block; margin-bottom: 4px; }
+.kasten.lp { background: var(--papier-2); }
+.kasten.warn { border-left: 4px solid var(--bernstein-rand); }
+
+/* Zwei Wege */
+.wege { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; }
+@media (max-width: 640px) { .wege { grid-template-columns: 1fr; } }
+.weg {
+  display: flex; flex-direction: column;
+  padding: 18px 18px 16px; background: var(--weiss);
+  border: 1px solid var(--linie); border-top: 5px solid var(--petrol); border-radius: 10px;
+}
+.weg.b { border-top-color: var(--blau); }
+.weg .marke { font-family: var(--mono); font-size: 0.74rem; font-weight: 700; color: var(--petrol); }
+.weg.b .marke { color: var(--blau); }
+.weg h3 { margin: 2px 0 6px; font-family: var(--serif); font-size: 1.25rem; }
+.weg ul { font-size: 0.93rem; margin: 8px 0 12px; }
+.weg .fuer { font-size: 0.93rem; }
+.weg a.los {
+  margin-top: auto; align-self: flex-start;
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px;
+  border-radius: 8px; background: var(--petrol); color: #fff; font-weight: 700; text-decoration: none;
+}
+.weg.b a.los { background: var(--blau); }
+
+.vergleich { width: 100%; margin-top: 18px; border-collapse: collapse; font-size: 0.9rem; background: var(--weiss); }
+.vergleich th, .vergleich td { text-align: left; vertical-align: top; padding: 8px 10px; border: 1px solid var(--linie); }
+.vergleich thead th { background: var(--papier-2); }
+.tabelle-rahmen { overflow-x: auto; }
+
+/* Schritte zum Aufklappen */
+.werkzeugleiste { display: flex; justify-content: flex-end; margin-top: 16px; }
+.knopf {
+  font: inherit; font-size: 0.86rem; font-weight: 700; min-height: 40px; padding: 0 14px;
+  border: 1px solid var(--linie); border-radius: 8px; background: var(--weiss); color: var(--tinte-2); cursor: pointer;
+}
+.knopf:hover { color: var(--tinte); border-color: var(--tinte-2); }
+details.schritt {
+  margin-top: 10px; background: var(--weiss);
+  border: 1px solid var(--linie); border-radius: 10px;
+}
+details.schritt > summary {
+  list-style: none; cursor: pointer; padding: 13px 44px 13px 16px; position: relative;
+  display: flex; gap: 12px; align-items: baseline; min-height: 48px;
+}
+details.schritt > summary::-webkit-details-marker { display: none; }
+details.schritt > summary::after {
+  content: "+"; position: absolute; right: 16px; top: 10px;
+  font-family: var(--mono); font-size: 1.2rem; color: var(--tinte-2);
+}
+details.schritt[open] > summary::after { content: "−"; }
+details.schritt[open] > summary { border-bottom: 1px solid var(--linie); }
+.snr {
+  flex: none; font-family: var(--mono); font-size: 0.78rem; font-weight: 700;
+  color: #fff; background: var(--petrol); border-radius: 5px; padding: 1px 7px;
+}
+.b-teil .snr { background: var(--blau); }
+.stitel { font-weight: 700; }
+.sdauer { margin-left: auto; flex: none; font-size: 0.8rem; color: var(--tinte-2); white-space: nowrap; }
+.sinhalt { padding: 6px 16px 16px; }
+.sinhalt > p:first-child { margin-top: 8px; }
+.sinhalt ol, .sinhalt ul { margin-top: 8px; }
+.extra { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 0 6px; border-radius: 4px;
+  background: var(--bernstein-hell); color: var(--bernstein); vertical-align: 2px; margin-left: 4px; }
+@media (max-width: 480px) { .sdauer { display: none; } }
+
+/* Befehle mit Kopierknopf */
+.befehl { position: relative; margin-top: 10px; }
+.befehl pre {
+  overflow-x: auto; padding: 40px 14px 12px;
+  background: var(--code-grund); color: var(--code-tinte); border-radius: 8px;
+  font-family: var(--mono); font-size: 0.82rem; line-height: 1.55;
+}
+.befehl pre .k { color: #9d968a; }
+/* Aufträge an Claude sind Fliesstext: umbrechen statt seitlich scrollen */
+.befehl.text pre { white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--sans); font-size: 0.92rem; }
+.befehl + p, .befehl + ol, .befehl + .kasten { margin-top: 12px; }
+.befehl .kopie {
+  position: absolute; top: 6px; right: 6px; min-height: 32px; padding: 0 10px;
+  font: inherit; font-size: 0.75rem; font-weight: 700; cursor: pointer;
+  border: 1px solid #4a463f; border-radius: 6px; background: #2c2925; color: var(--code-tinte);
+}
+.befehl .kopie:hover { background: #3a3631; }
+.wo { display: block; margin-top: 12px; font-size: 0.8rem; font-weight: 700; color: var(--tinte-2); }
+.wo + .befehl { margin-top: 4px; }
+
+/* Spickzettel */
+.spick { width: 100%; border-collapse: collapse; margin-top: 16px; background: var(--weiss); font-size: 0.93rem; }
+.spick th, .spick td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--linie); }
+.spick td:first-child { white-space: nowrap; font-family: var(--mono); font-size: 0.84rem; font-weight: 700; }
+.spick thead th { background: var(--papier-2); font-size: 0.85rem; }
+
+/* Downloads */
+.downloads { list-style: none; padding: 0 !important; margin-top: 16px; display: grid; gap: 10px; }
+.downloads a {
+  display: flex; gap: 14px; align-items: center; padding: 12px 16px; min-height: 56px;
+  background: var(--weiss); border: 1px solid var(--linie); border-radius: 10px;
+  color: var(--tinte); text-decoration: none;
+}
+.downloads a:hover { border-color: var(--tinte-2); }
+.downloads .typ { flex: none; font-family: var(--mono); font-size: 0.72rem; font-weight: 700; color: #fff; background: var(--tinte-2); border-radius: 5px; padding: 2px 7px; }
+.downloads span:last-child { font-size: 0.92rem; }
+.downloads b { display: block; }
+
+/* Glossar */
+.glossar { margin-top: 14px; display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; font-size: 0.95rem; }
+.glossar dt { font-weight: 700; }
+@media (max-width: 520px) { .glossar { grid-template-columns: 1fr; gap: 0; } .glossar dd { margin-bottom: 10px; } }
+
+.stand {
+  margin-top: 44px; padding-top: 14px; border-top: 1px solid var(--linie);
+  font-size: 0.8rem; color: var(--tinte-2);
+}
+.zurueck {
+  display: inline-flex; align-items: center; gap: 7px;
+  margin-top: 20px; padding: 11px 0; min-height: 44px;
+  font-family: var(--mono); font-size: 0.8rem; font-weight: 700;
+  color: var(--tinte-2); text-decoration: none;
+}
+.zurueck:hover { color: var(--tinte); }
+
+/* ── Fuss ───────────────────────────────────────────────────── */
+.site-footer {
+  background: var(--tinte); color: rgba(255,255,255,0.45);
+  padding: 24px 22px; text-align: center;
+  font-size: 0.74rem; line-height: 1.8;
+}
+.site-footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+.site-footer a:hover { color: #fff; }
+.site-footer strong { color: rgba(255,255,255,0.82); }
+
+/* ── Druck: alles aufgeklappt, ohne Knöpfe ──────────────────── */
+@media print {
+  body { background: #fff; }
+  .hero { padding: 10px 0; border: none; }
+  .ebenen, .werkzeugleiste, .kopie, .zurueck, .site-footer { display: none !important; }
+  details.schritt { break-inside: avoid; border-color: #999; }
+  details.schritt > summary::after { content: ""; }
+  .befehl pre { background: #f2f2f2; color: #000; border: 1px solid #999; white-space: pre-wrap; padding-top: 12px; }
+  a { color: #000; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <p class="hero-ueber"><a href="../">Projektwoche</a> · Werkstatt</p>
+  <h1>So entstand begreifbar — und so baust du dein eigenes</h1>
+  <p class="hero-satz">Lernende und Lehrpersonen fragen mich, wie diese Seiten entstanden sind.
+    Hier steht es, in drei Ebenen. Lies nur so weit, wie du willst.</p>
+  <ol class="ebenen">
+    <li><a href="#weg"><span class="nr">EBENE 1 · 5 MIN</span><b>Mein Weg</b><span>Wie es entstanden ist, vom Chat bis zur eigenen Website</span></a></li>
+    <li><a href="#wahl"><span class="nr">EBENE 2 · 3 MIN</span><b>Dein Weg</b><span>Welcher von zwei Wegen zu deiner Idee passt</span></a></li>
+    <li><a href="#a"><span class="nr">EBENE 3 · ZUM MITMACHEN</span><b>Schritt für Schritt</b><span>Zum Aufklappen, mit Befehlen zum Kopieren</span></a></li>
+  </ol>
+</header>
+
+<main>
+
+<!-- ═══════════════════════ EBENE 1 ═══════════════════════ -->
+<section aria-labelledby="weg">
+  <h2 id="weg"><span class="ebene">Ebene 1</span>Mein Weg: vom Chat zur eigenen Website</h2>
+  <p class="lead">Ich bin Lehrer, nicht Informatiker. Programmiert hat die KI (Claude von
+    Anthropic). Meine Arbeit war es, zu sagen, was ich will, das Ergebnis zu prüfen und die
+    Abmachungen aufzuschreiben. Gebaut habe ich in kleinen Schritten, über fünf Monate.</p>
+
+  <ol class="zeit">
+    <li>
+      <span class="wann">Mai 2026</span>
+      <b>Im Chat, mit ZIP-Dateien</b>
+      <p>Die ersten Mathe-Seiten entstanden im Chat auf claude.ai. Jede neue Fassung kam als
+        ZIP-Datei, die ich auspackte und auf GitHub hochlud. Am 5. Mai war die erste
+        Fassung online.</p>
+      <p class="lehre">Für den Anfang reicht das. Bei vielen Seiten wird es aber mühsam: Das
+        ganze Projekt geht bei jeder Änderung hin und her, und der Chat vergisst die
+        Abmachungen des letzten Mals.</p>
+    </li>
+    <li>
+      <span class="wann">Juni 2026</span>
+      <b>Umzug in die Werkstatt: Ubuntu, Claude Code, Git</b>
+      <p>Am 15. Juni ging Physik online, eine Woche später zog das Projekt auf meinen
+        Laptop um. Dort läuft Ubuntu unter Windows. Claude Code arbeitet im Terminal direkt
+        in meinen Dateien, und Git merkt sich jede Änderung. Mathe folgte mit derselben
+        Einrichtung.</p>
+      <p class="lehre">Ein Rückgängig-Knopf für das ganze Projekt (Git) macht mutig. Ich
+        konnte ausprobieren, weil ich jeden Schritt zurücknehmen konnte.</p>
+    </li>
+    <li>
+      <span class="wann">Juni bis Juli 2026</span>
+      <b>Regeln, Skripte, ein gemeinsames Aussehen</b>
+      <p>Was ich der KI mehr als zweimal sagen musste, schrieb ich in eine Datei
+        <code>CLAUDE.md</code>, eine Hausordnung, die Claude bei jedem Start liest. Das
+        Aussehen steht in einer einzigen <code>style.css</code>. Ein Prüfskript, der
+        «Pre-Flight», kontrolliert vor jedem Speichern Links, Formeln und Animationen.</p>
+      <p class="lehre">Die KI ist nur so verlässlich wie die Regeln, die sie bekommt. Gute
+        Regeln sind kurz und konkret: «Knöpfe mindestens 44 px hoch», nicht «schön gestalten».</p>
+    </li>
+    <li>
+      <span class="wann">10. August 2026</span>
+      <b>Eine eigene Adresse</b>
+      <p>Statt <code>go4exercises.github.io/…</code> heissen die Seiten jetzt
+        <a href="https://mathe.begreifbar.ch">mathe.begreifbar.ch</a> und
+        <a href="https://physik.begreifbar.ch">physik.begreifbar.ch</a>. GitHub Pages
+        liefert sie gratis aus, nur die Domain kostet etwas.</p>
+    </li>
+    <li>
+      <span class="wann">30. August 2026</span>
+      <b>Vertonte, animierte Clips</b>
+      <p>Ein Clip ist kein Video, sondern eine kleine Webseite, die einen Gedankengang
+        Zeile für Zeile aufbaut. Von Hand schreibe ich nur das Drehbuch. Ein Skript macht
+        daraus die Animation, und die Stimme spricht ein Programm namens Piper. Es läuft
+        auf dem Laptop, ganz ohne Internet.</p>
+    </li>
+    <li>
+      <span class="wann">ab 31. August 2026</span>
+      <b>Leitprogramme</b>
+      <p>Zum Selberlernen: ein Thema in kleinen Schritten, mit Clips, Erkundungen und
+        Fragen mit Rückmeldung. Das erste war «Potenzen» in Mathe, dann «Ideale Gase» in
+        Physik.</p>
+    </li>
+    <li class="hier">
+      <span class="wann">Oktober 2026</span>
+      <b>Simulationen, Werkzeuge, Sek I</b>
+      <p>Grössere Simulationen und Trainer bekommen eigene Seiten, und
+        <a href="https://sek1-mathe.begreifbar.ch">Sek1-Mathe</a> kommt dazu. Heute
+        stecken über 1000 gespeicherte Arbeitsschritte (Commits) in den Projekten.</p>
+    </li>
+  </ol>
+
+  <div class="kasten">
+    <b>Wer genau hinschauen will</b>
+    Alles ist öffentlich: die Hausordnung
+    <a href="https://github.com/go4exercises/TALS-Mathe/blob/main/CLAUDE.md">CLAUDE.md</a>,
+    der <a href="https://github.com/go4exercises/TALS-Mathe/blob/main/STYLEGUIDE.md">Styleguide</a>,
+    die <a href="https://github.com/go4exercises/TALS-Mathe/blob/main/HOWTO-clips.md">Anleitung für die Clips</a>
+    und die ganze Geschichte unter
+    <a href="https://github.com/go4exercises/TALS-Mathe/commits/main">Commits</a>.
+  </div>
+</section>
+
+<!-- ═══════════════════════ EBENE 2 ═══════════════════════ -->
+<section aria-labelledby="wahl">
+  <h2 id="wahl"><span class="ebene">Ebene 2</span>Dein Weg: Welcher passt zu deiner Idee?</h2>
+  <p class="lead">Du musst meinen Weg nicht nachgehen. Für die meisten Ideen reicht der erste.</p>
+
+  <div class="wege">
+    <div class="weg">
+      <span class="marke">WEG A · OHNE TERMINAL</span>
+      <h3>Eine Datei mit der Claude-App</h3>
+      <p class="fuer">Für <b>eine</b> Sache: eine Präsentation, eine Animation, eine Simulation, einen Trainer.</p>
+      <ul>
+        <li>Du beschreibst im Chat, was du willst.</li>
+        <li>Claude baut eine einzige HTML-Datei.</li>
+        <li>Die Datei läuft in jedem Browser, auch offline, und lässt sich teilen.</li>
+      </ul>
+      <a class="los" href="#a">Zu Weg A →</a>
+    </div>
+    <div class="weg b">
+      <span class="marke">WEG B · DIE WERKSTATT</span>
+      <h3>Eine Website wie begreifbar</h3>
+      <p class="fuer">Für ein Projekt, das <b>wächst</b>: viele Seiten mit gemeinsamem Aussehen und eigener Adresse.</p>
+      <ul>
+        <li>Ubuntu, Claude Code und Git auf deinem Laptop.</li>
+        <li>Claude arbeitet direkt in deinen Dateien.</li>
+        <li>GitHub Pages stellt alles gratis online.</li>
+      </ul>
+      <a class="los" href="#b">Zu Weg B →</a>
+    </div>
+  </div>
+
+  <div class="tabelle-rahmen">
+  <table class="vergleich">
+    <thead><tr><th></th><th>Weg A · Claude-App</th><th>Weg B · Werkstatt</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Erstes Ergebnis</th><td>nach 15 Minuten</td><td>nach einem Nachmittag Einrichten</td></tr>
+      <tr><th scope="row">Vorkenntnisse</th><td>keine</td><td>keine, aber Geduld mit dem Terminal</td></tr>
+      <tr><th scope="row">Grösse</th><td>eine Datei, gut bis etwa 1000 Zeilen</td><td>beliebig viele Seiten</td></tr>
+      <tr><th scope="row">Änderungen</th><td>im Chat, neue Datei herunterladen</td><td>Claude ändert direkt, Git merkt sich alles</td></tr>
+      <tr><th scope="row">Online stellen</th><td>Datei hochladen (Schritt A5)</td><td><code>git push</code></td></tr>
+      <tr><th scope="row">Kosten</th><td>Gratis-Konto reicht zum Ausprobieren</td><td>Claude Code braucht ein bezahltes Abo</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="kasten lp">
+    <b>Für Lehrpersonen und Lernende: vor dem Start klären</b>
+    <ul>
+      <li><b>Alter und Konto:</b> Claude.ai setzt nach den Nutzungsbedingungen von Anthropic
+        18 Jahre voraus, GitHub 13 Jahre (Stand Oktober 2026, bitte selbst prüfen). Jüngere
+        arbeiten mit dem Werkzeug, das die Schule freigibt.</li>
+      <li><b>Öffentlich heisst öffentlich:</b> Ein Gratis-Repo auf GitHub kann jede und jeder
+        lesen, mit der ganzen Geschichte. Also keine Namen von Mitschülerinnen und
+        Mitschülern, keine Noten, keine Fotos von anderen.</li>
+      <li><b>Die KI irrt sich:</b> Zahlen, Formeln und Fakten prüfst du selbst. Bei begreifbar
+        rechnet jede Aufgabe zuerst ein Python-Skript nach, bevor sie auf die Seite kommt.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════ EBENE 3 · WEG A ═══════════════════════ -->
+<section aria-labelledby="a">
+  <h2 id="a"><span class="ebene">Ebene 3 · Weg A</span>Eine Datei mit der Claude-App</h2>
+  <p class="lead">Du brauchst ein Konto auf <a href="https://claude.ai">claude.ai</a>. Im
+    Browser geht alles; die Desktop-App für Windows und Mac kann zusätzlich Dateien direkt
+    auf deinem Computer ablegen (Schritt A6).</p>
+
+  <div class="werkzeugleiste"><button class="knopf" type="button" data-alle="a-teil">Alle aufklappen</button></div>
+  <div id="a-teil">
+
+  <details class="schritt">
+    <summary><span class="snr">A1</span><span class="stitel">Die Idee in einem Satz</span><span class="sdauer">5 min</span></summary>
+    <div class="sinhalt">
+      <p>Bevor du etwas tippst, beantworte drei Fragen auf Papier:</p>
+      <ol>
+        <li><b>Was</b> soll es tun? «Ein Trainer, der mir Einheiten-Umrechnungen stellt.»</li>
+        <li><b>Für wen?</b> «Für mich und meine Klasse, BM1, vor der Prüfung.»</li>
+        <li><b>Wann ist es gut?</b> «Wenn ich zehn Aufgaben lösen kann und am Ende sehe, was ich falsch hatte.»</li>
+      </ol>
+      <p>Der dritte Satz ist der wichtigste. Mit ihm prüfst du nachher, ob das Ergebnis taugt.</p>
+    </div>
+  </details>
+
+  <details class="schritt">
+    <summary><span class="snr">A2</span><span class="stitel">Der erste Auftrag: eine Vorlage zum Kopieren</span><span class="sdauer">5 min</span></summary>
+    <div class="sinhalt">
+      <p>Kopiere die Vorlage, die zu deiner Idee passt, in den Chat und ersetze alles in ⟪…⟫.
+        Der letzte Absatz ist bei allen gleich, er macht aus dem Ergebnis eine Datei, die
+        überall läuft.</p>
+
+      <span class="wo">Präsentation</span>
+      <div class="befehl text"><pre>Erstelle eine Präsentation als einzelne HTML-Datei zum Thema ⟪Thema⟫ für ⟪Publikum⟫, ⟪8⟫ Folien. Blättern mit den Pfeiltasten und per Wischen, grosse Schrift für den Beamer, eine Folie pro Gedanke, wenig Text.
+
+Alles in einer Datei: kein Internet nötig, keine fremden Schriften oder Bibliotheken. Muss auf dem Handy (360 px breit) funktionieren.</pre></div>
+
+      <span class="wo">Animation</span>
+      <div class="befehl text"><pre>Erstelle eine Animation als einzelne HTML-Datei, die zeigt, wie ⟪z. B. ein Wurf in der Luft eine Parabel beschreibt⟫. Mit Start, Pause und Zurück, dazu ein Regler für ⟪Abwurfwinkel⟫. Beschrifte die Achsen.
+
+Alles in einer Datei: kein Internet nötig, keine fremden Schriften oder Bibliotheken. Muss auf dem Handy (360 px breit) funktionieren.</pre></div>
+
+      <span class="wo">Simulation</span>
+      <div class="befehl text"><pre>Erstelle eine Simulation als einzelne HTML-Datei: ⟪ein Bungee-Sprung⟫. Regler für ⟪Masse, Seillänge, Federkonstante⟫. Links die Animation, rechts ein Diagramm ⟪Höhe gegen Zeit⟫, das mitläuft. Rechne mit den richtigen physikalischen Formeln und nenne sie unter der Grafik.
+
+Alles in einer Datei: kein Internet nötig, keine fremden Schriften oder Bibliotheken. Muss auf dem Handy (360 px breit) funktionieren.</pre></div>
+
+      <span class="wo">Trainer</span>
+      <div class="befehl text"><pre>Erstelle einen Trainer als einzelne HTML-Datei für ⟪Einheiten umrechnen, z. B. km/h in m/s⟫. Er stellt zufällige Aufgaben, prüft meine Eingabe, gibt bei einem Fehler einen Tipp statt der Lösung und zählt die Punkte. Nach ⟪10⟫ Aufgaben zeigt er, welche ich falsch hatte.
+
+Alles in einer Datei: kein Internet nötig, keine fremden Schriften oder Bibliotheken. Muss auf dem Handy (360 px breit) funktionieren.</pre></div>
+    </div>
+  </details>
+
+  <details class="schritt">
+    <summary><span class="snr">A3</span><span class="stitel">Ausprobieren und nachbessern</span><span class="sdauer">10–60 min</span></summary>
+    <div class="sinhalt">
+      <p>Claude zeigt das Ergebnis meist gleich in einer Vorschau neben dem Chat. Probiere
+        es aus wie jemand, der es zum ersten Mal sieht. Dann beschreibe <b>eine</b> Sache, die
+        stört, möglichst genau:</p>
+      <ul>
+        <li>schwach: «Mach es schöner.»</li>
+        <li>gut: «Auf dem Handy ist der Regler zu klein zum Treffen. Mach ihn mindestens 44 px hoch.»</li>
+        <li>gut: «Bei Winkel 90° fliegt der Ball aus dem Bild. Die Achse soll mitwachsen.»</li>
+        <li>zum Verstehen: «Erkläre mir in einfachen Worten, wie der Teil funktioniert, der die Punkte zählt.»</li>
+      </ul>
+      <p>Eine Sache pro Nachricht. Wird der Chat sehr lang und Claude vergisst Dinge: neuen
+        Chat öffnen, die letzte Datei hineinziehen und sagen, woran du weiterarbeitest.</p>
+    </div>
+  </details>
+
+  <details class="schritt">
+    <summary><span class="snr">A4</span><span class="stitel">Speichern und öffnen</span><span class="sdauer">2 min</span></summary>
+    <div class="sinhalt">
+      <ol>
+        <li>Datei herunterladen, sie endet auf <code>.html</code>. Gib ihr einen Namen ohne
+          Leerzeichen und Umlaute, z. B. <code>einheiten-trainer.html</code>.</li>
+        <li>Doppelklick öffnet sie im Browser, auch ohne Internet.</li>
+        <li>Teilen geht schon jetzt: per Teams, Mail oder USB-Stick. Wer sie bekommt, braucht
+          nur einen Browser.</li>
+      </ol>
+    </div>
+  </details>
+
+  <details class="schritt">
+    <summary><span class="snr">A5</span><span class="stitel">Online stellen, ohne Terminal</span><span class="sdauer">15 min</span></summary>
+    <div class="sinhalt">
+      <p>Damit dein Werk eine Adresse bekommt, die man mit dem Handy öffnen kann:</p>
+      <ol>
+        <li>Auf <a href="https://github.com/signup">github.com</a> ein Gratis-Konto anlegen.
+          Der Benutzername wird Teil deiner Adresse.</li>
+        <li>Oben rechts <b>+</b> → <b>New repository</b>. Name z. B. <code>trainer</code>,
+          <b>Public</b> wählen, <b>Create repository</b>.</li>
+        <li>Auf <b>uploading an existing file</b> klicken, deine Datei hineinziehen.
+          <b>Wichtig:</b> Vorher in <code>index.html</code> umbenennen, dann ist sie die
+          Startseite. Unten <b>Commit changes</b>.</li>
+        <li><b>Settings</b> → links <b>Pages</b> → bei <i>Branch</i> <code>main</code> und
+          <code>/ (root)</code> wählen → <b>Save</b>.</li>
+        <li>Nach ein bis zwei Minuten ist sie online unter
+          <code>https://⟪benutzername⟫.github.io/trainer/</code>.</li>
+      </ol>
+      <p>Neue Fassung? Wieder <b>Add file → Upload files</b>, gleicher Name, und GitHub
+        ersetzt die alte. Die alte bleibt in der Geschichte erhalten.</p>
+    </div>
+  </details>
+
+  <details class="schritt">
+    <summary><span class="snr">A6</span><span class="stitel">Mehrere Dateien: Cowork in der Desktop-App</span><span class="extra">Wenn es grösser wird</span></summary>
+    <div class="sinhalt">
+      <p>Wird aus einer Datei ein kleines Projekt mit Bildern, mehreren Seiten oder Daten,
+        hilft die <b>Claude-Desktop-App</b> (Windows, Mac) mit dem Modus <b>Cowork</b>:</p>
+      <ol>
+        <li>App von <a href="https://claude.ai/download">claude.ai/download</a> installieren und anmelden.</li>
+        <li>Einen leeren Ordner anlegen, z. B. <code>Dokumente/meine-praesentation</code>, und ihn
+          in Cowork freigeben.</li>
+        <li>Claude legt die Dateien direkt in diesem Ordner an und ändert sie dort. Es gibt kein
+          Herunterladen und kein ZIP mehr.</li>
+        <li>Zum Online-Stellen den ganzen Inhalt des Ordners wie in A5 hochladen.</li>
+      </ol>
+      <p>Cowork ist der Zwischenschritt zwischen Weg A und B: Claude arbeitet in deinen
+        Dateien wie in der Werkstatt, aber ohne Terminal. Was dir dann noch fehlt, ist die
+        Geschichte jeder Änderung, also Git (Weg B). Die Funktionen der App ändern sich
+        schnell; massgebend ist, was sie dir anzeigt.</p>
+    </div>
+  </details>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════ EBENE 3 · WEG B ═══════════════════════ -->
+<section aria-labelledby="b">
+  <h2 id="b"><span class="ebene">Ebene 3 · Weg B</span>Die Werkstatt: so wie begreifbar entsteht</h2>
+  <p class="lead">Einmal einrichten (B1–B5), dann immer gleich arbeiten (B6–B7). B8–B10 sind
+    das, was begreifbar über die Monate dazugelernt hat. Nimm sie dazu, wenn du sie brauchst.</p>
+
+  <div class="werkzeugleiste"><button class="knopf" type="button" data-alle="b-teil">Alle aufklappen</button></div>
+  <div id="b-teil" class="b-teil">
+
+  <details class="schritt">
+    <summary><span class="snr">B1</span><span class="stitel">Ubuntu installieren (Windows)</span><span class="sdauer">30 min</span></summary>
+    <div class="sinhalt">
+      <p>Die Werkzeuge der Werkstatt sind für Linux gebaut. Windows bringt ein echtes Ubuntu
+        mit, «WSL» genannt. Auf dem Mac überspringst du diesen Schritt und nimmst das
+        Programm <i>Terminal</i>.</p>
+      <ol>
+        <li>Startmenü → «PowerShell» tippen → Rechtsklick → <b>Als Administrator ausführen</b>.</li>
+        <li>Diesen Befehl eingeben, <kbd>Enter</kbd>:</li>
+      </ol>
+      <span class="wo">PowerShell (Administrator)</span>
+      <div class="befehl"><pre>wsl --install</pre></div>
+      <ol start="3">
+        <li>Computer neu starten. Danach öffnet sich Ubuntu von selbst, sonst im Startmenü
+          «Ubuntu» suchen.</li>
+        <li>Einen Benutzernamen (klein, ohne Leerzeichen) und ein Passwort wählen. Beim
+          Tippen des Passworts sieht man <b>nichts</b>, das ist normal.</li>
+      </ol>
+      <div class="kasten warn"><b>Wo deine Dateien liegen</b>
+        Arbeite im Ubuntu-Ordner (<code>~</code>, also <code>/home/⟪name⟫</code>), nicht
+        unter <code>/mnt/c/…</code>: Dort ist alles viel langsamer. Im Windows-Explorer
+        findest du den Ubuntu-Ordner links unter <b>Linux</b>.</div>
+    </div>
+  </details>
+
+  <details class="schritt">
+    <summary><span class="snr">B2</span><span class="stitel">Die Werkzeuge installieren</span><span class="sdauer">15 min</span></summary>
+    <div class="sinhalt">
+      <p>Fünf Programme: <b>git</b> (Geschichte), <b>python3</b> und <b>node</b> (für Skripte),
+        <b>gh</b> (Verbindung zu GitHub) und <b>Claude Code</b>. Am einfachsten mit dem
+        Einrichtungsskript, das alles nacheinander erledigt und nachfragt:</p>
+      <span class="wo">Ubuntu-Terminal</span>
+      <div class="befehl"><pre>curl -fsSLO https://begreifbar.ch/projektwoche/werkstatt/einrichten.sh
+less einrichten.sh     <span class="k"># zuerst lesen, was es tut (Ende mit q)</span>
+bash einrichten.sh</pre></div>
+      <p>Oder von Hand, Zeile für Zeile:</p>
+      <div class="befehl"><pre>sudo apt update
+sudo apt install -y git python3 nodejs npm gh curl unzip
+curl -fsSL https://claude.ai/install.sh | bash
+git config --global user.name "⟪Vorname Name⟫"
+git config --global user.email "⟪deine@mail.ch⟫"
+git config --global init.defaultBranch main</pre></div>
+      <p>Prüfen: Terminal schliessen, neu öffnen, <code>claude --version</code>. Erscheint
+        eine Nummer, ist alles da.</p>
+      <p><b>Gewohnheit:</b> Ein Skript aus dem Internet erst lesen, dann ausführen. Das gilt
+        auch für dieses.</p>
+    </div>
+  </details>
+
+  <details class="schritt">
+    <summary><span class="snr">B3</span><span class="stitel">GitHub-Konto verbinden</span><span class="sdauer">5 min</span></summary>
+    <div class="sinhalt">
+      <p>Konto auf <a href="https://github.com/signup">github.com</a> anlegen, falls noch nicht
+        geschehen. Dann im Terminal (das Einrichtungsskript macht das schon):</p>
+      <div class="befehl"><pre>gh auth login</pre></div>
+      <p>Wählen: <b>GitHub.com</b> → <b>HTTPS</b> → <b>Login with a web browser</b>. Den
+        angezeigten Code im Browser eintippen. Danach fragt Git nie mehr nach einem Passwort.</p>
+    </div>
+  </details>
+
+  <details class="schritt">
+    <summary><span class="snr">B4</span><span class="stitel">Das erste Projekt</span><span class="sdauer">15 min</span></summary>
+    <div class="sinhalt">
+      <p>Ein Ordner für das Projekt, Git einschalten, Claude starten:</p>
+      <div class="befehl"><pre>mkdir -p ~/meine-seite
+cd ~/meine-seite
+git init
+claude</pre></div>
+      <p>Beim ersten Start meldest du dich im Browser an. Claude Code braucht ein bezahltes
+        Abo, der Gratis-Plan schaltet es nicht frei. Dann tippst du deinen Auftrag, so wie im
+        Chat:</p>
+      <div class="befehl text"><pre>Lege eine Website an: index.html als Startseite über ⟪Thema⟫, eine style.css für das ganze Aussehen. Schweizer Rechtschreibung, keine Dateien von fremden Servern, funktioniert auf dem Handy.</pre></div>
+      <p>Claude fragt, bevor es Dateien anlegt oder Befehle ausführt. Lies, was es vorhat,
+        und bestätige. Danach, in einem <b>zweiten</b> Terminal-Fenster im selben Ordner:</p>
+      <div class="befehl"><pre>git add -A
+git commit -m "Erste Fassung"
+gh repo create meine-seite --public --source=. --push</pre></div>
+      <p>Der letzte Befehl legt das Repo auf GitHub an und lädt alles hoch.</p>
+    </div>
+  </details>
+
+  <details class="schritt">
+    <summary><span class="snr">B5</span><span class="stitel">GitHub Pages einschalten</span><span class="sdauer">5 min</span></summary>
+    <div class="sinhalt">
+      <ol>
+        <li>Auf github.com dein Repo öffnen → <b>Settings</b> → <b>Pages</b>.</li>
+        <li><i>Source:</i> <b>Deploy from a branch</b>, <i>Branch:</i> <code>main</code>,
+          Ordner <code>/ (root)</code> → <b>Save</b>.</li>
+        <li>Nach ein bis zwei Minuten: <code>https://⟪benutzername⟫.github.io/meine-seite/</code>.</li>
+      </ol>
+      <p>Ab jetzt gilt: Jedes <code>git push</code> stellt die neue Fassung online. Was nicht
+        gepusht ist, bleibt auf deinem Laptop.</p>
+      <p><b>Seite zeigt «404»?</b> <code>index.html</code> muss zuoberst im Repo liegen, nicht
+        in einem Unterordner.</p>
+    </div>
+  </details>
+
+  <details class="schritt">
+    <summary><span class="snr">B6</span><span class="stitel">Der Arbeitsrhythmus: drei Fenster</span><span class="sdauer">täglich</span></summary>
+    <div class="sinhalt">
+      <p>So arbeite ich an begreifbar, jeden Tag gleich. Drei Terminal-Tabs, alle im
+        Projektordner (neuer Tab in Ubuntu: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd>):</p>
+      <span class="wo">Tab 1 · Claude Code: Aufträge</span>
+      <div class="befehl"><pre>claude</pre></div>
+      <span class="wo">Tab 2 · Vorschau: die Seite im Browser</span>
+      <div class="befehl"><pre>python3 -m http.server</pre></div>
+      <p>Dann im Browser <code>http://localhost:8000</code> öffnen. Nach jeder Änderung
+        <kbd>F5</kbd>.</p>
+      <span class="wo">Tab 3 · Git: sichern und veröffentlichen</span>
+      <div class="befehl"><pre>git status                        <span class="k"># was hat sich geändert?</span>
+git add -A                        <span class="k"># alles für den nächsten Commit vormerken</span>
+git commit -m "Trainer: Tipps bei falscher Einheit"
+git push                          <span class="k"># erst wenn du zufrieden bist</span></pre></div>
+      <p>Der Rhythmus: <b>ein Auftrag → im Browser prüfen → committen</b>. Kleine Schritte.
+        Ein Commit ist ein Speicherpunkt, zu dem du jederzeit zurückkannst. Claude kann auch
+        selbst committen, wenn du es darum bittest; den <code>git push</code> machst du
+        selbst.</p>
+    </div>
+  </details>
+
+  <details class="schritt">
+    <summary><span class="snr">B7</span><span class="stitel">Regeln für Claude: die CLAUDE.md</span><span class="sdauer">20 min</span></summary>
+    <div class="sinhalt">
+      <p>Claude Code liest bei jedem Start die Datei <code>CLAUDE.md</code> im Projektordner.
+        Was dort steht, musst du nie wieder sagen. Lade die <a href="CLAUDE-vorlage.md" download>Vorlage</a>
+        herunter, speichere sie als <code>CLAUDE.md</code> in deinem Projekt und passe sie an.
+        Oder lass Claude sie schreiben:</p>
+      <div class="befehl text"><pre>Schreibe eine CLAUDE.md für dieses Projekt: worum es geht, für wen, Sprache, wie die Dateien aufgebaut sind und welche Regeln gelten. Halte sie kurz. Frag mich, was du nicht weisst.</pre></div>
+      <p><b>Die wichtigste Gewohnheit:</b> Sagst du Claude etwas zum zweiten Mal, gehört es
+        in die <code>CLAUDE.md</code>. So wurde die Hausordnung von begreifbar in fünf
+        Monaten gross, eine Erfahrung nach der anderen.</p>
+    </div>
+  </details>
+
+  <details class="schritt">
+    <summary><span class="snr">B8</span><span class="stitel">Ein Aussehen, ein Prüfskript</span><span class="extra">wenn es mehr als drei Seiten sind</span></summary>
+    <div class="sinhalt">
+      <p><b>Eine CSS-Datei für alles.</b> Farben, Schriften und Abstände stehen einmal in
+        <code>style.css</code>. Neue Seiten übernehmen sie. So sieht Seite 50 aus wie Seite 1,
+        und eine neue Farbe änderst du an einer Stelle.</p>
+      <p><b>Ein Prüfskript statt Nachschauen.</b> Bei vielen Seiten übersiehst du Fehler. Lass
+        Claude ein Skript schreiben, das sie findet:</p>
+      <div class="befehl text"><pre>Schreibe ein Python-Skript pruefen.py, das alle HTML-Seiten prüft: kaputte Links, fehlende Bilder, Seiten ohne Titel, Dateien von fremden Servern. Am Ende eine Zeile «ALLE CHECKS BESTANDEN» oder die Liste der Fehler. Trag in die CLAUDE.md ein, dass es vor jedem Commit läuft.</pre></div>
+      <p>Bei begreifbar heisst dieses Skript «Pre-Flight», wie die Kontrolle vor dem Start
+        eines Flugzeugs. Es ist mit der Zeit auf viele Prüfungen gewachsen: Formeln,
+        Animationen, Barrierefreiheit, Breite auf dem Handy.</p>
+      <p><b>Skripte statt Handarbeit.</b> Was sich wiederholt, macht ein Skript: das
+        Inhaltsverzeichnis, die Suche, die Fusszeile. Du sagst Claude, was du willst, und
+        Claude schreibt das Skript.</p>
+    </div>
+  </details>
+
+  <details class="schritt">
+    <summary><span class="snr">B9</span><span class="stitel">Eine eigene Adresse</span><span class="extra">freiwillig, kostet etwas</span></summary>
+    <div class="sinhalt">
+      <ol>
+        <li>Domain bei einem Anbieter kaufen (für <code>.ch</code> rund 10 bis 20 Franken im Jahr).</li>
+        <li>Beim Anbieter die DNS-Einträge setzen. Für eine Unteradresse wie
+          <code>mathe.begreifbar.ch</code>: ein <b>CNAME</b> auf
+          <code>⟪benutzername⟫.github.io</code>. Für die Hauptadresse: vier <b>A</b>-Einträge
+          auf <code>185.199.108.153</code>, <code>185.199.109.153</code>,
+          <code>185.199.110.153</code>, <code>185.199.111.153</code>.</li>
+        <li>Im Repo: <b>Settings → Pages → Custom domain</b> eintragen. GitHub legt eine
+          Datei <code>CNAME</code> an.</li>
+        <li>Warten, bis das Zertifikat da ist (bis 24 Stunden), dann <b>Enforce HTTPS</b> anhaken.</li>
+      </ol>
+      <p>Die Aufzeichnungen dazu stehen im
+        <a href="https://github.com/go4exercises/begreifbar/blob/main/README.md">README der Startseite</a>.</p>
+    </div>
+  </details>
+
+  <details class="schritt">
+    <summary><span class="snr">B10</span><span class="stitel">Vertonte, animierte Clips</span><span class="extra">für Fortgeschrittene</span></summary>
+    <div class="sinhalt">
+      <p>So funktionieren die Clips von begreifbar, im Prinzip:</p>
+      <ol>
+        <li><b>Drehbuch:</b> Eine Textdatei (JSON) sagt Szene für Szene, was erscheint und
+          was gesprochen wird. Nur sie schreibe ich (mit Claude).</li>
+        <li><b>Bild:</b> Ein Python-Skript macht daraus eine kleine Webseite von rund 17 kB, die
+          die Formeln Zeile für Zeile aufbaut. Kein Video, darum auf jedem Bildschirm scharf.</li>
+        <li><b>Ton:</b> Das Sprachprogramm <a href="https://github.com/rhasspy/piper">Piper</a>
+          liest den Sprechertext mit der Stimme «Thorsten» vor, lokal und ohne Internet. Ein
+          zweites Skript misst, wie lange jede Szene gesprochen wird, und passt die
+          Animation an.</li>
+        <li><b>Einbau:</b> Ein drittes Skript hängt den Clip an die passenden Seiten und in
+          die Bibliothek.</li>
+      </ol>
+      <span class="wo">Piper installieren</span>
+      <div class="befehl"><pre>python3 -m venv ~/piper-venv
+~/piper-venv/bin/pip install piper-tts soundfile</pre></div>
+      <p>Die Stimme gibt es unter <i>rhasspy/piper-voices → de/de_DE/thorsten/high</i>
+        (rund 109 MB). Die ganze Anleitung mit allen Feldern des Drehbuchs:
+        <a href="https://github.com/go4exercises/TALS-Mathe/blob/main/HOWTO-clips.md">HOWTO-clips.md</a>.
+        Für den Einstieg reicht ein Auftrag an Claude Code: «Baue mir ein System für kurze
+        animierte Erklärclips nach dem Vorbild von begreifbar: Drehbuch als JSON, Ausgabe
+        als HTML, Ton mit Piper.»</p>
+    </div>
+  </details>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════ Nachschlagen ═══════════════════════ -->
+<section aria-labelledby="spick">
+  <h2 id="spick"><span class="ebene">Zum Nachschlagen</span>Git auf einer Seite</h2>
+  <div class="tabelle-rahmen">
+  <table class="spick">
+    <thead><tr><th>Befehl</th><th>Was er tut</th></tr></thead>
+    <tbody>
+      <tr><td>git status</td><td>Zeigt, was sich seit dem letzten Commit geändert hat. Im Zweifel immer zuerst.</td></tr>
+      <tr><td>git diff</td><td>Zeigt die Änderungen Zeile für Zeile (Ende mit <kbd>q</kbd>).</td></tr>
+      <tr><td>git add -A</td><td>Merkt alle Änderungen für den nächsten Commit vor.</td></tr>
+      <tr><td>git commit -m "…"</td><td>Speicherpunkt mit Beschreibung. Sag, <i>was</i> sich geändert hat.</td></tr>
+      <tr><td>git push</td><td>Lädt die Commits auf GitHub; mit Pages geht die Seite damit online.</td></tr>
+      <tr><td>git log --oneline</td><td>Die Geschichte, ein Commit pro Zeile.</td></tr>
+      <tr><td>git restore ⟪datei⟫</td><td>Verwirft ungesicherte Änderungen an einer Datei. Endgültig.</td></tr>
+      <tr><td>git pull</td><td>Holt Änderungen von GitHub, z. B. wenn du an zwei Computern arbeitest.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 id="hilfe">Wenn etwas schiefgeht</h3>
+  <details class="schritt">
+    <summary><span class="stitel">«command not found»</span></summary>
+    <div class="sinhalt"><p>Das Programm ist nicht installiert oder das Terminal kennt es
+      noch nicht. Terminal schliessen und neu öffnen; hilft das nicht, Schritt B2 wiederholen.
+      Bei Claude Code hilft <code>claude doctor</code>.</p></div>
+  </details>
+  <details class="schritt">
+    <summary><span class="stitel">Die Seite online zeigt die alte Fassung</span></summary>
+    <div class="sinhalt"><p>Ist gepusht? <code>git status</code> sagt es («Your branch is
+      ahead» heisst: noch nicht). Dann ein bis zwei Minuten warten und im Browser
+      <kbd>Ctrl</kbd>+<kbd>F5</kbd> drücken. Unter <b>Actions</b> im Repo siehst du, ob GitHub
+      noch baut.</p></div>
+  </details>
+  <details class="schritt">
+    <summary><span class="stitel">«rejected» beim git push</span></summary>
+    <div class="sinhalt"><p>Auf GitHub liegt etwas, das du lokal nicht hast, zum Beispiel
+      eine Datei, die du im Browser hochgeladen hast. Zuerst <code>git pull</code>, dann
+      wieder <code>git push</code>. Nie <code>--force</code>, wenn du nicht genau weisst,
+      warum.</p></div>
+  </details>
+  <details class="schritt">
+    <summary><span class="stitel">Claude hat etwas kaputt gemacht</span></summary>
+    <div class="sinhalt"><p>Darum committest du oft. <code>git diff</code> zeigt, was sich
+      geändert hat, und <code>git restore ⟪datei⟫</code> holt den Stand des letzten Commits
+      zurück. Oder sag Claude: «Mach die letzte Änderung rückgängig und erkläre, was
+      schiefging.»</p></div>
+  </details>
+
+  <h3 id="wort">Die wichtigsten Wörter</h3>
+  <dl class="glossar">
+    <dt>HTML-Datei</dt><dd>Eine Webseite in einer Datei. Läuft in jedem Browser.</dd>
+    <dt>Terminal</dt><dd>Ein Fenster, in das du Befehle tippst, statt zu klicken.</dd>
+    <dt>Ubuntu / WSL</dt><dd>Ein Linux-Betriebssystem; WSL lässt es unter Windows laufen.</dd>
+    <dt>Claude Code</dt><dd>Claude im Terminal: liest und ändert die Dateien deines Projekts selbst.</dd>
+    <dt>Cowork</dt><dd>Modus der Claude-Desktop-App, in dem Claude in einem freigegebenen Ordner arbeitet.</dd>
+    <dt>Git</dt><dd>Merkt sich jede Fassung deines Projekts. Ein Rückgängig-Knopf mit Geschichte.</dd>
+    <dt>Commit</dt><dd>Ein Speicherpunkt mit Beschreibung.</dd>
+    <dt>Repository (Repo)</dt><dd>Der Projektordner samt seiner ganzen Geschichte.</dd>
+    <dt>GitHub</dt><dd>Eine Website, die Repos aufbewahrt und teilt.</dd>
+    <dt>Push</dt><dd>Die Commits von deinem Laptop auf GitHub laden.</dd>
+    <dt>GitHub Pages</dt><dd>Stellt ein Repo gratis als Website ins Netz.</dd>
+    <dt>CSS</dt><dd>Die Datei, die das Aussehen bestimmt: Farben, Schriften, Abstände.</dd>
+    <dt>CLAUDE.md</dt><dd>Die Hausordnung, die Claude Code bei jedem Start liest.</dd>
+  </dl>
+</section>
+
+<section aria-labelledby="dl">
+  <h2 id="dl"><span class="ebene">Zum Mitnehmen</span>Downloads</h2>
+  <ul class="downloads">
+    <li><a href="einrichten.sh" download><span class="typ">.sh</span><span><b>Einrichtungsskript für Ubuntu</b>Installiert git, python3, node, gh und Claude Code, richtet Git ein (Schritt B2)</span></a></li>
+    <li><a href="CLAUDE-vorlage.md" download><span class="typ">.md</span><span><b>Vorlage CLAUDE.md</b>Die Hausordnung zum Anpassen (Schritt B7)</span></a></li>
+    <li><a href="#" data-drucken><span class="typ">PDF</span><span><b>Diese Seite als PDF</b>Alle Schritte aufgeklappt, zum Ausdrucken oder Speichern</span></a></li>
+  </ul>
+
+  <p class="stand">Raphael Arnold Kohler · Kontakt via Teams · Stand 10. Oktober 2026</p>
+  <a class="zurueck" href="../"><span aria-hidden="true">←</span> Projektwoche</a>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <p><strong>begreifbar.ch</strong> — Lernmaterial für die Sekundarstufe I und die Berufsmaturität Technik, Architektur, Life Sciences</p>
+  <p>© 2026 Raphael Arnold Kohler · <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.de" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+  <p><a href="https://mathe.begreifbar.ch/feedback.html">Kontakt &amp; Feedback</a> · <a href="https://mathe.begreifbar.ch/rechtliches.html">Rechtliches &amp; Datenschutz</a></p>
+  <p>Keine Cookies · Kein Tracking</p>
+</footer>
+
+<script>
+// Kopierknopf an jedem Befehlsblock
+document.querySelectorAll('.befehl').forEach(function (b) {
+  var knopf = document.createElement('button');
+  knopf.type = 'button'; knopf.className = 'kopie'; knopf.textContent = 'Kopieren';
+  knopf.setAttribute('aria-label', 'Befehl kopieren');
+  knopf.addEventListener('click', function () {
+    // Kommentare (# …) nicht mitkopieren
+    var text = Array.prototype.map.call(b.querySelector('pre').childNodes, function (n) {
+      return (n.nodeType === 1 && n.classList.contains('k')) ? '' : n.textContent;
+    }).join('').replace(/[ \t]+$/gm, '');
+    var fertig = function () { knopf.textContent = 'Kopiert ✓'; setTimeout(function () { knopf.textContent = 'Kopieren'; }, 1600); };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(fertig, function () {});
+  });
+  b.appendChild(knopf);
+});
+
+// «Alle aufklappen» je Weg
+document.querySelectorAll('[data-alle]').forEach(function (k) {
+  k.addEventListener('click', function () {
+    var ds = document.getElementById(k.dataset.alle).querySelectorAll('details');
+    var auf = Array.prototype.some.call(ds, function (d) { return !d.open; });
+    ds.forEach(function (d) { d.open = auf; });
+    k.textContent = auf ? 'Alle zuklappen' : 'Alle aufklappen';
+  });
+});
+
+// Ein Sprung auf #a / #b öffnet den ersten Schritt, damit man sieht, dass es weitergeht
+function oeffneErsten() {
+  var ziel = document.getElementById(location.hash.slice(1));
+  if (ziel && (ziel.id === 'a' || ziel.id === 'b')) {
+    var d = document.querySelector('#' + ziel.id + '-teil details');
+    if (d) d.open = true;
+  }
+}
+window.addEventListener('hashchange', oeffneErsten); oeffneErsten();
+
+// Drucken: alles aufklappen, danach Zustand zurück
+var vorher = [];
+window.addEventListener('beforeprint', function () {
+  vorher = Array.prototype.map.call(document.querySelectorAll('details'), function (d) { var o = d.open; d.open = true; return o; });
+});
+window.addEventListener('afterprint', function () {
+  document.querySelectorAll('details').forEach(function (d, i) { d.open = vorher[i]; });
+});
+document.querySelector('[data-drucken]').addEventListener('click', function (e) { e.preventDefault(); window.print(); });
+</script>
+</body>
+</html>
