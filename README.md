@@ -15,8 +15,8 @@ und keine Drittanbieter.
 | `schriften.css` + `schriften/` | die drei Schriften, lokal ausgeliefert — eigene Kopie, weil dieses Repo nicht auf die Wurzel des Mathe-Repos zugreifen kann |
 | `CNAME` | `begreifbar.ch` — eine Zeile, LF, kein BOM |
 | `favicon.svg` | Platzhalter-Zeichen: zwei Balken in Mathe-Blau und Physik-Bernstein |
-| `projektwoche/` | Projektwoche IDM 2027: Ausschreibung mit Eckdaten und Wegweiser |
-| `projektwoche/beispiele/` | die drei einfacheren Beispiele (Lernkartei, Rechner, Spiel), aus `Beispielseite-Projektwoche-2027` übernommen; angepasst: Rücklink; im Spiel Handy-Raster, Emoji je Paar (Lernmodus, ausschaltbar für den Prüfmodus) und reine Worterklärungen |
+| `projektwoche/` | Projektwoche IDM 2027: Ergänzung zur Ausschreibung (Eckdaten, Lernziele, Eigenleistung, Lehrpersonen), Beispiele als Titelkacheln (einfachere lokal, anspruchsvollere auf Physik und Mathe verlinkt, alle im neuen Tab) und Wegweiser |
+| `projektwoche/beispiele/` | die drei einfacheren Beispiele (Lernkartei, Rechner, Spiel), aus `Beispielseite-Projektwoche-2027` übernommen; angepasst: Rücklink entfernt (sie öffnen im neuen Tab); im Spiel Handy-Raster, Emoji je Paar (Lernmodus, ausschaltbar für den Prüfmodus) und reine Worterklärungen |
 | `projektwoche/themen/` | die zwölf Kursthemen der Ausschreibung, nach Tagen geordnet und gewichtet |
 | `projektwoche/werkstatt/` | Entstehung von begreifbar und Einsteiger-Anleitung (Weg A Claude-App, Weg B Ubuntu + Claude Code), mit `einrichten.sh` und `CLAUDE-vorlage.md` |
 | `projektwoche/leiste.js` | mitlaufende Sprungleiste ab 1100 px für werkstatt/, themen/, kickoff/ — baut sich aus h2, Tagesköpfen und nummerierten `details` |
@@ -127,3 +127,16 @@ Die Seite nennt die Fächer, aber keine Kapitel — sie muss also nicht
 mitwachsen, wenn in Mathe oder Physik Teilgebiete dazukommen. Zu ändern ist sie
 nur, wenn ein Fach dazukommt, eine Adresse wechselt oder die Fachbeschreibung
 nicht mehr stimmt.
+
+**Projektwoche:** Die «anspruchsvolleren» Beispiele zeigen auf fünf Seiten in Mathe und
+Physik (Bungee-Sprung, Fall und Wurf, Leitprogramm Quadratische Funktionen,
+Wellenexperimente, Praxisbeispiel BM2-Klasse). Wird dort eine Datei umbenannt, bricht
+der Link hier. Prüfen:
+
+```bash
+grep -o 'https://[a-z]*\.begreifbar\.ch/[^"]*' projektwoche/index.html |
+  xargs -n1 curl -s -o /dev/null -w '%{http_code} %{url_effective}\n'
+```
+
+Namen: Autor und © «Raphael Arnold Kohler», Lehrpersonen an der IDM «Raffael Kohler und
+Fiona Bär», Kontakt «via Teams, Raffael Arnold» — die Unterschiede sind gewollt.
