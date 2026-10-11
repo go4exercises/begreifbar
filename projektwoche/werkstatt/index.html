@@ -66,6 +66,9 @@ a:focus-visible, summary:focus-visible, button:focus-visible { outline: 2px soli
   font-family: var(--serif); font-weight: 700; line-height: 1.15;
   font-size: clamp(1.8rem, 5vw, 2.8rem); text-wrap: balance;
 }
+.hero h1 a { color: inherit; text-decoration: underline; text-decoration-thickness: 2px;
+  text-underline-offset: 0.12em; text-decoration-color: var(--linie); }
+.hero h1 a:hover { text-decoration-color: currentColor; }
 .hero-satz { max-width: 640px; margin: 14px auto 0; font-size: 1.05rem; color: var(--tinte-2); text-wrap: pretty; }
 
 /* Drei Ebenen als Sprungleiste */
@@ -277,8 +280,8 @@ details.schritt[open] > summary { border-bottom: 1px solid var(--linie); }
 <body>
 
 <header class="hero">
-  <p class="hero-ueber"><a href="../../">begreifbar.ch</a> · <a href="../">Projektwoche</a> · Werkstatt</p>
-  <h1>So entstand begreifbar — und so baust du dein eigenes</h1>
+  <p class="hero-ueber"><a href="../">Projektwoche</a> · Werkstatt</p>
+  <h1>So entstand <a href="../../">begreifbar.ch</a> — und so baust du dein eigenes</h1>
   <p class="hero-satz">Lernende und Lehrpersonen fragen mich, wie diese Seiten entstanden sind.
     Hier steht es, in drei Ebenen. Lies nur so weit, wie du willst.</p>
   <ol class="ebenen">
