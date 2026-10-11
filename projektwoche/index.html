@@ -77,7 +77,8 @@ main { flex: 1; width: 100%; max-width: 61ch; margin: 0 auto; padding: 38px 22px
   .spalten { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 0 56px; align-items: start; }
   .sp-links, .sp-rechts { display: block; }
   .sp-rechts > div:first-child h2 { margin-top: 0; }
-  .sp-rechts .beispiele, .sp-rechts .wegweiser { grid-template-columns: 1fr; }
+  .sp-rechts .wegweiser { grid-template-columns: 1fr; }
+  .sp-rechts .beispiele { grid-template-columns: 1fr 1fr; }
   .eckdaten { margin-bottom: 0; }
 }
 main p { text-wrap: pretty; }
@@ -128,18 +129,21 @@ h2 {
   margin-top: 44px; font-family: var(--serif); font-size: 1.45rem; line-height: 1.2;
 }
 .leise { margin-top: 6px; font-size: 0.95rem; color: var(--tinte-2); }
-.beispiele { list-style: none; margin-top: 16px; display: grid; gap: 12px;
-  grid-template-columns: repeat(3, 1fr); }
-@media (max-width: 560px) { .beispiele { grid-template-columns: 1fr; } }
+.bsp-stufe { margin-top: 18px; font-family: var(--mono); font-size: 0.74rem; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase; color: var(--tinte-2); }
+.beispiele { list-style: none; margin-top: 8px; display: grid; gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
 .beispiele a, .wegweiser a {
   display: flex; flex-direction: column; height: 100%; padding: 14px 16px;
   background: var(--weiss); border: 1px solid var(--linie); border-radius: 10px;
   color: var(--tinte); text-decoration: none;
 }
+.beispiele a { justify-content: center; min-height: 64px; line-height: 1.3; }
+.beispiele b { hyphens: manual; overflow-wrap: break-word; }
+@media (max-width: 560px) { .beispiele a { padding: 12px 12px; } }
 .beispiele a:hover, .wegweiser a:hover { border-color: var(--tinte-2); }
 .beispiele b, .wegweiser b { font-size: 1.02rem; }
-.beispiele span, .wegweiser span { margin-top: 4px; font-size: 0.9rem; color: var(--tinte-2); line-height: 1.45; }
-.beispiele .los { margin-top: auto; padding-top: 10px; font-family: var(--mono); font-size: 0.78rem; font-weight: 700; color: var(--blau); }
+.wegweiser span { margin-top: 4px; font-size: 0.9rem; color: var(--tinte-2); line-height: 1.45; }
 .wegweiser { list-style: none; margin-top: 16px; display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
 @media (max-width: 560px) { .wegweiser { grid-template-columns: 1fr; } }
 .nachher { margin-top: 12px; padding-left: 1.3em; }
@@ -200,16 +204,20 @@ h2 {
   </div>
   <div class="sp-rechts">
     <div class="o-bsp">
-  <h2>Drei Beispiele, jetzt ausprobieren</h2>
-  <p class="leise">Jedes ist in rund zwei Stunden entstanden: als Grössenvergleich, nicht als
-    Vorlage. Deine Idee sieht anders aus.</p>
+  <h2>Beispiele zum Ausprobieren</h2>
+  <h3 class="bsp-stufe">Einfachere</h3>
   <ul class="beispiele">
-    <li><a href="beispiele/lernkartei.html"><b>Lernkartei</b><span>Gewusst: seltener.
-      Nicht gewusst: gleich wieder. Für Prüfungsstoff, Vokabeln, Fachbegriffe.</span><span class="los">Ausprobieren →</span></a></li>
-    <li><a href="beispiele/rechner.html"><b>Rechner für den Beruf</b><span>Stoffverbrauch und
-      Zuschnitt, mit Nahtzugabe, Rapport und Verschnitt.</span><span class="los">Ausprobieren →</span></a></li>
-    <li><a href="beispiele/spiel.html"><b>Kleines Spiel</b><span>Paarsuche: Begriff und
-      Erklärung, mit Zügen und Zeit, Emoji-Hilfe im Lernmodus.</span><span class="los">Ausprobieren →</span></a></li>
+    <li><a href="beispiele/lernkartei.html"><b>Lernkartei</b></a></li>
+    <li><a href="beispiele/rechner.html"><b>Rechner für den Beruf</b></a></li>
+    <li><a href="beispiele/spiel.html"><b>Paarsuche</b></a></li>
+  </ul>
+  <h3 class="bsp-stufe">Anspruchsvollere</h3>
+  <ul class="beispiele">
+    <li><a href="https://physik.begreifbar.ch/simulationen/bungee-sprung.html"><b>Simulation Bungee-Sprung</b></a></li>
+    <li><a href="https://physik.begreifbar.ch/werkzeuge/fall-und-wurf.html"><b>Trainer Fall und Wurf</b></a></li>
+    <li><a href="https://mathe.begreifbar.ch/leitprogramme/quadratische-funktionen.html"><b>Leitprogramm Quadratische Funktionen</b></a></li>
+    <li><a href="https://physik.begreifbar.ch/themen/p6-1a-wellenexperimente.html"><b>Themenseite Wellen&shy;experimente</b></a></li>
+    <li><a href="https://mathe.begreifbar.ch/grundlagen/g4-0-praxisbeispiel-bm2-klasse.html"><b>Praxisbeispiel BM2-Klasse: Datenanalyse</b></a></li>
   </ul>
     </div>
     <div class="o-mehr">
