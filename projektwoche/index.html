@@ -70,8 +70,8 @@ main { flex: 1; width: 100%; max-width: 61ch; margin: 0 auto; padding: 38px 22px
    nach den Eckdaten (display: contents + order). */
 .spalten { display: flex; flex-direction: column; }
 .sp-links, .sp-rechts { display: contents; }
-.o-satz { order: 1; } .o-eck { order: 2; } .o-bsp { order: 3; }
-.o-mgl { order: 4; } .o-mehr { order: 5; } .o-nach { order: 6; }
+.o-satz { order: 1; } .o-eck { order: 2; } .o-bsp { order: 3; } .o-ziel { order: 4; }
+.o-mgl { order: 5; } .o-mehr { order: 6; } .o-nach { order: 7; }
 @media (min-width: 900px) {
   main { max-width: 1100px; padding-top: 44px; }
   .spalten { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 0 56px; align-items: start; }
@@ -164,7 +164,9 @@ h2 {
   <p class="satz">Du hast eine Idee: eine Lernkartei, die endlich so funktioniert,
     wie du sie brauchst. Einen Rechner für deinen Beruf. Einen Trainer für die
     Abschlussprüfung. Ein kleines Spiel. Eine Seite, die zeigt, was du kannst.
-    In dieser Woche baust du sie — mit KI als Werkzeug, ohne Programmierkenntnisse.</p>
+    In dieser Woche baust du sie — mit KI als Werkzeug, ohne Programmierkenntnisse.
+    Am Freitag läuft dein Produkt im Netz, mit einer Adresse, die du weitergeben kannst —
+    und es bleibt dir, auch nach der Projektwoche.</p>
     </div>
     <div class="o-eck">
   <table class="eckdaten">
@@ -181,8 +183,27 @@ h2 {
           <td>rund CHF 25 für einen Monat Zugang zum KI-Werkzeug, dazu das ÖV-Billett</td></tr>
       <tr><th scope="row">Vorkenntnisse</th>
           <td>keine nötig, offen für KI</td></tr>
+      <tr><th scope="row">Teilnehmende</th>
+          <td>8 bis 24</td></tr>
+      <tr><th scope="row">Lehrpersonen</th>
+          <td>Raffael Kohler und Fiona Bär</td></tr>
+      <tr><th scope="row">Kontakt</th>
+          <td>via Teams, Raffael Arnold</td></tr>
     </tbody>
   </table>
+    </div>
+    <div class="o-ziel">
+  <h2>Was du lernst</h2>
+  <ul class="nachher">
+    <li>Du kannst deine Idee so genau beschreiben, dass daraus eine funktionierende Anwendung
+      entsteht.</li>
+    <li>Du kannst Ergebnisse einer KI prüfen, Fehler erkennen und gezielt nachbessern.</li>
+    <li>Du kannst dein Produkt veröffentlichen und einem Publikum vorstellen.</li>
+  </ul>
+  <p class="leise" style="margin-top:10px"><b>Dein Teil:</b> Du entwickelst deine Idee selbst,
+    planst den Umfang, baust allein oder zu zweit, testest mit den anderen gegenseitig,
+    hältst deinen Weg in einem kurzen Tagesjournal fest und präsentierst das Ergebnis online
+    und an der Vernissage.</p>
     </div>
     <div class="o-mgl">
   <h2>Was möglich ist</h2>
@@ -193,6 +214,7 @@ h2 {
     </div>
     <div class="o-nach">
   <h2>Nach der Anmeldung</h2>
+  <p class="leise" style="margin-top:10px">Angemeldet wird über die Projektausschreibung der Schule.</p>
   <ul class="nachher">
     <li><b>Kick-off im Januar 2027:</b> die Woche kompakt, Fragen zu deiner Idee, gemeinsames
       Einrichten.</li>
@@ -232,7 +254,7 @@ h2 {
   </div>
   </div>
 
-  <p class="stand">Raphael Arnold Kohler · Kontakt via Teams · Stand 10. Oktober 2026</p>
+  <p class="stand">Raffael Kohler und Fiona Bär · Kontakt via Teams, Raffael Arnold · Stand 11. Oktober 2026</p>
 
   <a class="zurueck" href="../"><span class="z-pfeil" aria-hidden="true">←</span> begreifbar.ch</a>
 </main>
